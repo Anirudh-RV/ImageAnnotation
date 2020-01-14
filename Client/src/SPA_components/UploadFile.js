@@ -4,7 +4,7 @@ import './App.css';
 
 
 class UploadFile extends Component {
-// We will add this part later
+// Testing purpose, Uploading single file using json 
 
 
 constructor(props) {

@@ -3,7 +3,7 @@ import './App.css';
 
 
 class Footer extends Component {
-//TODO : ADD INTRODUCTION TO PROJECT
+//TODO : ADD Footer information 
   render() {
     return (
       <body className="WorkingArea">

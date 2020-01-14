@@ -6,6 +6,7 @@ import UploadFile from './UploadFile';
 import Home from './Home';
 import UploadMultipleFiles from './UploadMultipleFiles';
 
+// Routes for the webpages in the project 
 class Routes extends Component {
   render() {
     return (
