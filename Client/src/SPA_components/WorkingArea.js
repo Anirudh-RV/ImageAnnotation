@@ -14,7 +14,7 @@ class WorkingArea extends Component {
         <div className="columnRight">
         Right Side
         </div>
-    
+
       </body>
     );
   }

@@ -57,6 +57,15 @@ for(var z = 0; z<err.length; z++) {// if message not same old that mean has erro
 }
 return true;
 }
+
+// using Api, add names of the images being uploaded to a database
+  addToBackendUsingApi = (files) =>{
+    for(var x =0; x<files.length;x++)
+    {
+      console.log(files[x].name)
+    }
+}
+
 onChangeHandler=event=>{
   var files = event.target.files
   if(this.maxSelectFile(event) && this.checkMimeType(event) &&    this.checkFileSize(event)){
@@ -81,6 +90,7 @@ onChangeHandler=event=>{
     })
       .then(res => { // then print response status
         //toast.success('upload success')
+        this.addToBackendUsingApi(this.state.selectedFile)
         console.log("Upload success")
       })
       .catch(err => { // then print response status
