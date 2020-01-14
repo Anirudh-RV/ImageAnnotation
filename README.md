@@ -20,8 +20,9 @@ NavigationBar -----------
 
 
 How to load Images : Being Done using UploadMultipleFiles and Server.js
+// DONE :
+1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 
 // TODO :
-1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
 the directory of images.

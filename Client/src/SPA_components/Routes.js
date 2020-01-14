@@ -6,7 +6,7 @@ import UploadFile from './UploadFile';
 import Home from './Home';
 import UploadMultipleFiles from './UploadMultipleFiles';
 
-// Routes for the webpages in the project 
+// Routes for the webpages in the project
 class Routes extends Component {
   render() {
     return (
@@ -16,7 +16,7 @@ class Routes extends Component {
             <Switch>
              <Route path="/multiplefiles" component={UploadMultipleFiles}/>
              <Route path="/EditPage" component={EditPage}/>
-             <Route path="/UploadFile" component={UploadFile}/>
+            // Testing purpose <Route path="/UploadFile" component={UploadFile}/>
              <Route path="/" component={Home}/>
              <Route component={Error}/>
            </Switch>

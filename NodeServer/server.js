@@ -3,12 +3,16 @@ var app = express();
 var multer = require('multer')
 var cors = require('cors');
 app.use(cors())
+
+// 'public/Uploaded is destination'
+// for scaling it to multiple users, send user_id to the backend and save under a new folder with the user_id name.
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public')
+      cb(null, 'public/Uploaded')
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' +file.originalname )
+      cb(null,file.originalname)
     }
   })
 
