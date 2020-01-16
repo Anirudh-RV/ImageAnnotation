@@ -28,14 +28,15 @@ React redirection map :
 NavigationBar -----------
 (Separate Component)
 
-########
-to accomplish requirement:
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement: FIRST
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 How to load Images : Being Done using UploadMultipleFiles and Server.js
 
 
-########
-to accomplish requirement:
+END OF FIRST REQUIREMENT
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement: SECOND
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
 the directory of images.
 How to upload images and retrieve dynamically :
@@ -45,7 +46,7 @@ Uploading : upload has 2 different parts, uploading the actual images into backe
 1. Upload the images using UploadMultipleFiles and server.js using json and a post requests
 2. Use an Api call to add names of the images being uploaded into a database.
 
-Retreival :
+Retrieval :
 1. Get names of the images in the database by using an Api call.
 2. Load those images using the location of the images.
 3. Dynamic loading will happen when each image needs it's own Api call to get the name
@@ -57,3 +58,64 @@ Database to use : SQL
 
 
 // Next : Learn how to make Api using Golang.
+API: Application Programming Interface using Golang
+
+// January 16th 2020
+API CALLS :
+
+POST : create new record in the database
+GET  : Read from database
+PUT : Update/Replace row in database
+PATCH : Update/Modify row in database
+DELETE : delete row in database
+
+Extended :
+GET : The GET method requests a representation of the specified resource. Requests using GETshould only retrieve data.
+HEAD : The HEAD method asks for a response identical to that of a GET request, but without the response body.
+POST : The POST method is used to submit an entity to the specified resource, often causing a change in state or side effects on the server.
+PUT : The PUT method replaces all current representations of the target resource with the request payload.
+DELETE : The DELETE method deletes the specified resource.
+CONNECT : The CONNECT method establishes a tunnel to the server identified by the target resource.
+OPTIONS : The OPTIONS method is used to describe the communication options for the target resource.
+TRACE : The TRACE method performs a message loop-back test along the path to the target resource.
+PATCH : The PATCH method is used to apply partial modifications to a resource.
+
+POST REQUEST
+Webpage (Send data) -----> API ------> Backend (SQL) (Store Data)
+
+GET REQUEST
+
+webpage (Request data)  --------> API ----------> Backend (SQL)
+webpage (Get data)      <---------API <---------- (Fetch data)
+
+Work for API:
+
+Completed :
+1. Go server setup which handles requests and returns a json object.
+2. Axios request from frontend
+3. Displays data returned from API on the frontend
+4. Test out sending basic data to the POST method from frontend
+  a.Manipulate data in GO backend and send back response
+  b.Show the result on the frontend
+  c.String data is being sent from reactjs frontend using an axios post request, the data
+    is then read by the go backend and converted into UPPERCASE and then sent back as a
+    json object. This json object is being displayed in the frontend
+
+//TODO :
+1. Connect Go to an SQL server and handle the requests with the API.This includes:
+  a. Inserting Image names into the Database
+  b. Retrieving Image names from the database (One name / all the names)
+  c. Retrieval must be done according to the user and only the images a particular user has uploaded.
+
+
+Work for Database:
+
+//TODO :
+1. Make SQL database with 3 columns,
+  a. Sl.no (Serial number)
+  b. Name of the user
+  c. Name of the Image
+
+
+END OF SECOND REQUIREMENT
+########--------------------------------------------------------------------------------------------------
