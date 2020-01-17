@@ -110,11 +110,22 @@ Completed :
 
 Work for Database:
 
-//TODO :
-1. Make SQL database with 3 columns,
+NOTE : currently using mongodb as the database for storing names, simpler solution than setting up a mysql Database
+in MacOS.
+
+Completed :
+1. Integrate Go with SQL/mongodb (Test functions for inserting and searching completed)
+2. Make SQL/mongodb database with 3 columns,
   a. Sl.no (Serial number)
   b. Name of the user
   c. Name of the Image
+3. Method for Search function completed.
+  a. API call from frontend with POST request with the name of the user
+  b. Connection to mongodb and searching all the inputs of the user (Using filters)
+  c. Returning the queried result in json format back to frontend
+  d. Display of result in frontend
+//TODO :
+1. Inserting into database from frontend
 
 
 END OF SECOND REQUIREMENT

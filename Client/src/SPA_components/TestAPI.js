@@ -109,16 +109,18 @@ testApifuncPost = () => {
           }
 
 
-          testApifuncgetallimages = () => {
+          testApifuncgetimages = () => {
+            // data is going to be the username
+            var data = "ash"
             console.log("inside the testApi function : ")
-            axios.get("http://localhost:8080/getallimages")
+            axios.post("http://localhost:8080/getimages",data)
               .then(res => { // then print response status
                 //toast.success('upload success')
                 console.log("API : ")
                 console.log(res)
-                console.log(res.data["message"])
+                console.log(res.data["data"])
                 if(this.DataRetrieved) {
-                 this.DataRetrieved.innerHTML = res.data["message"];
+                 this.DataRetrieved.innerHTML = res.data["data"];
               }
 
               })
@@ -129,25 +131,7 @@ testApifuncPost = () => {
               })
             }
 
-            testApifuncgetoneimage = () => {
-              console.log("inside the testApi function : ")
-              axios.get("http://localhost:8080/getoneimage")
-                .then(res => { // then print response status
-                  //toast.success('upload success')
-                  console.log("API : ")
-                  console.log(res)
-                  console.log(res.data["message"])
-                  if(this.DataRetrieved) {
-                   this.DataRetrieved.innerHTML = res.data["message"];
-                }
 
-                })
-                .catch(err => { // then print response status
-                //  toast.error('upload fail')
-                console.log("fail")
-                console.log(err)
-                })
-              }
 
   render() {
     return (
@@ -174,8 +158,7 @@ testApifuncPost = () => {
       </pre>
 
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncinsertimagedata}> CALL insertimagedata </button>
-      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetallimages}> CALL getallimages </button>
-      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetoneimage}> CALL getoneimage </button>
+      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetimages}> CALL getimages </button>
 
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>
       </div>
