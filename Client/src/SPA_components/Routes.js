@@ -15,7 +15,7 @@ class Routes extends Component {
           <Switch />
             <Switch>
              <Route path="/testapi" component={TestAPI}/>
-             <Route path="/multiplefiles" component={UploadMultipleFiles}/>
+             <Route path="/upload" component={UploadMultipleFiles}/>
              <Route path="/editpage" component={EditPage}/>
             // Testing purpose <Route path="/UploadFile" component={UploadFile}/>
              <Route path="/" component={Home}/>

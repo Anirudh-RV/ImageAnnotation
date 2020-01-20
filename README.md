@@ -142,11 +142,12 @@ Completed :
   d. Display of result in frontend
 4. Inserting into database from frontend (Test)
 5. Delete function (deleteuser) for deleting any user from the database
-
-//TODO :
-1. Try the API functionality from the actual webpage
+6. 1. Try the API functionality from the actual webpage
   a. Inserting image names and the username
-  b. getting back the image names for that username
+//TODO :
+1. Figure out how to save the images with the username in it, in the foler.
+2. How to retrieve the names of the user from the actual webpage
+3. Clean up the database 
 
 
 
