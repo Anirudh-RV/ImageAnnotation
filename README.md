@@ -146,9 +146,10 @@ Completed :
   a. Inserting image names and the username
 //TODO :
 1. Figure out how to save the images with the username in it, in the foler.
+ a. How to maintain login information throughout the environment. 
+ b. Use the username to change information specific to the user accordingly 
 2. How to retrieve the names of the user from the actual webpage
 3. Clean up the database 
-
 
 
 END OF SECOND REQUIREMENT
