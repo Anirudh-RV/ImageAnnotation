@@ -59,8 +59,10 @@ func put(w http.ResponseWriter, r *http.Request) {
 func delete(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusOK)
-    w.Write([]byte(`{"message": "DELETE called"}`))
+    w.Write([]byte(`{"message": "Delete called"}`))
 }
+
+
 
 func notFound(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
@@ -68,6 +70,48 @@ func notFound(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte(`{"message": "not found"}`))
 }
 
+func deleteuser(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusOK)
+
+    // decoding the message and displaying
+    reqBody, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+      log.Fatal(err)
+    }
+    fmt.Printf("%s\n", reqBody)
+    name := BytesToString(reqBody)
+
+    // Set client options
+    clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+    // Connect to MongoDB
+    client, err := mongo.Connect(context.TODO(), clientOptions)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("Connected to MongoDB!")
+    // Handling the collection ImageNames in Database GoDB
+    collection := client.Database("GoDB").Collection("ImageNames")
+
+    // BSON filter for all documents with a value of name
+    f := bson.M{"name": name}
+    fmt.Println("Deleting documents with filter:", f)
+    // Call the DeleteMany() method to delete docs matching filter
+    res, err := collection.DeleteMany(context.TODO(), f)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(res)
+
+    // To close the connection to MongoDB
+    err = client.Disconnect(context.TODO())
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("Connection to MongoDB closed.")
+
+    w.Write([]byte(`{"message": "Success"}`))
+}
 
 // uses POST request
 func getimages(w http.ResponseWriter, r *http.Request) {
@@ -96,7 +140,6 @@ func getimages(w http.ResponseWriter, r *http.Request) {
 // Handling the collection ImageNames in Database GoDB
   collection := client.Database("GoDB").Collection("ImageNames")
 
-
 // add logic here :
 // bson.M{} is the fiter that is being used
   filterCursor, err := collection.Find(context.TODO(), bson.M{"name": str_name})
@@ -107,7 +150,6 @@ func getimages(w http.ResponseWriter, r *http.Request) {
   if err = filterCursor.All(context.TODO(), &ImageNamesFiltered); err != nil {
       log.Fatal(err)
   }
-
   fmt.Print("Length : ")
   fmt.Println(len(ImageNamesFiltered))
   result := ""
@@ -116,14 +158,12 @@ func getimages(w http.ResponseWriter, r *http.Request) {
     result = result + ImageNamesFiltered[i]["img_name"].(string) + "</br>"
   }
 
-
   // To close the connection to MongoDB
   err = client.Disconnect(context.TODO())
   if err != nil {
       log.Fatal(err)
   }
   fmt.Println("Connection to MongoDB closed.")
-
 // return result as a json object
   w.Write([]byte(fmt.Sprintf(`{"data":"%s"}`, result)))
 
@@ -140,9 +180,50 @@ func addImageToDatabase(w http.ResponseWriter, r *http.Request) {
      log.Fatal(err)
    }
   fmt.Printf("%s\n", reqBody)
-  upper_name := strings.ToUpper(string(reqBody))
 
-  w.Write([]byte(fmt.Sprintf(`{"data":"%s"}`, upper_name)))
+// splitting data into user_name and an array of image names
+  data := BytesToString(reqBody)
+  splitData := strings.Split(data, ",")
+  userName := splitData[0]
+
+// Opening connection to database
+  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+  // Connect to MongoDB
+  client, err := mongo.Connect(context.TODO(), clientOptions)
+  if err != nil {
+      log.Fatal(err)
+  }
+  // Check the connection
+  err = client.Ping(context.TODO(), nil)
+  if err != nil {
+      log.Fatal(err)
+  }
+  fmt.Println("Connected to MongoDB!")
+  // Handling the collection ImageNames in Database GoDB
+  collection := client.Database("GoDB").Collection("ImageNames")
+
+  // loop over each entry and insert into database
+  for i := 1;i<len(splitData);i++{
+
+    structData := Image_Names{userName,userName+"_"+splitData[i]}
+    fmt.Println(structData)
+
+    // To insert a single record
+    insertResult, err := collection.InsertOne(context.TODO(), structData)
+    if err != nil {
+      log.Fatal(err)
+    }
+    fmt.Println("Inserted document: ", insertResult.InsertedID)
+
+  }
+
+  // To close the connection to MongoDB
+  err = client.Disconnect(context.TODO())
+  if err != nil {
+      log.Fatal(err)
+  }
+  fmt.Println("Connection to MongoDB closed.")
+  w.Write([]byte(`{"message": "Success"}`))
 }
 
 
@@ -156,7 +237,7 @@ func main() {
 
     r.HandleFunc("/getimages", getimages).Methods(http.MethodPost)
     r.HandleFunc("/insertimagedata",addImageToDatabase).Methods(http.MethodPost)
-
+    r.HandleFunc("/deleteuser",deleteuser).Methods(http.MethodPost)
 // To Handle CORS (Cross Origin Resource Sharing)
     headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
     methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS","DELETE"})

@@ -86,18 +86,38 @@ testApifuncPost = () => {
           })
         }
 
+      testApifuncdeleteuser = () => {
+        var name = "brock"
+        console.log("inside the testApi function : ")
+        axios.post("http://localhost:8080/deleteuser",name)
+          .then(res => { // then print response status
+            //toast.success('upload success')
+            console.log("API : ")
+            console.log(res)
+            console.log(res.data["message"])
+            if(this.DataRetrieved) {
+             this.DataRetrieved.innerHTML = res.data["message"];
+          }
+
+          })
+          .catch(err => { // then print response status
+          //  toast.error('upload fail')
+          console.log("fail")
+          })
+        }
+
         testApifuncinsertimagedata = () => {
           // send only strings
-          var data = "lower case data being sent to go api"
+          var data = "profoak,frontend1,frontend2,frontend3"
           console.log("inside the testApi function : ")
           axios.post("http://localhost:8080/insertimagedata",data)
             .then(res => { // then print response status
               //toast.success('upload success')
               console.log("API message : ")
               console.log(res)
-              console.log(res.data["data"])
+              console.log(res.data["message"])
               if(this.DataRetrieved) {
-               this.DataRetrieved.innerHTML = res.data["data"];
+               this.DataRetrieved.innerHTML = res.data["message"];
             }
 
             })
@@ -111,7 +131,7 @@ testApifuncPost = () => {
 
           testApifuncgetimages = () => {
             // data is going to be the username
-            var data = "ash"
+            var data = "profoak"
             console.log("inside the testApi function : ")
             axios.post("http://localhost:8080/getimages",data)
               .then(res => { // then print response status
@@ -148,7 +168,7 @@ testApifuncPost = () => {
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncPost}> CALL POST </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncGet}> CALL GET </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncPut}> CALL PUT </button>
-      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncDelete}> CALL DELETE </button>
+      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncDelete}>  CALL DELETE</button>
 
       <pre>
 
@@ -159,6 +179,8 @@ testApifuncPost = () => {
 
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncinsertimagedata}> CALL insertimagedata </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetimages}> CALL getimages </button>
+      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncdeleteuser}>  DELETE USER (change name in API CALL-incode)</button>
+
 
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>
       </div>

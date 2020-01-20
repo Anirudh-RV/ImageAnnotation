@@ -124,8 +124,13 @@ Completed :
   b. Connection to mongodb and searching all the inputs of the user (Using filters)
   c. Returning the queried result in json format back to frontend
   d. Display of result in frontend
+4. Inserting into database from frontend (Test)
+5. Delete function (deleteuser) for deleting any user from the database
+
 //TODO :
-1. Inserting into database from frontend
+1. Try the API functionality from the actual webpage
+  a. Inserting image names and the username
+  b. getting back the image names for that username
 
 
 END OF SECOND REQUIREMENT
