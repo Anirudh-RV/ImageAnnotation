@@ -1,5 +1,21 @@
 # ImageAnnotation
 
+// git :
+to check number of lines :
+
+all files :
+git ls-files | xargs wc -l
+
+only the grep (go) files :
+git ls-files | grep '\.go' | xargs wc -l
+
+limits to 5 :
+git ls-files | grep '\.go' | xargs wc -l | head -n 5
+
+save output in file :
+git ls-files | xargs wc -l >> LOC.txt
+
+
 // DONE :
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 
@@ -131,6 +147,7 @@ Completed :
 1. Try the API functionality from the actual webpage
   a. Inserting image names and the username
   b. getting back the image names for that username
+
 
 
 END OF SECOND REQUIREMENT
