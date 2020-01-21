@@ -15,6 +15,24 @@ git ls-files | grep '\.go' | xargs wc -l | head -n 5
 save output in file :
 git ls-files | xargs wc -l >> LOC.txt
 
+//API CALLS :
+POST : create new record in the database
+GET  : Read from database
+PUT : Update/Replace row in database
+PATCH : Update/Modify row in database
+DELETE : delete row in database
+
+Extended :
+GET : The GET method requests a representation of the specified resource. Requests using GETshould only retrieve data.
+HEAD : The HEAD method asks for a response identical to that of a GET request, but without the response body.
+POST : The POST method is used to submit an entity to the specified resource, often causing a change in state or side effects on the server.
+PUT : The PUT method replaces all current representations of the target resource with the request payload.
+DELETE : The DELETE method deletes the specified resource.
+CONNECT : The CONNECT method establishes a tunnel to the server identified by the target resource.
+OPTIONS : The OPTIONS method is used to describe the communication options for the target resource.
+TRACE : The TRACE method performs a message loop-back test along the path to the target resource.
+PATCH : The PATCH method is used to apply partial modifications to a resource.
+
 
 // DONE :
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
@@ -54,7 +72,8 @@ END OF FIRST REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
 to accomplish requirement: SECOND
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
-the directory of images.
+the directory of images for that particular user.
+
 How to upload images and retrieve dynamically :
 
 Uploading : upload has 2 different parts, uploading the actual images into backend(NodeJS) and uploading the names of the images that were successfully uploaded using an Api to a backend database
@@ -75,26 +94,6 @@ Database to use : SQL
 
 // Next : Learn how to make Api using Golang.
 API: Application Programming Interface using Golang
-
-// January 16th 2020
-API CALLS :
-
-POST : create new record in the database
-GET  : Read from database
-PUT : Update/Replace row in database
-PATCH : Update/Modify row in database
-DELETE : delete row in database
-
-Extended :
-GET : The GET method requests a representation of the specified resource. Requests using GETshould only retrieve data.
-HEAD : The HEAD method asks for a response identical to that of a GET request, but without the response body.
-POST : The POST method is used to submit an entity to the specified resource, often causing a change in state or side effects on the server.
-PUT : The PUT method replaces all current representations of the target resource with the request payload.
-DELETE : The DELETE method deletes the specified resource.
-CONNECT : The CONNECT method establishes a tunnel to the server identified by the target resource.
-OPTIONS : The OPTIONS method is used to describe the communication options for the target resource.
-TRACE : The TRACE method performs a message loop-back test along the path to the target resource.
-PATCH : The PATCH method is used to apply partial modifications to a resource.
 
 POST REQUEST
 Webpage (Send data) -----> API ------> Backend (SQL) (Store Data)
@@ -144,13 +143,21 @@ Completed :
 5. Delete function (deleteuser) for deleting any user from the database
 6. 1. Try the API functionality from the actual webpage
   a. Inserting image names and the username
-//TODO :
-1. Figure out how to save the images with the username in it, in the foler.
- a. How to maintain login information throughout the environment. 
- b. Use the username to change information specific to the user accordingly 
-2. How to retrieve the names of the user from the actual webpage
-3. Clean up the database 
+7. Username is being sent to nodejs backend and the images are being saved as :
+  <user-name>"____"<image-name>
 
+//TODO :
+1. Redirect to EditPage after Image upload with the user information 
+2. How to retrieve the names of the user from the actual webpage
+3. How to have image holders for the user's images
+4. Arrow marks to navigate through the images
+
+NOTE :
+// to be done in next project : Login with sessionID, cookies and authenticating using JWT
+Figure out how to save the images with the username in it, in the folder.
+ a. How to maintain login information throughout the environment.
+ b. Use the username to change information specific to the user accordingly
+ The JWT (Json Web Token) is widely used in authenticating Web applications developed using advanced Javascript frameworks : Angularjs or Reactjs(with supporting libraries)
 
 END OF SECOND REQUIREMENT
 ########--------------------------------------------------------------------------------------------------

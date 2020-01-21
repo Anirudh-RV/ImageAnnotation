@@ -60,18 +60,15 @@ return true;
 
 // using Api, add names of the images being uploaded to a database
   addToBackendUsingApi = (files) =>{
-
       if(this.UserName) {
          var userName = this.UserName.value;
       }
       var fileNames = userName+",";
-      console.log(fileNames);
       for(var x =0; x<files.length-1;x++)
       {
         fileNames = fileNames +files[x].name+ ",";
       }
       fileNames = fileNames + files[files.length-1].name;
-      console.log(fileNames);
       // api call
       console.log("Calling Go api to insert data")
       axios.post("http://localhost:8080/insertimagedata",fileNames)
@@ -79,15 +76,9 @@ return true;
           //toast.success('upload success')
           console.log("API message : ")
           console.log(res)
-          console.log(res.data["message"])
-          if(this.DataRetrieved) {
-           this.DataRetrieved.innerHTML = res.data["message"];
-        }
-
         })
         .catch(err => { // then print response status
         //  toast.error('upload fail')
-        console.log("fail")
         console.log(err)
         })
 }
@@ -105,30 +96,22 @@ onChangeHandler=event=>{
   onClickHandler = () => {
     const data = new FormData()
 
+// getting username from input
     if(this.UserName) {
        var userName = this.UserName.value;
     }
 
-
+// filling FormData with selectedFiles(Array of objects)
     for(var x = 0; x<this.state.selectedFile.length; x++) {
-      Object.defineProperty(this.state.selectedFile[x], 'name', {
-        writable: true,
-      });
-      this.state.selectedFile[x].name = userName + "_" + this.state.selectedFile[x].name;
       data.append('file', this.state.selectedFile[x])
     }
 
-    console.log("in click handler : start")
-    console.log(typeof data)
-    console.log(Object.getOwnPropertyNames(data))
-    console.log(data.file)
-    data.append('username',userName)
-    for (var pair of data.entries()) {
-    console.log(pair[0]+ ' - ' + pair[1].name);
-    }
-    console.log("in click handler : stop")
-
-    axios.post("http://localhost:4000/upload", data, {
+// header carries information of username to backend with data 
+    axios.post("http://localhost:4000/upload",data,
+    {
+    headers: {
+      userName: userName
+    },
       onUploadProgress: ProgressEvent => {
         this.setState({
           loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
@@ -138,12 +121,13 @@ onChangeHandler=event=>{
       .then(res => { // then print response status
         //toast.success('upload success')
         this.addToBackendUsingApi(this.state.selectedFile)
-        console.log("Upload success")
+        console.log("Upload success:\n"+res)
       })
       .catch(err => { // then print response status
       //  toast.error('upload fail')
-      console.log("Upload fail")
+      console.log("Upload fail"+err)
       })
+
     }
 
   render() {

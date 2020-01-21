@@ -87,7 +87,7 @@ testApifuncPost = () => {
         }
 
       testApifuncdeleteuser = () => {
-        var name = "brock"
+        var name = "profoak"
         console.log("inside the testApi function : ")
         axios.post("http://localhost:8080/deleteuser",name)
           .then(res => { // then print response status
@@ -131,7 +131,7 @@ testApifuncPost = () => {
 
           testApifuncgetimages = () => {
             // data is going to be the username
-            var data = "profoak"
+            var data = "user1"
             console.log("inside the testApi function : ")
             axios.post("http://localhost:8080/getimages",data)
               .then(res => { // then print response status
