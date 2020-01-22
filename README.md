@@ -36,13 +36,13 @@ PATCH : The PATCH method is used to apply partial modifications to a resource.
 
 // DONE :
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
+2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
+the directory of images for that particular user.
 
 // TODO :
-2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
-the directory of images.
 3. Have Separate user login.
 4. Manage different user data.
-5. Make personal directories for each user.
+5. conflicting names of the images are taken care of, while saving.
 
 Interactive tool for Image annotation
 
@@ -63,14 +63,14 @@ NavigationBar -----------
 (Separate Component)
 
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: FIRST
+to accomplish requirement: FIRST (COMPLETE)
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 How to load Images : Being Done using UploadMultipleFiles and Server.js
 
 
 END OF FIRST REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: SECOND
+to accomplish requirement: SECOND (COMPLETE)
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
 the directory of images for that particular user.
 
@@ -145,12 +145,13 @@ Completed :
   a. Inserting image names and the username
 7. Username is being sent to nodejs backend and the images are being saved as :
   <user-name>"____"<image-name>
+8. Redirect to EditPage after Image upload with the user information
+9. How to retrieve the names of the user from the actual webpage
+10. How to have image holders for the user's images
+11. Arrow marks to navigate through the images
 
 //TODO :
-1. Redirect to EditPage after Image upload with the user information 
-2. How to retrieve the names of the user from the actual webpage
-3. How to have image holders for the user's images
-4. Arrow marks to navigate through the images
+
 
 NOTE :
 // to be done in next project : Login with sessionID, cookies and authenticating using JWT
@@ -161,3 +162,5 @@ Figure out how to save the images with the username in it, in the folder.
 
 END OF SECOND REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
+to accomplish requirement: THIRD
+3. Have Separate user login.
