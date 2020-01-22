@@ -95,7 +95,6 @@ onChangeHandler=event=>{
 }
 
 RedirecToEditPage = () =>{
-  console.log("in testredirection func")
   if(this.UserName) {
      var userName = this.UserName.value;
   }
@@ -135,7 +134,6 @@ RedirecToEditPage = () =>{
         this.addToBackendUsingApi(this.state.selectedFile)
         console.log("Upload success:\n"+res)
         // redirect to WorkingArea.js for viewing images
-        this.RedirecToEditPage()
       })
       .catch(err => { // then print response status
       //  toast.error('upload fail')
@@ -169,7 +167,7 @@ RedirecToEditPage = () =>{
               </div>
 
               <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
-              <button type="button" class="btn btn-success btn-block" onClick={this.RedirecToEditPage}>Redirect</button>
+              <button type="button" class="btn btn-success btn-block" onClick={this.RedirecToEditPage}>View Images</button>
 
 	      </div>
       </div>
