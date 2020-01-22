@@ -202,9 +202,9 @@ const Navigationclass = () => (
 
 
    const NavigationBar = () => (
-    <body>
+    <div>
         <NavigationBarComp />
-    </body>
+    </div>
    );
 
    export default NavigationBar;

@@ -93,6 +93,18 @@ onChangeHandler=event=>{
   })
 }
 }
+
+RedirecToEditPage = () =>{
+  console.log("in testredirection func")
+  if(this.UserName) {
+     var userName = this.UserName.value;
+  }
+  this.props.history.push({
+    pathname: '/EditPage',
+    state: {userName: userName}
+})
+
+}
   onClickHandler = () => {
     const data = new FormData()
 
@@ -106,7 +118,7 @@ onChangeHandler=event=>{
       data.append('file', this.state.selectedFile[x])
     }
 
-// header carries information of username to backend with data 
+// header carries information of username to backend with data
     axios.post("http://localhost:4000/upload",data,
     {
     headers: {
@@ -122,6 +134,8 @@ onChangeHandler=event=>{
         //toast.success('upload success')
         this.addToBackendUsingApi(this.state.selectedFile)
         console.log("Upload success:\n"+res)
+        // redirect to WorkingArea.js for viewing images
+        this.RedirecToEditPage()
       })
       .catch(err => { // then print response status
       //  toast.error('upload fail')
@@ -155,6 +169,7 @@ onChangeHandler=event=>{
               </div>
 
               <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
+              <button type="button" class="btn btn-success btn-block" onClick={this.RedirecToEditPage}>Redirect</button>
 
 	      </div>
       </div>

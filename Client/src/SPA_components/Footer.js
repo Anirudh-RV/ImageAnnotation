@@ -3,16 +3,12 @@ import './App.css';
 
 
 class Footer extends Component {
-//TODO : ADD Footer information 
+//TODO : ADD Footer information
   render() {
     return (
-      <body className="WorkingArea">
-
       <div className="footer">
-        <p>Website developed by : Anirudh RV</p>
+      Website developed by : Anirudh RV
       </div>
-
-      </body>
     );
   }
 }

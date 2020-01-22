@@ -2,7 +2,14 @@ var express = require('express');
 var app = express();
 var multer = require('multer')
 var cors = require('cors');
+var path=require('path');
+
 app.use(cors())
+
+//Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/public'));
+app.use('/img',express.static(path.join(__dirname, 'public/uploaded')));
 
 // 'public/Uploaded is destination'
 // for scaling it to multiple users, send user_id to the backend and save under a new folder with the user_id name.

@@ -1,16 +1,25 @@
-import React,{ useState}  from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 import NavigationBar from './NavigationBar'
 import WorkingArea from './WorkingArea'
 import Footer from './Footer'
 
-   const EditPage = () => (
-    <body>
-        <NavigationBar />
-        <WorkingArea />
-        <Footer />
-    </body>
-   );
 
-   export default EditPage;
+class EditPage extends Component {
+//TODO : ADD Footer information
+
+  render() {
+    return (
+      <div>
+      <body>
+         <NavigationBar />
+         <WorkingArea name={this.props.location.state.userName}/>
+      </body>
+
+     </div>
+
+    );
+  }
+}
+export default EditPage;
