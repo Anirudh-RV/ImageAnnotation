@@ -11,7 +11,7 @@ class EditPage extends Component {
 //TODO : ADD Footer information
 
 componentDidMount(){
-    // Call GO API to get all the image names of username
+// set UserName 
     if(this.UserTag) {
      this.UserTag.innerHTML = this.props.location.state.userName;
       }

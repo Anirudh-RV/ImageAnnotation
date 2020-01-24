@@ -6,6 +6,22 @@
   height: 40vmin;
 }
 
+  .Login {
+    position : relative;
+    float : center;
+    align: center;
+    padding: 60px 0;
+    max-width:500px;
+    margin: auto;
+    border-radius: 3px;
+    border: 1px solid #aaaabb;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
 
 .Username
 {
@@ -61,6 +77,12 @@
 .App-link {
   color: #09d3ac;
 }
+
+.navlink:hover{
+  text-decoration: none;
+  color: white;
+}
+
 
 .buttonclass{
   padding:0.6em 2em;

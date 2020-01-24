@@ -38,12 +38,12 @@ PATCH : The PATCH method is used to apply partial modifications to a resource.
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
 the directory of images for that particular user.
-
-// TODO :
 3. Have Separate user login.
 4. Manage different user data.
 5. conflicting names of the images are taken care of, while saving.
-4. Preprocess of images to size 512,512 / user given resolution.
+
+// TODO :
+6. Preprocess of images to size 512,512 / user given resolution.
 
 Interactive tool for Image annotation
 
@@ -162,3 +162,16 @@ END OF SECOND REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
 to accomplish requirement: THIRD
 3. Have Separate user login.
+  a. Separate login page created
+END OF THIRD REQUIREMENT
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement: FOURTH
+4. Manage different user data
+  a.Same folder, different names, mongoDB is used to save different user's image names.
+
+END OF FOURTH REQUIREMENT
+########--------------------------------------------------------------------------------------------------
+5. conflicting names of the images are taken care of, while saving.
+END OF FIFTH REQUIREMENT
+########--------------------------------------------------------------------------------------------------
+6.Preprocess of images to size 512,512 / user given resolution.

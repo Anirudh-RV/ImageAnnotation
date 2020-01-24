@@ -60,9 +60,9 @@ return true;
 
 // using Api, add names of the images being uploaded to a database
   addToBackendUsingApi = (files) =>{
-      if(this.UserName) {
-         var userName = this.UserName.value;
-      }
+
+      var userName = this.props.location.state.userName;
+
       var fileNames = userName+",";
       for(var x =0; x<files.length-1;x++)
       {
@@ -95,12 +95,12 @@ onChangeHandler=event=>{
 }
 
 RedirecToEditPage = () =>{
-  if(this.UserName) {
-     var userName = this.UserName.value;
-  }
+
+  var userName = this.props.location.state.userName;
+
   this.props.history.push({
     pathname: '/EditPage',
-    state: {userName: userName}
+    state: {userName: this.props.location.state.userName}
 })
 
 }
@@ -108,9 +108,7 @@ RedirecToEditPage = () =>{
     const data = new FormData()
 
 // getting username from input
-    if(this.UserName) {
-       var userName = this.UserName.value;
-    }
+    var userName = this.props.location.state.userName;
 
 // filling FormData with selectedFiles(Array of objects)
     for(var x = 0; x<this.state.selectedFile.length; x++) {
@@ -147,15 +145,6 @@ RedirecToEditPage = () =>{
       <div class="container">
 	      <div class="row">
       	  <div class="offset-md-3 col-md-6">
-          <div>
-        <form>
-          <label>
-            User Name:
-            <input type="text" name="name" ref = {c => this.UserName = c}/>
-          </label>
-        </form>
-        </div>
-
                <div class="form-group files">
                 <label>Upload Your File </label>
                 <input id="input_upload" type="file" class="form-control" multiple onChange={this.onChangeHandler}/>

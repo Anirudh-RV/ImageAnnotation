@@ -145,9 +145,9 @@ onMouseMove onMouseOut onMouseOver onMouseUp
        <button id="btnFile" className={styles.btnclass}>Product</button>
        <Collapse className={styles.collapse} isOpen={isOpen1}>
        <ul className={styles.DropdownNavi}>
-         <li><NavLink exact activeClassName="current" to='/'>Home1</NavLink></li>
-         <li><NavLink exact activeClassName="current" to='/about'>About1</NavLink></li>
-         <li><NavLink exact activeClassName="current" to='/contact'>Contact1</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/'>Home1</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/about'>About1</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/contact'>Contact1</NavLink></li>
       </ul>
        </Collapse>
        </li>
@@ -156,9 +156,9 @@ onMouseMove onMouseOut onMouseOver onMouseUp
        <button className={styles.btnclass}>Pricing</button>
        <Collapse className={styles.collapse} isOpen={isOpen2}>
        <ul className={styles.DropdownNavi}>
-         <li><NavLink exact activeClassName="current" to='/'>Home2</NavLink></li>
-         <li><NavLink exact activeClassName="current" to='/about'>About2</NavLink></li>
-         <li><NavLink exact activeClassName="current" to='/contact'>Contact2</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/'>Home2</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/about'>About2</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/contact'>Contact2</NavLink></li>
       </ul>
        </Collapse>
        </li>
@@ -167,9 +167,9 @@ onMouseMove onMouseOut onMouseOver onMouseUp
        <button className={styles.btnclass}>Resources</button>
        <Collapse className={styles.collapse} isOpen={isOpen3}>
        <ul className={styles.DropdownNavi}>
-         <li><NavLink exact activeClassName="current" to='/'>Home3</NavLink></li>
-         <li><NavLink exact activeClassName="current" to='/about'>About3</NavLink></li>
-         <li><NavLink exact activeClassName="current" to='/contact'>Contact3</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/'>Home3</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/about'>About3</NavLink></li>
+         <li><NavLink class="navlink" exact activeClassName="current" to='/contact'>Contact3</NavLink></li>
       </ul>
        </Collapse>
        </li>
@@ -178,15 +178,15 @@ onMouseMove onMouseOut onMouseOver onMouseUp
          <button className={styles.btnclass}>Support</button>
          <Collapse className={styles.collapse} isOpen={isOpen4}>
          <ul className={styles.DropdownNavi}>
-           <li><NavLink exact activeClassName="current" to='/'>Home4</NavLink></li>
-           <li><NavLink exact activeClassName="current" to='/about'>About4</NavLink></li>
-           <li><NavLink exact activeClassName="current" to='/contact'>Contact4</NavLink></li>
+           <li><NavLink class="navlink" exact activeClassName="current" to='/'>Home4</NavLink></li>
+           <li><NavLink class="navlink" exact activeClassName="current" to='/about'>About4</NavLink></li>
+           <li><NavLink class="navlink" exact activeClassName="current" to='/Contact'>Contact4</NavLink></li>
         </ul>
          </Collapse>
          </li>
 
           <li className={styles.Navielements}>
-            <button id="btnFile" className={styles.btnclass}>Sign in</button>
+<NavLink class="navlink" exact activeClassName="current" to='/signin'>Sign in</NavLink>
           </li>
        </ul>
 
