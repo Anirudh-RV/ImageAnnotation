@@ -5,6 +5,47 @@
 .App-logo {
   height: 40vmin;
 }
+
+.Username
+{
+  position : absolute;
+  background-color : #22222a;
+  color : white;
+  border : 0px;
+  pointer-events: none;
+  float : right;
+  right : 50px;
+  margin-top : 0;
+  margin : 0;
+  z-index : 1;
+}
+
+
+.userNameElement
+{
+  margin : 0;
+}
+#input_upload
+        {
+          position:relative;
+          top:5px;
+          left:5px;
+          height:240px;
+          width:715px;
+          font-size:14pt;
+          background: #22222a;
+          color:white;
+        }
+
+#input_upload:hover
+{
+  background: #16161d;
+  transform:scale(1.01,1.01);
+  -webkit-transform:scale(1.01,1.01);
+  -moz-transform:scale(1.01,1.01);
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -20,6 +61,24 @@
   color: #09d3ac;
 }
 
+.buttonclass{
+  padding:0.6em 2em;
+  border-radius: 8px;
+  color: white;
+  background-color:#22222a;
+  font-size:1.1em;
+  width: 500px;
+  border:0;
+  cursor:pointer;
+  margin:5px;
+}
+
+.buttonclass:hover {
+    background: #16161d;
+    transform:scale(1.01,1.01);
+    -webkit-transform:scale(1.01,1.01);
+    -moz-transform:scale(1.01,1.01);
+}
 
 html {
       box-sizing: border-box;

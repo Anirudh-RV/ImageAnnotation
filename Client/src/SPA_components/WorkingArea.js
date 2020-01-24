@@ -69,12 +69,15 @@ componentDidMount(){
     return (
       <div>
         <div className = "columnLeft">
-          <img className='name' ref = {c => this.ImageTag = c}/>
+        <p>Left Side</p>
+        <img className='name' ref = {c => this.ImageTag = c}/>
+        <button type="button" class="buttonclass" onClick={this.NextImage}>NEXT</button>
+        <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
           </div>
         <div className = "columnRight">
-        Right Side
-          <button type="button" class="btn btn-success btn-block" onClick={this.NextImage}>NEXT</button>
-          <button type="button" class="btn btn-success btn-block" onClick={this.PrevImage}>PREVIOUS</button>
+        <p>Right Side</p>
+          <button type="button" class="buttonclass" onClick={this.NextImage}>NEXT</button>
+          <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
         </div>
       </div>
     );

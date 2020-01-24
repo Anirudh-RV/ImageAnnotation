@@ -158,7 +158,7 @@ RedirecToEditPage = () =>{
 
                <div class="form-group files">
                 <label>Upload Your File </label>
-                <input type="file" class="form-control" multiple onChange={this.onChangeHandler}/>
+                <input id="input_upload" type="file" class="form-control" multiple onChange={this.onChangeHandler}/>
               </div>
               <div class="form-group">
 
@@ -166,8 +166,8 @@ RedirecToEditPage = () =>{
 
               </div>
 
-              <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
-              <button type="button" class="btn btn-success btn-block" onClick={this.RedirecToEditPage}>View Images</button>
+              <button type="button" class="buttonclass" onClick={this.onClickHandler}>Upload</button>
+              <button type="button" class="buttonclass" onClick={this.RedirecToEditPage}>View Images</button>
 
 	      </div>
       </div>

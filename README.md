@@ -150,9 +150,6 @@ Completed :
 10. How to have image holders for the user's images
 11. Arrow marks to navigate through the images
 
-//TODO :
-
-
 NOTE :
 // to be done in next project : Login with sessionID, cookies and authenticating using JWT
 Figure out how to save the images with the username in it, in the folder.

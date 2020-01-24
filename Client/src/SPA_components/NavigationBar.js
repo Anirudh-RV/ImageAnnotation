@@ -16,8 +16,6 @@ onMouseDown onMouseEnter onMouseLeave
 onMouseMove onMouseOut onMouseOver onMouseUp
 */
 
-
-
 const Navigationclass = () => (
    <nav>
      <ul className={styles.NaviText}>
@@ -146,8 +144,6 @@ const Navigationclass = () => (
    return (
      <nav>
        <ul className={styles.NaviText}>
-
-
        <li className={styles.Navielements} onClick={toggle1open} onMouseLeave = {toggle1close}>
        <button id="btnFile" className={styles.btnclass}>FILE</button>
        <Collapse className={styles.collapse} isOpen={isOpen1}>
@@ -181,7 +177,6 @@ const Navigationclass = () => (
        </Collapse>
        </li>
 
-
          <li className={styles.Navielements} onClick={toggle4open} onMouseLeave = {toggle4close}>
          <button className={styles.btnclass}>HELP</button>
          <Collapse className={styles.collapse} isOpen={isOpen4}>
@@ -192,16 +187,16 @@ const Navigationclass = () => (
         </ul>
          </Collapse>
          </li>
-
        </ul>
+
      </nav>
 
 
    );
  }
-
-
    const NavigationBar = () => (
+
+
     <div>
         <NavigationBarComp />
     </div>
