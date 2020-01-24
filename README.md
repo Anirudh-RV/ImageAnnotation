@@ -43,6 +43,7 @@ the directory of images for that particular user.
 3. Have Separate user login.
 4. Manage different user data.
 5. conflicting names of the images are taken care of, while saving.
+4. Preprocess of images to size 512,512 / user given resolution.
 
 Interactive tool for Image annotation
 
