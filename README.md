@@ -184,4 +184,10 @@ to accomplish requirement: SEVENTH
 
 7. Drawing rectangles in the image
 
+// DONE :
+1. Having an ON/OFF button to start/stop drawing.
+2. For drawing rectangles and displaying their coordinates in the console.
+3. Applying the TEST code to the actual images webpage.
+
 //TODO :
+1. Erase rectangles drawn when a new image loads.
