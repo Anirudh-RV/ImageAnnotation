@@ -23,6 +23,14 @@
   }
 
 
+.name{
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
 .Username
 {
   position : absolute;
@@ -237,6 +245,17 @@ html {
 }
 .show {
   display: block;
+}
+
+
+#canvas {
+    width:2000px;
+    height:2000px;
+    border: 10px solid transparent;
+}
+.rectangle {
+    border: 1px solid #FF0000;
+    position: absolute;
 }
 
 .footer {

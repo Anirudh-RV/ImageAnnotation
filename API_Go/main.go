@@ -10,8 +10,6 @@ import (
     "reflect"
     "unsafe"
 
-
-
     // handles url/redirection
     "github.com/gorilla/mux"
     "github.com/gorilla/handlers"
@@ -243,5 +241,6 @@ func main() {
     methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS","DELETE"})
     origins := handlers.AllowedOrigins([]string{"*"})
 
+    fmt.Println("Running on port : 8080")
     log.Fatal(http.ListenAndServe(":8080",handlers.CORS(headers,methods,origins)(r)))
 }

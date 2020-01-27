@@ -7,6 +7,7 @@ import Home from './Home';
 import UploadMultipleFiles from './UploadMultipleFiles';
 import TestAPI from './TestAPI';
 import Signin from './Signin';
+import TestDraw from './test_draw';
 // Routes for the webpages in the project
 class Routes extends Component {
   render() {
@@ -15,7 +16,8 @@ class Routes extends Component {
         <div>
           <Switch />
             <Switch>
-             <Route path="/Signin" component= {Signin} />
+             <Route path="/testdraw" component = {TestDraw} />
+             <Route path="/signin" component= {Signin} />
              <Route path="/testapi" component={TestAPI}/>
              <Route path="/upload" component={UploadMultipleFiles}/>
              <Route path="/editpage" component={EditPage}/>

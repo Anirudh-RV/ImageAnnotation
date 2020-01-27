@@ -44,7 +44,7 @@ the directory of images for that particular user.
 
 // TODO :
 6. Preprocess of images to size 512,512 / user given resolution.
-
+7. Drawing rectangles in the image
 Interactive tool for Image annotation
 
 React redirection map :
@@ -160,18 +160,28 @@ Figure out how to save the images with the username in it, in the folder.
 
 END OF SECOND REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: THIRD
+to accomplish requirement: THIRD (COMPLETE)
 3. Have Separate user login.
   a. Separate login page created
 END OF THIRD REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: FOURTH
+to accomplish requirement: FOURTH (COMPLETE)
 4. Manage different user data
   a.Same folder, different names, mongoDB is used to save different user's image names.
 
 END OF FOURTH REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-5. conflicting names of the images are taken care of, while saving.
+to accomplish requirement: FIFTH (COMPLETE)
+
+5. conflicting names of the images are taken care of, while saving. (COMPLETE)
 END OF FIFTH REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-6.Preprocess of images to size 512,512 / user given resolution.
+to accomplish requirement: SIXTH
+
+6. Preprocess of images to size 512,512 / user given resolution. (Optional)
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement: SEVENTH
+
+7. Drawing rectangles in the image
+
+//TODO :
