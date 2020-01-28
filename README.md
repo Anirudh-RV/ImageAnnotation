@@ -191,3 +191,7 @@ to accomplish requirement: SEVENTH
 
 //TODO :
 1. Erase rectangles drawn when a new image loads.
+  a. Fix the mouse pointer, there is a big Offset between where the pointer points, and where the rectangle is drawn.
+  b. possible fixes
+    1. Have an image tag inside the div tag which draws the rectangles, make it invisible and place the visible
+    image tag below this div tag for the user to see.
