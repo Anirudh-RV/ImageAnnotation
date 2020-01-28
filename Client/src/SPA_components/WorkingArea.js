@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import $ from 'jquery';
 
 
 class WorkingArea extends Component {
@@ -11,19 +12,21 @@ constructor(){
   this.state= {
     index:0,
   }
+  this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+  this.baseState = this.divCanvas;
 }
 
 OnButton = () => {
   this.flag = true;
-  this.initDraw(this.Canvas,this.flag,);
+  this.initDraw(this.divCanvas,this.flag,);
 
 }
 OffButton = () => {
   this.flag= false;
-  this.initDraw(this.Canvas,this.flag);
+  this.initDraw(this.divCanvas,this.flag);
 }
 
-initDraw= (canvas,flag) => {
+initDraw= (drawElement,flag) => {
     function setMousePosition(e) {
         var ev = e || window.event; //Moz || IE
         if (ev.pageX) { //Moz
@@ -43,7 +46,7 @@ initDraw= (canvas,flag) => {
     };
     var element = null;
 
-    canvas.onmousemove = function (e) {
+    drawElement.onmousemove = function (e) {
       // draw only when flad is On
       if(flag)
       {
@@ -57,19 +60,21 @@ initDraw= (canvas,flag) => {
       }
     }
 
-    canvas.onclick = function (e) {
+    drawElement.onclick = function (e) {
       console.log("ONorOFF : "+flag);
+      console.log(e);
       if(flag)
       {
         if (element !== null) {
             element = null;
-            canvas.style.cursor = "default";
+            drawElement.style.cursor = "default";
             console.log("mouse: ENDX : "+mouse.x)
             console.log("mouse: ENDY : "+mouse.y)
             this.EndX = mouse.x;
             this.EndY = mouse.y;
             console.log("mouse: STARTX : "+this.StartX+"</br>mouse: startY : "+this.StartY+"</br>mouse: ENDX : "+this.EndX+"</br>mouse: ENDY : "+this.EndY);
             console.log("finsihed.");
+
         } else {
             console.log("begun.");
             mouse.startX = mouse.x;
@@ -78,8 +83,8 @@ initDraw= (canvas,flag) => {
             element.className = 'rectangle'
             element.style.left = mouse.x + 'px';
             element.style.top = mouse.y + 'px';
-            canvas.appendChild(element)
-            canvas.style.cursor = "crosshair";
+            drawElement.appendChild(element)
+            drawElement.style.cursor = "crosshair";
             console.log("mouse: STARTX : "+mouse.x)
             console.log("mouse: startY : "+mouse.y)
             this.StartX = mouse.x;
@@ -90,6 +95,8 @@ initDraw= (canvas,flag) => {
 }
 
 NextImage= () => {
+  this.divCanvas.innerHTML = "";
+  this.divCanvas.className = "MyClass";
   if(this.state.index>this.state.ImageNames.length-2)
   {
     console.log("end")
@@ -98,6 +105,10 @@ NextImage= () => {
   this.state.index = this.state.index + 1
   if(this.ImageTag) {
    this.ImageTag.src = "http://localhost:4000/img/"+this.state.ImageNames[this.state.index];
+   console.log(this.ImageTag.width)
+   console.log(this.ImageTag.height)
+   console.log(this.ImageTag.left)
+   console.log(this.ImageTag.top)
     }
   }
 }
@@ -146,21 +157,31 @@ componentDidMount(){
     this.StartY = 0;
     this.EndY = 0;
 }
+
+forceUpdateHandler= () => {
+
+  $( "#divCanvasId" ).load(window.location.href + " #divCanvasId" );
+  };
+
+
   render() {
     return (
       <div>
         <div className = "columnLeft">
         <p>Left Side</p>
-        <div ref = {c => this.Canvas = c} >
-        <img className='name' ref = {c => this.ImageTag = c}/>
-        </div>
+          <div id="canvas" ref = {c => this.divCanvas = c} >
           </div>
+          <img className='name' ref = {c => this.ImageTag = c}/>
+
+        </div>
         <div className = "columnRight">
         <p>Right Side</p>
           <button type="button" class="buttonclass" onClick={this.NextImage}>NEXT</button>
           <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
           <button className="buttonclass" onClick={this.OnButton}>ON</button>
           <button className="buttonclass" onClick={this.OffButton}>OFF</button>
+          <button onClick= {this.forceUpdateHandler} >FORCE UPDATE</button>
+
         </div>
       </div>
     );

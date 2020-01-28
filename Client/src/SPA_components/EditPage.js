@@ -11,7 +11,7 @@ class EditPage extends Component {
 //TODO : ADD Footer information
 
 componentDidMount(){
-// set UserName 
+// set UserName
     if(this.UserTag) {
      this.UserTag.innerHTML = this.props.location.state.userName;
       }
