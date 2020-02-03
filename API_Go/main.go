@@ -9,6 +9,7 @@ import (
     "io/ioutil"
     "reflect"
     "unsafe"
+    "os"
 
     // handles url/redirection
     "github.com/gorilla/mux"
@@ -224,6 +225,49 @@ func addImageToDatabase(w http.ResponseWriter, r *http.Request) {
   w.Write([]byte(`{"message": "Success"}`))
 }
 
+func saveastextfile(w http.ResponseWriter, r *http.Request) {
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusOK)
+
+// decoding the message and displaying
+  reqBody, err := ioutil.ReadAll(r.Body)
+   if err != nil {
+     log.Fatal(err)
+   }
+  str_name := BytesToString(reqBody)
+  str_name = strings.ReplaceAll(str_name, "</br>", "")
+  str_name = strings.ReplaceAll(str_name,"&emsp;","  ")
+  str_name = strings.ReplaceAll(str_name, "<br>", "")
+
+  splitData := strings.Split(str_name, ",")
+  imageName := splitData[0]
+  imageData := splitData[1]
+
+  fmt.Println(imageName)
+  fmt.Println(imageData)
+
+// making text file and saving data in it.
+  f, err := os.Create(imageName+".txt")
+  if err != nil {
+      fmt.Println(err)
+      return
+  }
+  l, err := f.WriteString(imageData)
+  if err != nil {
+      fmt.Println(err)
+      f.Close()
+      return
+  }
+  fmt.Println(l, "bytes written successfully")
+  err = f.Close()
+  if err != nil {
+      fmt.Println(err)
+      w.Write([]byte(`{"message": "FAIL"}`))
+  }
+
+  w.Write([]byte(`{"message": "saveastextfile called successfully"}`))
+
+}
 
 func main() {
     r := mux.NewRouter()
@@ -236,6 +280,7 @@ func main() {
     r.HandleFunc("/getimages", getimages).Methods(http.MethodPost)
     r.HandleFunc("/insertimagedata",addImageToDatabase).Methods(http.MethodPost)
     r.HandleFunc("/deleteuser",deleteuser).Methods(http.MethodPost)
+    r.HandleFunc("/saveastextfile",saveastextfile).Methods(http.MethodPost)
 // To Handle CORS (Cross Origin Resource Sharing)
     headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
     methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS","DELETE"})

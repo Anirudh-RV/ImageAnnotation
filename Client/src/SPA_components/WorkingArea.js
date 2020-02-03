@@ -14,17 +14,17 @@ constructor(){
   }
 }
 
-OnButton = () => {
+onButton = () => {
   this.flag = true;
-  this.initDraw(this.divCanvas,this.flag,);
+  this.initDraw(this.divCanvas,this.flag,this.outputdiv);
 
 }
-OffButton = () => {
+offButton = () => {
   this.flag= false;
-  this.initDraw(this.divCanvas,this.flag);
+  this.initDraw(this.divCanvas,this.flag,this.outputdiv );
 }
 
-initDraw= (drawElement,flag) => {
+initDraw= (drawElement,flag,outputdiv) => {
     function setMousePosition(e) {
         var ev = e || window.event; //Moz || IE
         if (ev.pageX) { //Moz
@@ -69,7 +69,10 @@ initDraw= (drawElement,flag) => {
             console.log("mouse: ENDY : "+mouse.y)
             this.EndX = mouse.x;
             this.EndY = mouse.y;
-            console.log("mouse: STARTX : "+this.StartX+"</br>mouse: startY : "+this.StartY+"</br>mouse: ENDX : "+this.EndX+"</br>mouse: ENDY : "+this.EndY);
+            var dataDrawn = this.StartX+"&emsp;"+this.StartY+"&emsp;"+this.EndX+"&emsp;"+this.EndY+"</br>"
+            this.imageTextData = dataDrawn
+            outputdiv.innerHTML = outputdiv.innerHTML +"\n"+dataDrawn
+            console.log("displaying here : "+this.imageTextData)
             console.log("finsihed.");
 
         }
@@ -101,6 +104,20 @@ NextImage= () => {
     console.log("end")
   }
   else {
+  // save the rectangles created and output text file (.txt) for the image
+  var data = "output_"+this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
+  console.log(data)
+  axios.post("http://localhost:8080/saveastextfile",data)
+    .then(res => { // then print response status
+      console.log("API : ")
+      console.log(res)
+      console.log(res.data["message"])
+    })
+    .catch(err => { // then print response status
+    console.log("FAIL")
+    console.log(err)
+    })
+
   this.state.index = this.state.index + 1
   if(this.ImageTag) {
    this.ImageTag.src = "http://localhost:4000/img/"+this.state.ImageNames[this.state.index];
@@ -110,6 +127,8 @@ NextImage= () => {
    console.log(this.ImageTag.top)
     }
   }
+
+  this.outputdiv.innerHTML = "";
 }
 
 
@@ -117,7 +136,6 @@ PrevImage= () => {
   // clearing out previously draw boxes and adding back the image tag
   this.divCanvas.innerHTML = "";
   this.divCanvas.appendChild(this.ImageTag);
-
   if(this.state.index == 0) {
     console.log("start")
   }
@@ -127,8 +145,25 @@ PrevImage= () => {
    this.ImageTag.src = "http://localhost:4000/img/"+this.state.ImageNames[this.state.index];
     }
   }
+  this.outputdiv.innerHTML = "";
+
 }
 
+testSaveText = () =>{
+  var data = this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
+  console.log(data)
+  axios.post("http://localhost:8080/saveastextfile",data)
+    .then(res => { // then print response status
+      console.log("API : ")
+      console.log(res)
+      console.log(res.data["message"])
+    })
+    .catch(err => { // then print response status
+    console.log("FAIL")
+    console.log(err)
+    })
+
+}
 
 Apifuncgetimages = (userName) => {
   // data is going to be the username
@@ -160,6 +195,7 @@ componentDidMount(){
     this.EndX = 0;
     this.StartY = 0;
     this.EndY = 0;
+    this.imageTextData = " ";
 }
 
 render() {
@@ -175,8 +211,11 @@ render() {
         <p>Right Side</p>
           <button type="button" class="buttonclass" onClick={this.NextImage}>NEXT</button>
           <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
-          <button className="buttonclass" onClick={this.OnButton}>ON</button>
-          <button className="buttonclass" onClick={this.OffButton}>OFF</button>
+          <button className="buttonclass" onClick={this.onButton}>ON</button>
+          <button className="buttonclass" onClick={this.offButton}>OFF</button>
+          <button className="buttonclass" onClick={this.testSaveText}>SEND SOMETHING (TEST)</button>
+        </div>
+        <div ref = {c =>this.outputdiv = c}>
         </div>
       </div>
     );

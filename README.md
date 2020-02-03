@@ -42,13 +42,13 @@ the directory of images for that particular user.
 4. Manage different user data.
 5. conflicting names of the images are taken care of, while saving.
 7. Drawing rectangles in the image
+8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
 
 // Optional :
 6. Preprocess of images to size 512,512 / user given resolution.
 
 // TODO :
-8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
-
+9. Think of what more to add and where to cut down and optimise 
 Interactive tool for Image annotation
 
 React redirection map :
@@ -200,11 +200,16 @@ to accomplish requirement: 7 (COMPLETE)
 
 END OF 7th REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement : 8
+to accomplish requirement : 8 (COMPLETE)
 
 8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
 
-// TODO :
+// DONE :
 1. Gather all the coordinates of each rectangle drawn in one variable
+  a. Made a div tag which displays to the user the coordinates
 2. On pressing next image, save this data in a text file (.txt) and save in the local folder
-3. Saving in local will use an api request to a node server
+  a. The div tags innerHTML is being taken when next image is pressed.
+3. Using the Go server, an axios post request is sent with the data and a text file is saved.
+
+END OF 8th REQUIREMENT
+########--------------------------------------------------------------------------------------------------
