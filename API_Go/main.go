@@ -235,6 +235,7 @@ func saveastextfile(w http.ResponseWriter, r *http.Request) {
      log.Fatal(err)
    }
   str_name := BytesToString(reqBody)
+  str_name = strings.ReplaceAll(str_name, ".jpeg", "")
   str_name = strings.ReplaceAll(str_name, "</br>", "")
   str_name = strings.ReplaceAll(str_name,"&emsp;","  ")
   str_name = strings.ReplaceAll(str_name, "<br>", "")
