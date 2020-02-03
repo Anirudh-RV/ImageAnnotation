@@ -41,10 +41,14 @@ the directory of images for that particular user.
 3. Have Separate user login.
 4. Manage different user data.
 5. conflicting names of the images are taken care of, while saving.
+7. Drawing rectangles in the image
+
+// Optional :
+6. Preprocess of images to size 512,512 / user given resolution.
 
 // TODO :
-6. Preprocess of images to size 512,512 / user given resolution.
-7. Drawing rectangles in the image
+8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
+
 Interactive tool for Image annotation
 
 React redirection map :
@@ -64,14 +68,14 @@ NavigationBar -----------
 (Separate Component)
 
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: FIRST (COMPLETE)
+to accomplish requirement: 1 (COMPLETE)
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 How to load Images : Being Done using UploadMultipleFiles and Server.js
 
 
-END OF FIRST REQUIREMENT
+END OF 1st REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: SECOND (COMPLETE)
+to accomplish requirement: 2 (COMPLETE)
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
 the directory of images for that particular user.
 
@@ -117,7 +121,7 @@ Completed :
     is then read by the go backend and converted into UPPERCASE and then sent back as a
     json object. This json object is being displayed in the frontend
 
-//TODO :
+//TODO : (for sql //current version uses mongoDB)
 1. Connect Go to an SQL server and handle the requests with the API.This includes:
   a. Inserting Image names into the Database
   b. Retrieving Image names from the database (One name / all the names)
@@ -158,29 +162,33 @@ Figure out how to save the images with the username in it, in the folder.
  b. Use the username to change information specific to the user accordingly
  The JWT (Json Web Token) is widely used in authenticating Web applications developed using advanced Javascript frameworks : Angularjs or Reactjs(with supporting libraries)
 
-END OF SECOND REQUIREMENT
+END OF 2nd REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: THIRD (COMPLETE)
+to accomplish requirement: 3 (COMPLETE)
 3. Have Separate user login.
   a. Separate login page created
-END OF THIRD REQUIREMENT
+
+END OF 3rd REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: FOURTH (COMPLETE)
+to accomplish requirement: 4 (COMPLETE)
 4. Manage different user data
   a.Same folder, different names, mongoDB is used to save different user's image names.
 
-END OF FOURTH REQUIREMENT
+END OF 4th REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: FIFTH (COMPLETE)
+to accomplish requirement: 5 (COMPLETE)
 
 5. conflicting names of the images are taken care of, while saving. (COMPLETE)
-END OF FIFTH REQUIREMENT
+
+END OF 5th REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: SIXTH
+to accomplish requirement: 6
 
 6. Preprocess of images to size 512,512 / user given resolution. (Optional)
+
+END OF 6th REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement: SEVENTH
+to accomplish requirement: 7 (COMPLETE)
 
 7. Drawing rectangles in the image
 
@@ -188,10 +196,15 @@ to accomplish requirement: SEVENTH
 1. Having an ON/OFF button to start/stop drawing.
 2. For drawing rectangles and displaying their coordinates in the console.
 3. Applying the TEST code to the actual images webpage.
+4. Erase rectangles drawn when a new image loads.(Done by erasing div and adding back the elements)
 
-//TODO :
-1. Erase rectangles drawn when a new image loads.
-  a. Fix the mouse pointer, there is a big Offset between where the pointer points, and where the rectangle is drawn.
-  b. possible fixes
-    1. Have an image tag inside the div tag which draws the rectangles, make it invisible and place the visible
-    image tag below this div tag for the user to see.
+END OF 7th REQUIREMENT
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 8
+
+8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
+
+// TODO :
+1. Gather all the coordinates of each rectangle drawn in one variable
+2. On pressing next image, save this data in a text file (.txt) and save in the local folder
+3. Saving in local will use an api request to a node server

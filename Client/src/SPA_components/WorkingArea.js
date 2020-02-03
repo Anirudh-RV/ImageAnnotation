@@ -12,8 +12,6 @@ constructor(){
   this.state= {
     index:0,
   }
-  this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
-  this.baseState = this.divCanvas;
 }
 
 OnButton = () => {
@@ -32,7 +30,8 @@ initDraw= (drawElement,flag) => {
         if (ev.pageX) { //Moz
             mouse.x = ev.pageX;
             mouse.y = ev.pageY;
-        } else if (ev.clientX) { //IE
+        }
+        else if (ev.clientX) { //IE
             mouse.x = ev.clientX ;
             mouse.y = ev.clientY ;
         }
@@ -48,8 +47,7 @@ initDraw= (drawElement,flag) => {
 
     drawElement.onmousemove = function (e) {
       // draw only when flad is On
-      if(flag)
-      {
+      if(flag) {
         setMousePosition(e);
         if (element !== null) {
             element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
@@ -63,8 +61,7 @@ initDraw= (drawElement,flag) => {
     drawElement.onclick = function (e) {
       console.log("ONorOFF : "+flag);
       console.log(e);
-      if(flag)
-      {
+      if(flag) {
         if (element !== null) {
             element = null;
             drawElement.style.cursor = "default";
@@ -75,7 +72,8 @@ initDraw= (drawElement,flag) => {
             console.log("mouse: STARTX : "+this.StartX+"</br>mouse: startY : "+this.StartY+"</br>mouse: ENDX : "+this.EndX+"</br>mouse: ENDY : "+this.EndY);
             console.log("finsihed.");
 
-        } else {
+        }
+        else {
             console.log("begun.");
             mouse.startX = mouse.x;
             mouse.startY = mouse.y;
@@ -95,10 +93,11 @@ initDraw= (drawElement,flag) => {
 }
 
 NextImage= () => {
+  // clearing out previously draw boxes and adding back the image tag
   this.divCanvas.innerHTML = "";
-  this.divCanvas.className = "MyClass";
-  if(this.state.index>this.state.ImageNames.length-2)
-  {
+  this.divCanvas.appendChild(this.ImageTag);
+
+  if(this.state.index>this.state.ImageNames.length-2) {
     console.log("end")
   }
   else {
@@ -115,8 +114,11 @@ NextImage= () => {
 
 
 PrevImage= () => {
-  if(this.state.index == 0)
-  {
+  // clearing out previously draw boxes and adding back the image tag
+  this.divCanvas.innerHTML = "";
+  this.divCanvas.appendChild(this.ImageTag);
+
+  if(this.state.index == 0) {
     console.log("start")
   }
   else {
@@ -143,7 +145,7 @@ Apifuncgetimages = (userName) => {
        }
     })
     .catch(err => { // then print response status
-    console.log("fail")
+    console.log("FAIL")
     console.log(err)
     })
   }
@@ -151,6 +153,8 @@ Apifuncgetimages = (userName) => {
 componentDidMount(){
     // Call GO API to get all the image names of username
     this.Apifuncgetimages(this.props.name)
+
+    // setting environment variables
     this.flag = false;
     this.startX = 0;
     this.EndX = 0;
@@ -158,21 +162,14 @@ componentDidMount(){
     this.EndY = 0;
 }
 
-forceUpdateHandler= () => {
-
-  $( "#divCanvasId" ).load(window.location.href + " #divCanvasId" );
-  };
-
-
-  render() {
+render() {
     return (
       <div>
         <div className = "columnLeft">
         <p>Left Side</p>
-          <div id="canvas" ref = {c => this.divCanvas = c} >
-          </div>
+          <div ref = {c => this.divCanvas = c} >
           <img className='name' ref = {c => this.ImageTag = c}/>
-
+          </div>
         </div>
         <div className = "columnRight">
         <p>Right Side</p>
@@ -180,8 +177,6 @@ forceUpdateHandler= () => {
           <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
           <button className="buttonclass" onClick={this.OnButton}>ON</button>
           <button className="buttonclass" onClick={this.OffButton}>OFF</button>
-          <button onClick= {this.forceUpdateHandler} >FORCE UPDATE</button>
-
         </div>
       </div>
     );
