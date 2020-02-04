@@ -2,26 +2,10 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
 }
-
-  .Login {
-    position : relative;
-    float : center;
-    align: center;
-    padding: 60px 0;
-    max-width:500px;
-    margin: auto;
-    border-radius: 3px;
-    border: 1px solid #aaaabb;
-  }
-
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
-  }
-
 
 .name{
   user-drag: none;
@@ -82,6 +66,32 @@
   color: white;
 }
 
+.LinkToSignIn{
+    font-weight : bold;
+}
+
+.LinkToSignUp{
+    font-weight : bold;
+}
+
+.LinkToSignIn:hover{
+  text-decoration : none;
+}
+
+.LinkToSignUp:hover{
+
+  text-decoration : none;
+}
+.AppName{
+  position : relative;
+  float:left;
+  top:-20%;
+  text-align:center;
+  left:10%;
+  align: center;
+  max-width:400px;
+
+}
 .App-link {
   color: #09d3ac;
 }
@@ -154,7 +164,7 @@ html {
       margin-bottom: 15px;
     }
     body {
-      margin-bottom: 80px;
+      color : #eef3f6;
     }
 
     .columnLeft {
@@ -261,6 +271,113 @@ html {
 .rectangle {
     border: 1px solid #FF0000;
     position: absolute;
+}
+
+.LinkToAccount{
+  text-align : center;
+  margin : 0;
+}
+.Terms{
+  opacity : 0.5;
+  color :#000000;
+  text-align : center;
+  margin-top : 2%;
+}
+
+.SignUpHead{
+  float: left;
+  opacity : 0.8;
+  font-weight: bold;
+  color : #252528;
+  text-align : center;
+  margin-bottom : 10px;
+}
+
+.SignInHead{
+  float: center;
+  opacity : 0.8;
+  font-weight: bold;
+  color : #252528;
+  text-align : center;
+  margin-bottom : 5%;
+  font-size : 30px;
+
+}
+
+.BackgroundSign
+{
+  
+}
+.SignIn {
+  background-color : #ffffff;
+  left : 20%;
+  position : relative;
+  float : center;
+  align: center;
+  padding: 60px 0;
+  max-width:350px;
+  margin: auto;
+  border-radius: 2px;
+  border: 1px solid #aaaabb;
+  margin-top : 5%;
+  margin-bottom : 10px;
+  z-index:2;
+}
+
+.Login {
+  background-color : #ffffff;
+  left : 20%;
+  position : relative;
+  float : center;
+  align: center;
+  padding: 60px 0;
+  max-width:400px;
+  margin: auto;
+  border-radius: 2px;
+  border: 1px solid #aaaabb;
+  margin-top : 5%;
+  margin-bottom : 10px;
+  z-index:2;
+}
+
+.SecondBox {
+  background-color : #ffffff;
+  left : 20%;
+  position : relative;
+  float : center;
+  align: center;
+  padding: 20px 0;
+  max-width:400px;
+  margin: auto;
+  border-radius: 2px;
+  border: 1px solid #aaaabb;
+  margin-top : 10px;
+  margin-bottom : 0px;
+}
+
+.SecondBoxSignIn {
+  background-color : #ffffff;
+  left : 20%;
+  position : relative;
+  float : center;
+  align: center;
+  padding: 20px 0;
+  max-width:350px;
+  margin: auto;
+  border-radius: 2px;
+  border: 1px solid #aaaabb;
+  margin-top : 10px;
+  margin-bottom : 0px;
+}
+
+.Login form {
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.SignIn form {
+  margin: 0 auto;
+  max-width: 300px;
 }
 
 .footer {

@@ -48,9 +48,8 @@ the directory of images for that particular user.
 6. Preprocess of images to size 512,512 / user given resolution.
 
 // TODO :
-9. Think of what more to add and where to cut down and optimise 
-Interactive tool for Image annotation
-
+9. SignUp and SignIn functionality
+10. Restrict Direct access to routes
 React redirection map :
 
           Index.js -> Routes.js //(Has different routes)
@@ -64,7 +63,7 @@ React redirection map :
                         ^
                         |
                         |
-NavigationBar -----------
+NavigationBar ----------
 (Separate Component)
 
 ########--------------------------------------------------------------------------------------------------
@@ -213,3 +212,27 @@ to accomplish requirement : 8 (COMPLETE)
 
 END OF 8th REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 9
+
+9. SignUp and SignIn functionality
+
+// DONE :
+1. Template for SignUp
+2. Template for SignIn
+
+// TODO:
+1. Have a SignUp option
+  a. Gather all the data and check for previously existing users
+  b. If available then allow to continue
+  c. Login
+2. Authenticate SignIn
+  a. Check for the username / the email
+  b. Authenticate the password
+  c. Login
+3. Maintain SignIn throughout the Session / till SignOut
+
+NOTE : Use MongoDB for checking and Go API for connection, check JWT for authentication
+Make sure the data transfer is secure and is done, how it is supposed to be done.
+
+NOTE : Can try encryption, but during later phases of the project
+NOTE : Can try login through Facebook, Google

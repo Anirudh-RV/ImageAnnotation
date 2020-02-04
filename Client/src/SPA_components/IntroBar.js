@@ -137,7 +137,7 @@ onMouseMove onMouseOut onMouseOver onMouseUp
        <ul className={styles.NaviText}>
 
         <li className={styles.LogoElement}>
-        <button id="btnFile" className={styles.btnclass}>LOGO</button>
+        <button id="btnFile" className={styles.btnclass}>X-P1</button>
 
         </li>
 
@@ -186,7 +186,7 @@ onMouseMove onMouseOut onMouseOver onMouseUp
          </li>
 
           <li className={styles.Navielements}>
-<NavLink class="navlink" exact activeClassName="current" to='/signin'>Sign in</NavLink>
+            <NavLink class="navlink" exact activeClassName="current" to='/signup'>Login</NavLink>
           </li>
        </ul>
 
@@ -196,8 +196,6 @@ onMouseMove onMouseOut onMouseOver onMouseUp
    );
  }
    const IntroBar = () => (
-
-
     <div>
         <NavigationBarComp />
     </div>
