@@ -7,6 +7,26 @@ import axios from 'axios';
 class TestAPI extends Component {
 //TODO : ADD INTRODUCTION TO PROJECT
 
+testApifunccheckuser = () =>{
+  var data = "anirudhrv,password"
+  console.log("inside the testApifunccheckuser function : ")
+  axios.post("http://localhost:8080/checkuser",data)
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log("API message : ")
+      console.log(res)
+      console.log(res.data["message"])
+      if(this.DataRetrieved) {
+       this.DataRetrieved.innerHTML = res.data["message"];
+    }
+
+    })
+    .catch(err => { // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
+}
 
 testApifuncPost = () => {
   console.log("inside the testApi function : ")
@@ -180,6 +200,7 @@ testApifuncPost = () => {
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncinsertimagedata}> CALL insertimagedata </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetimages}> CALL getimages </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncdeleteuser}>  DELETE USER (change name in API CALL-incode)</button>
+      <button type="button" class="btn btn-success btn-block" onClick={this.testApifunccheckuser}>  CHECK USER </button>
 
 
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>

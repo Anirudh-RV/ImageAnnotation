@@ -270,6 +270,58 @@ func saveastextfile(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func checkuser(w http.ResponseWriter, r *http.Request) {
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusOK)
+
+// decoding the message and displaying
+  reqBody, err := ioutil.ReadAll(r.Body)
+   if err != nil {
+     log.Fatal(err)
+   }
+  str_name := BytesToString(reqBody)
+  splitData := strings.Split(str_name, ",")
+  userName := splitData[0]
+  passWord := splitData[1]
+
+  fmt.Println(userName)
+  fmt.Println(passWord)
+
+// CHECK BOTH USERNAME AND PASSWORD
+
+      // Set client options
+      clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+      // Connect to MongoDB
+      client, err := mongo.Connect(context.TODO(), clientOptions)
+      if err != nil {
+        log.Fatal(err)
+      }
+      fmt.Println("Connected to MongoDB!")
+      // Handling the collection ImageNames in Database GoDB
+      collection := client.Database("GoDB").Collection("ImageNames")
+      // BSON filter for all documents with a value of name
+      var result Image_Names
+      f := bson.M{"name": userName}
+      fmt.Println("Finding documents with filter:", f)
+      // Call the DeleteMany() method to delete docs matching filter
+      err = collection.FindOne(context.TODO(), f).Decode(&result)
+      if err != nil {
+          fmt.Println("No user found.")
+          // sending back No to react on not being able to find a user
+          w.Write([]byte(`{"message": "No"}`))
+      }else{
+      fmt.Printf("Found a single document: %+v\n", result)
+      // To close the connection to MongoDB
+      err = client.Disconnect(context.TODO())
+      if err != nil {
+          log.Fatal(err)
+      }
+      fmt.Println("Connection to MongoDB closed.")
+  // sending back yes to react on finding a user
+  w.Write([]byte(`{"message": "Yes"}`))
+  }
+}
+
 func main() {
     r := mux.NewRouter()
     r.HandleFunc("/", get).Methods(http.MethodGet)
@@ -282,6 +334,7 @@ func main() {
     r.HandleFunc("/insertimagedata",addImageToDatabase).Methods(http.MethodPost)
     r.HandleFunc("/deleteuser",deleteuser).Methods(http.MethodPost)
     r.HandleFunc("/saveastextfile",saveastextfile).Methods(http.MethodPost)
+    r.HandleFunc("/checkuser",checkuser).Methods(http.MethodPost)
 // To Handle CORS (Cross Origin Resource Sharing)
     headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
     methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS","DELETE"})

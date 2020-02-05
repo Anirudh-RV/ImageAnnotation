@@ -1,4 +1,5 @@
 # ImageAnnotation
+~ 1400 lines .js/.go+ 550 lines .css
 
 // git :
 to check number of lines :
@@ -49,7 +50,8 @@ the directory of images for that particular user.
 
 // TODO :
 9. SignUp and SignIn functionality
-10. Restrict Direct access to routes
+10. Restrict direct access to routes
+
 React redirection map :
 
           Index.js -> Routes.js //(Has different routes)
@@ -239,12 +241,15 @@ NOTE : Can try login through Facebook, Google
 ########--------------------------------------------------------------------------------------------------
 to accomplish requirement : 10
 
-10. Restrict Direct access to routes
+10. Restrict direct access to routes
 
 // DONE :
 1. static restriction of routes being done.(only for user anirudhrv)
-
-// TODO :
-1. Check for all users using GO API and allow access
+2. Dynamic restriction of routes done.(only allows users in the MongoDB collection - ImageNames)
   a. Check for users in Signin.js and return a key to the CustomRouting.
   b. let CustomRouting check the key and then redirect the user to the actual webpage.
+// TODO :
+1. Both requirement 9,10 together, need to make sign in consistent and restrict direct access
+
+
+NOTE : PROBLEM WITH CONSISTENT LOGIN NEEDS TO BE FIXED, USE SESSIONS AND COOKIES.LOGOUT OPTION NEEDS TO BE DONE.

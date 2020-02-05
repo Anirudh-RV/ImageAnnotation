@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Bootstrap from "react-bootstrap";
 import {FormGroup, FormControl} from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Signin extends Component {
 //TODO : ADD Footer information
@@ -15,13 +16,27 @@ componentDidMount(){
 }
 
 handleSubmit = () =>{
-console.log(this.usercredentials.value);
-  this.props.history.push({
-    pathname: '/customrouting',
-    state: {usercredentials: this.usercredentials.value}
-})
+  console.log(this.usercredentials.value);
 
+  var data = this.usercredentials.value+",password"
+  console.log("inside the testApifunccheckuser function : ")
+  axios.post("http://localhost:8080/checkuser",data)
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log("API message : ")
+      console.log(res)
+      console.log(res.data["message"])
+    this.props.history.push({
+      pathname: '/customrouting',
+      state: {usercredentials: this.usercredentials.value,checkval : res.data["message"]}
+  })
 
+    })
+    .catch(err => { // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
 }
 
   render() {

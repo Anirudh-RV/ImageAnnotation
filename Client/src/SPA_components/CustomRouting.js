@@ -13,7 +13,7 @@ class CustomRouting extends Component {
 
   render() {
     try{
-    if(this.props.location.state.usercredentials=== "anirudhrv"){
+    if(this.props.location.state.checkval=== "Yes"){
       return (
          <BrowserRouter>
           <div>
@@ -34,7 +34,7 @@ class CustomRouting extends Component {
     else{
       return (
          <div>
-              <Redirect to="/" />
+              <Redirect to="/signin" />
          </div>
       );
     }
@@ -42,8 +42,7 @@ class CustomRouting extends Component {
   catch(e){
       return (
          <div>
-              <Route path="/" component={Home}/>
-              <Redirect to="/" />
+              <Redirect to="/signin" />
          </div>
       );
     }
