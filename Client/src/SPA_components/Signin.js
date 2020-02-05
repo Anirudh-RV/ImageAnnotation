@@ -6,7 +6,6 @@ import Bootstrap from "react-bootstrap";
 import {FormGroup, FormControl} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
-
 class Signin extends Component {
 //TODO : ADD Footer information
 
@@ -16,13 +15,13 @@ componentDidMount(){
 }
 
 handleSubmit = () =>{
-    if(this.UserName) {
-      console.log(this.UserName.value)
-      this.props.history.push({
-        pathname: '/Upload',
-        state: {userName: this.UserName.value}
-    })
-    }
+console.log(this.usercredentials.value);
+  this.props.history.push({
+    pathname: '/customrouting',
+    state: {usercredentials: this.usercredentials.value}
+})
+
+
 }
 
   render() {
@@ -39,7 +38,7 @@ handleSubmit = () =>{
             <FormControl
               autoFocus
               placeholder="Username, or email"
-              ref = {c => this.UserName = c}
+              ref = {c => this.usercredentials = c}
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">

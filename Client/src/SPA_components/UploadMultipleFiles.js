@@ -140,6 +140,12 @@ RedirecToEditPage = () =>{
 
     }
 
+
+    componentDidMount(){
+    // set UserName
+      console.log(this.props.location.state.userName);
+    }
+
   render() {
     return (
       <div class="container">

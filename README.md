@@ -236,3 +236,15 @@ Make sure the data transfer is secure and is done, how it is supposed to be done
 
 NOTE : Can try encryption, but during later phases of the project
 NOTE : Can try login through Facebook, Google
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 10
+
+10. Restrict Direct access to routes
+
+// DONE :
+1. static restriction of routes being done.(only for user anirudhrv)
+
+// TODO :
+1. Check for all users using GO API and allow access
+  a. Check for users in Signin.js and return a key to the CustomRouting.
+  b. let CustomRouting check the key and then redirect the user to the actual webpage.

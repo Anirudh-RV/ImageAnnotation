@@ -12,9 +12,6 @@ class EditPage extends Component {
 
 componentDidMount(){
 // set UserName
-    if(this.UserTag) {
-     this.UserTag.innerHTML = this.props.location.state.userName;
-      }
 }
 
 
@@ -22,7 +19,7 @@ componentDidMount(){
   render() {
     return (
       <div>
-      <p className="Username" ref = {c => this.UserTag = c}></p>
+      <p className="Username" ref = {c => this.UserTag = c}>{this.props.location.state.userName}</p>
       <body>
          <NavigationBar/>
          <WorkingArea name={this.props.location.state.userName}/>
