@@ -24,6 +24,12 @@ type SentData struct {
 	data string
 }
 
+type User_Data struct{
+  Email string
+  UserName string
+  FullName string
+  Password string
+}
 
 type Image_Names struct {
     Name  string

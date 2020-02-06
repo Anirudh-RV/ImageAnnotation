@@ -277,6 +277,21 @@ html {
   text-align : center;
   margin : 0;
 }
+
+.ErrorMessage{
+  opacity : 0.5;
+  color :#ff1a1a;
+  text-align : center;
+  margin-top : 0.1%;
+}
+.Terms{
+  opacity : 0.5;
+  color :#000000;
+  text-align : center;
+  margin-top : 2%;
+}
+
+
 .Terms{
   opacity : 0.5;
   color :#000000;
@@ -306,8 +321,9 @@ html {
 
 .BackgroundSign
 {
-  
+
 }
+
 .SignIn {
   background-color : #ffffff;
   left : 20%;
