@@ -67,8 +67,6 @@ func delete(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte(`{"message": "Delete called"}`))
 }
 
-
-
 func notFound(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusNotFound)
@@ -87,17 +85,12 @@ func deleteuser(w http.ResponseWriter, r *http.Request) {
     fmt.Printf("%s\n", reqBody)
     name := BytesToString(reqBody)
 
-    // Set client options
-    clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-    // Connect to MongoDB
-    client, err := mongo.Connect(context.TODO(), clientOptions)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println("Connected to MongoDB!")
-    // Handling the collection ImageNames in Database GoDB
-    collection := client.Database("GoDB").Collection("ImageNames")
-
+    // setting mongo variables with Collection : ImageNames
+    clientOptions := GetClientOptions()
+    client := GetClient(clientOptions)
+    collection := GetCollection(client,"ImageNames")
+    fmt.Println("Connected to MongoDB.")
+    
     // BSON filter for all documents with a value of name
     f := bson.M{"name": name}
     fmt.Println("Deleting documents with filter:", f)
@@ -135,15 +128,11 @@ func getimages(w http.ResponseWriter, r *http.Request) {
   fmt.Println(reflect.TypeOf(str_name))
 
   // QUERYING MONGODB WITH name and returning the results
-  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-  // Connect to MongoDB
-  client, err := mongo.Connect(context.TODO(), clientOptions)
-  if err != nil {
-      log.Fatal(err)
-  }
-  fmt.Println("Connected to MongoDB!")
-// Handling the collection ImageNames in Database GoDB
-  collection := client.Database("GoDB").Collection("ImageNames")
+  // setting mongo variables with Collection : ImageNames
+  clientOptions := GetClientOptions()
+  client := GetClient(clientOptions)
+  collection := GetCollection(client,"ImageNames")
+  fmt.Println("Connected to MongoDB.")
 
 // add logic here :
 // bson.M{} is the fiter that is being used
@@ -192,20 +181,12 @@ func addimagetodatabase(w http.ResponseWriter, r *http.Request) {
   userName := splitData[0]
 
 // Opening connection to database
-  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-  // Connect to MongoDB
-  client, err := mongo.Connect(context.TODO(), clientOptions)
-  if err != nil {
-      log.Fatal(err)
-  }
-  // Check the connection
-  err = client.Ping(context.TODO(), nil)
-  if err != nil {
-      log.Fatal(err)
-  }
-  fmt.Println("Connected to MongoDB!")
-  // Handling the collection ImageNames in Database GoDB
-  collection := client.Database("GoDB").Collection("ImageNames")
+
+  // setting mongo variables with Collection : ImageNames
+  clientOptions := GetClientOptions()
+  client := GetClient(clientOptions)
+  collection := GetCollection(client,"ImageNames")
+  fmt.Println("Connected to MongoDB.")
 
   // loop over each entry and insert into database
   for i := 1;i<len(splitData);i++{
@@ -292,16 +273,13 @@ func validateinfo(w http.ResponseWriter, r *http.Request) {
 
   fmt.Println(field)
   fmt.Println(value)
-      // Set client options
-      clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-      // Connect to MongoDB
-      client, err := mongo.Connect(context.TODO(), clientOptions)
-      if err != nil {
-        log.Fatal(err)
-      }
-      fmt.Println("Connected to MongoDB!")
-      // Handling the collection UserData in Database GoDB
-      collection := client.Database("GoDB").Collection("UserData")
+
+      // setting mongo variables with Collection : UserData
+      clientOptions := GetClientOptions()
+      client := GetClient(clientOptions)
+      collection := GetCollection(client,"UserData")
+      fmt.Println("Connected to MongoDB.")
+
       // BSON filter for all documents with a value of name
       var result User_Data
       f := bson.M{""+field: value}
@@ -325,6 +303,24 @@ func validateinfo(w http.ResponseWriter, r *http.Request) {
   }
 }
 
+func GetClientOptions() *options.ClientOptions {
+  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+  return clientOptions
+}
+
+func GetClient (clientOptions *options.ClientOptions) *mongo.Client{
+  client, err := mongo.Connect(context.TODO(), clientOptions)
+  if err != nil {
+    log.Fatal(err)
+  }
+  return client
+}
+
+func GetCollection (client *mongo.Client,collectionname string) *mongo.Collection{
+  collection := client.Database("GoDB").Collection(collectionname)
+  return collection
+}
+
 func authorizeuser(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
@@ -344,19 +340,16 @@ func authorizeuser(w http.ResponseWriter, r *http.Request) {
 
 // CHECK BOTH USERNAME AND PASSWORD
 
-      // Set client options
-      clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-      // Connect to MongoDB
-      client, err := mongo.Connect(context.TODO(), clientOptions)
-      if err != nil {
-        log.Fatal(err)
-      }
-      fmt.Println("Connected to MongoDB!")
-      // Handling the collection ImageNames in Database GoDB
-      collection := client.Database("GoDB").Collection("ImageNames")
+      // setting mongo variables with Collection : UserData
+      clientOptions := GetClientOptions()
+      client := GetClient(clientOptions)
+      collection := GetCollection(client,"UserData")
+      fmt.Println("Connected to MongoDB.")
+
+
       // BSON filter for all documents with a value of name
-      var result Image_Names
-      f := bson.M{"name": userName}
+      var result User_Data
+      f := bson.M{"username": userName}
       fmt.Println("Finding documents with filter:", f)
       // Call the DeleteMany() method to delete docs matching filter
       err = collection.FindOne(context.TODO(), f).Decode(&result)
@@ -366,6 +359,7 @@ func authorizeuser(w http.ResponseWriter, r *http.Request) {
           w.Write([]byte(`{"message": "No"}`))
       }else{
       fmt.Printf("Found a single document: %+v\n", result)
+
       // To close the connection to MongoDB
       err = client.Disconnect(context.TODO())
       if err != nil {
@@ -399,21 +393,11 @@ func addusertodatabase(w http.ResponseWriter, r *http.Request) {
   Password := splitData[3]
 
 
-// Opening connection to database
-  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-  // Connect to MongoDB
-  client, err := mongo.Connect(context.TODO(), clientOptions)
-  if err != nil {
-      log.Fatal(err)
-  }
-  // Check the connection
-  err = client.Ping(context.TODO(), nil)
-  if err != nil {
-      log.Fatal(err)
-  }
-  fmt.Println("Connected to MongoDB!")
-  // Handling the collection UserData in Database GoDB
-  collection := client.Database("GoDB").Collection("UserData")
+  // setting mongo variables with Collection : UserData
+    clientOptions := GetClientOptions()
+    client := GetClient(clientOptions)
+    collection := GetCollection(client,"UserData")
+    fmt.Println("Connected to MongoDB.")
 
     structData := User_Data{Email,UserName,FullName,Password}
     fmt.Println(structData)
@@ -430,6 +414,7 @@ func addusertodatabase(w http.ResponseWriter, r *http.Request) {
       log.Fatal(err)
   }
   fmt.Println("Connection to MongoDB closed.")
+
   w.Write([]byte(`{"message": "Yes"}`))
 }
 

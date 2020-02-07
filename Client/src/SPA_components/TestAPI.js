@@ -56,7 +56,7 @@ myFirstPromise.then((successMessage) => {
 }
 
 testApifuncvalidateuser = () =>{
-  var data = "Email,anirudh@gmail.com"
+  var data = "email,anirudh.rv1234@gmail.com"
   console.log("inside the testApifuncvalidateuser function : ")
   axios.post("http://localhost:8080/validateinfo",data)
     .then(res => { // then print response status
@@ -75,10 +75,10 @@ testApifuncvalidateuser = () =>{
     console.log(err)
     })
 }
-testApifunccheckuser = () =>{
-  var data = "anirudhrv,password"
-  console.log("inside the testApifunccheckuser function : ")
-  axios.post("http://localhost:8080/checkuser",data)
+testApifuncauthorizeuser = () =>{
+  var data = "anirudhr1v,password"
+  console.log("inside the authorizeuser function : ")
+  axios.post("http://localhost:8080/authorizeuser",data)
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log("API message : ")
@@ -268,7 +268,7 @@ testApifuncPost = () => {
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncinsertimagedata}> CALL insertimagedata </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetimages}> CALL getimages </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncdeleteuser}>  DELETE USER (change name in API CALL-incode)</button>
-      <button type="button" class="btn btn-success btn-block" onClick={this.testApifunccheckuser}>  CHECK USER </button>
+      <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncauthorizeuser}>  CHECK AUTHORIZE USER </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncvalidateuser}>  Validate Info </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testpromises1}>  Test promises1 </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testpromises2}>  Test promises2 </button>

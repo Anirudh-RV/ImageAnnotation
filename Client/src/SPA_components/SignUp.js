@@ -100,7 +100,7 @@ checkforexistingEmail = (field,value,username) =>{
       }
       else{
         // EmailID is good, check for UserName
-        this.checkforexistingUsername("UserName",username);
+        this.checkforexistingUsername("username",username);
       }
 
     })
@@ -187,7 +187,7 @@ handleSubmit = () =>{
 
   if(flag){
     // allow to pass through the API
-    this.checkforexistingEmail("Email",email,username);
+    this.checkforexistingEmail("email",email,username);
   }
   else{
     // show error (do nothing)
