@@ -70,7 +70,7 @@ return true;
       }
       fileNames = fileNames + files[files.length-1].name;
       // api call
-      console.log("Calling Go api to insert data")
+      console.log("Calling GO API at 8080 : ")
       axios.post("http://localhost:8080/insertimagedata",fileNames)
         .then(res => { // then print response status
           //toast.success('upload success')

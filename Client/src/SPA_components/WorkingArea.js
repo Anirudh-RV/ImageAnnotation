@@ -167,6 +167,7 @@ testSaveText = () =>{
 
 Apifuncgetimages = (userName) => {
   // data is going to be the username
+  console.log("Calling GO API at 8080 : ")
   axios.post("http://localhost:8080/getimages",userName)
     .then(res => { // then print response status
       console.log("API : ")

@@ -221,12 +221,12 @@ to accomplish requirement : 9
 // DONE :
 1. Template for SignUp
 2. Template for SignIn
-
+3. Have a SignUp option
+    a. Gather all the data and check for previously existing users
+    b. If available then allow to continue
+    c. Login
+    
 // TODO:
-1. Have a SignUp option
-  a. Gather all the data and check for previously existing users
-  b. If available then allow to continue
-  c. Login
 2. Authenticate SignIn
   a. Check for the username / the email
   b. Authenticate the password

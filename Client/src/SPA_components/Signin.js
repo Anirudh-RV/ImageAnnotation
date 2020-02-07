@@ -20,7 +20,7 @@ handleSubmit = () =>{
 
   var data = this.usercredentials.value+",password"
   console.log("inside the testApifunccheckuser function : ")
-  axios.post("http://localhost:8080/checkuser",data)
+  axios.post("http://localhost:8080/authorizeuser",data)
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log("API message : ")

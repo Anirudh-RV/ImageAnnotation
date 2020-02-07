@@ -6,20 +6,163 @@ import Bootstrap from "react-bootstrap";
 import {FormGroup, FormControl} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import IntroBar from './IntroBar';
+import axios from 'axios';
+
 class SignUp extends Component {
 //TODO : ADD Footer information
 
 componentDidMount(){
 // OnLoad function
+this.accountexists = false;
+this.userNameExists = false;
+this.handleEmail.bind(this);
 }
 
+//addusertodatabase
+
+signupUser = () =>{
+    var email = this.emailId.value;
+    var username = this.userName.value;
+    var fullname = this.fullName.value;
+    var password = this.Password.value;
+    console.log("\n"+email+"\n"+username+"\n"+fullname+"\n"+password+"\n")
+    console.log("Calling GO API at 8080 : ")
+    var data = email+","+username+","+fullname+","+password
+    axios.post("http://localhost:8080/addusertodatabase",data)
+      .then(res => { // then print response status
+        //toast.success('upload success')
+        console.log("API message : ")
+        console.log(res)
+        console.log("result : "+res.data["message"])
+
+        // redirect to CustomRouting with data
+        this.props.history.push({
+          pathname: '/customrouting',
+          state: {usercredentials: username,checkval : res.data["message"]}
+      })
+      })
+      .catch(err => { // then print response status
+      //  toast.error('upload fail')
+      console.log("fail")
+      console.log(err)
+      })
+
+}
 len = (checkvar) => {
   return checkvar.length;
 }
+
 validateEmail = (email) => {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
+
+checkforexistingUsername = (field,value) =>{
+  var data = field+","+value;
+  console.log("Calling GO API at 8080 : ")
+  axios.post("http://localhost:8080/validateinfo",data)
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log("API message : ")
+      console.log(res)
+      console.log("result : "+res.data["message"])
+      if(res.data["message"] == "Yes"){
+        // existing emailID
+        this.userNameError.innerHTML = "UserName already taken, please try another.";
+      }
+      else{
+        // EmailID,UserName,FullName,Password : good
+        // call signupUser
+        this.signupUser();
+
+      }
+
+    })
+    .catch(err => { // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
+}
+
+checkforexistingEmail = (field,value,username) =>{
+  var data = field+","+value;
+  console.log("Calling GO API at 8080 : ")
+  axios.post("http://localhost:8080/validateinfo",data)
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log("API message : ")
+      console.log(res)
+      console.log("result : "+res.data["message"])
+      if(res.data["message"] == "Yes"){
+        // existing emailID
+        this.emailError.innerHTML = "Already existing email, do you want to login?";
+      }
+      else{
+        // EmailID is good, check for UserName
+        this.checkforexistingUsername("UserName",username);
+      }
+
+    })
+    .catch(err => { // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
+}
+
+handleEmail = (email,flag) => {
+  if(this.validateEmail(email)){
+  this.emailError.innerHTML = "";
+
+  // check for exisiting emailId
+  }
+  else{
+    flag = false;
+    console.log("Email Error");
+    this.emailError.innerHTML = "Invalid emailId";
+  }
+  return flag;
+}
+
+handleuserName = (username,flag) => {
+  if(this.len(username)>=4){
+  this.userNameError.innerHTML = "";
+  }
+  else{
+    flag = false;
+    console.log("userName Error");
+    this.userNameError.innerHTML = "Invalid Username";
+  }
+  return flag;
+}
+
+handlefullName = (fullname,flag) => {
+  if(this.len(fullname)!=0){
+  this.fullNameError.innerHTML = "";
+  console.log(this.len(fullname));
+  }
+  else{
+    flag = false;
+    console.log("fullName Error");
+    this.fullNameError.innerHTML = "Please fill your name";
+  }
+  return flag;
+}
+
+handlePassword = (password,flag) => {
+  if(this.len(password)>=6){
+  this.PasswordError.innerHTML = "";
+  console.log(this.len(password));
+  }
+  else{
+    flag = false;
+    console.log("fullName Error");
+    this.PasswordError.innerHTML = "Password too weak";
+  }
+  return flag;
+}
+
 
 handleSubmit = () =>{
 
@@ -29,62 +172,22 @@ handleSubmit = () =>{
   var password = this.Password.value;
   var flag = true;
 
+
 // validating email
-  if(this.validateEmail(email)){
-  this.emailError.innerHTML = "";
-  console.log("email : "+email+"\nusername : "+username+"\nfullname : "+fullname+"\npassword : "+password+"\n");
-  }
-  else{
-    flag = false;
-    console.log("Email Error");
-    this.emailError.innerHTML = "Invalid emailId";
-  }
+  flag = this.handleEmail(email,flag);
 
 // validating username
-  if(this.len(username)>=4){
-  this.userNameError.innerHTML = "";
-  console.log(this.len(username));
-  console.log("email : "+email+"\nusername : "+username+"\nfullname : "+fullname+"\npassword : "+password+"\n");
-  }
-  else{
-    flag = false;
-    console.log("userName Error");
-    this.userNameError.innerHTML = "Invalid Username";
-  }
+  flag = this.handleuserName(username,flag);
 
 // validating fullName
-  if(this.len(fullname)!=0){
-  this.fullNameError.innerHTML = "";
-  console.log(this.len(fullname));
-  console.log("email : "+email+"\nusername : "+username+"\nfullname : "+fullname+"\npassword : "+password+"\n");
-  }
-  else{
-    flag = false;
-    console.log("fullName Error");
-    this.fullNameError.innerHTML = "Please fill your name";
-  }
+  flag = this.handlefullName(fullname,flag);
 
 // validating passWord
-  if(this.len(password)>=6){
-  this.PasswordError.innerHTML = "";
-  console.log(this.len(password));
-  console.log("email : "+email+"\nusername : "+username+"\nfullname : "+fullname+"\npassword : "+password+"\n");
-  }
-  else{
-    flag = false;
-    console.log("fullName Error");
-    this.PasswordError.innerHTML = "Password too weak";
-  }
+  flag = this.handlePassword(password,flag);
 
   if(flag){
     // allow to pass through the API
-    this.emailError.innerHTML = "";
-    this.userNameError.innerHTML = "";
-    this.fullNameError.innerHTML = "";
-    this.PasswordError.innerHTML = "";
-
-
-    console.log("valid entry");
+    this.checkforexistingEmail("Email",email,username);
   }
   else{
     // show error (do nothing)
@@ -99,7 +202,7 @@ handleSubmit = () =>{
       <h1 className = "AppName" >End-to-end data curation and annotation platform</h1>
 
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
+        <form>
         <p class = "SignInHead">X-P1</p>
         <p class = "SignUpHead">Sign up to make data collection and image annotation easier.</p>
 
