@@ -225,7 +225,7 @@ to accomplish requirement : 9
     a. Gather all the data and check for previously existing users
     b. If available then allow to continue
     c. Login
-    
+
 // TODO:
 2. Authenticate SignIn
   a. Check for the username / the email
