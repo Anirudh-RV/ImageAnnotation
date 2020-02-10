@@ -36,6 +36,25 @@ type Image_Names struct {
     Img_Name string
 }
 
+// Mongo Connection functions
+func GetClientOptions() *options.ClientOptions {
+  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+  return clientOptions
+}
+
+func GetClient (clientOptions *options.ClientOptions) *mongo.Client{
+  client, err := mongo.Connect(context.TODO(), clientOptions)
+  if err != nil {
+    log.Fatal(err)
+  }
+  return client
+}
+
+func GetCollection (client *mongo.Client,collectionname string) *mongo.Collection{
+  collection := client.Database("GoDB").Collection(collectionname)
+  return collection
+}
+
 // to convert Byte to string
 func BytesToString(b []byte) string {
     bh := (*reflect.SliceHeader)(unsafe.Pointer(&b))
@@ -73,43 +92,6 @@ func notFound(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte(`{"message": "not found"}`))
 }
 
-func deleteuser(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "application/json")
-    w.WriteHeader(http.StatusOK)
-
-    // decoding the message and displaying
-    reqBody, err := ioutil.ReadAll(r.Body)
-    if err != nil {
-      log.Fatal(err)
-    }
-    fmt.Printf("%s\n", reqBody)
-    name := BytesToString(reqBody)
-
-    // setting mongo variables with Collection : ImageNames
-    clientOptions := GetClientOptions()
-    client := GetClient(clientOptions)
-    collection := GetCollection(client,"ImageNames")
-    fmt.Println("Connected to MongoDB.")
-    
-    // BSON filter for all documents with a value of name
-    f := bson.M{"name": name}
-    fmt.Println("Deleting documents with filter:", f)
-    // Call the DeleteMany() method to delete docs matching filter
-    res, err := collection.DeleteMany(context.TODO(), f)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println(res)
-
-    // To close the connection to MongoDB
-    err = client.Disconnect(context.TODO())
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println("Connection to MongoDB closed.")
-
-    w.Write([]byte(`{"message": "Success"}`))
-}
 
 // uses POST request
 func getimages(w http.ResponseWriter, r *http.Request) {
@@ -212,6 +194,44 @@ func addimagetodatabase(w http.ResponseWriter, r *http.Request) {
   w.Write([]byte(`{"message": "Success"}`))
 }
 
+func deleteuser(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusOK)
+
+    // decoding the message and displaying
+    reqBody, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+      log.Fatal(err)
+    }
+    fmt.Printf("%s\n", reqBody)
+    name := BytesToString(reqBody)
+
+    // setting mongo variables with Collection : ImageNames
+    clientOptions := GetClientOptions()
+    client := GetClient(clientOptions)
+    collection := GetCollection(client,"ImageNames")
+    fmt.Println("Connected to MongoDB.")
+
+    // BSON filter for all documents with a value of name
+    f := bson.M{"name": name}
+    fmt.Println("Deleting documents with filter:", f)
+    // Call the DeleteMany() method to delete docs matching filter
+    res, err := collection.DeleteMany(context.TODO(), f)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(res)
+
+    // To close the connection to MongoDB
+    err = client.Disconnect(context.TODO())
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("Connection to MongoDB closed.")
+
+    w.Write([]byte(`{"message": "Success"}`))
+}
+
 func saveastextfile(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
@@ -255,6 +275,58 @@ func saveastextfile(w http.ResponseWriter, r *http.Request) {
 
   w.Write([]byte(`{"message": "saveastextfile called successfully"}`))
 
+}
+
+func authorizeuser(w http.ResponseWriter, r *http.Request) {
+  w.Header().Set("Content-Type", "application/json")
+  w.WriteHeader(http.StatusOK)
+
+// decoding the message and displaying
+  reqBody, err := ioutil.ReadAll(r.Body)
+   if err != nil {
+     log.Fatal(err)
+   }
+  str_name := BytesToString(reqBody)
+  splitData := strings.Split(str_name, ",")
+  userName := splitData[0]
+  passWord := splitData[1]
+
+      // setting mongo variables with Collection : UserData
+      clientOptions := GetClientOptions()
+      client := GetClient(clientOptions)
+      collection := GetCollection(client,"UserData")
+      fmt.Println("Connected to MongoDB.")
+
+
+      // BSON filter for all documents with a value of name
+      var result User_Data
+      f := bson.M{"username": userName}
+      fmt.Println("Finding documents with filter:", f)
+      // Call the DeleteMany() method to delete docs matching filter
+      err = collection.FindOne(context.TODO(), f).Decode(&result)
+      if err != nil {
+          fmt.Println("No user found.")
+          // sending back No to react on not being able to find a user
+          w.Write([]byte(`{"message": "No"}`))
+      }else{
+      fmt.Printf("Found a single document: %+v\n", result)
+
+      // To close the connection to MongoDB
+      err = client.Disconnect(context.TODO())
+      if err != nil {
+          log.Fatal(err)
+      }
+      fmt.Println("Connection to MongoDB closed.")
+
+      if userName == result.UserName && passWord == result.Password {
+        fmt.Println("User authenticated")
+        w.Write([]byte(`{"message": "Yes"}`))
+      }else{
+        // user not authenticated
+        fmt.Println("User not authenticated")
+        w.Write([]byte(`{"message": "No"}`))
+      }
+    }
 }
 
 func validateinfo(w http.ResponseWriter, r *http.Request) {
@@ -302,75 +374,6 @@ func validateinfo(w http.ResponseWriter, r *http.Request) {
   w.Write([]byte(`{"message": "Yes"}`))
   }
 }
-
-func GetClientOptions() *options.ClientOptions {
-  clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-  return clientOptions
-}
-
-func GetClient (clientOptions *options.ClientOptions) *mongo.Client{
-  client, err := mongo.Connect(context.TODO(), clientOptions)
-  if err != nil {
-    log.Fatal(err)
-  }
-  return client
-}
-
-func GetCollection (client *mongo.Client,collectionname string) *mongo.Collection{
-  collection := client.Database("GoDB").Collection(collectionname)
-  return collection
-}
-
-func authorizeuser(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("Content-Type", "application/json")
-  w.WriteHeader(http.StatusOK)
-
-// decoding the message and displaying
-  reqBody, err := ioutil.ReadAll(r.Body)
-   if err != nil {
-     log.Fatal(err)
-   }
-  str_name := BytesToString(reqBody)
-  splitData := strings.Split(str_name, ",")
-  userName := splitData[0]
-  passWord := splitData[1]
-
-  fmt.Println(userName)
-  fmt.Println(passWord)
-
-// CHECK BOTH USERNAME AND PASSWORD
-
-      // setting mongo variables with Collection : UserData
-      clientOptions := GetClientOptions()
-      client := GetClient(clientOptions)
-      collection := GetCollection(client,"UserData")
-      fmt.Println("Connected to MongoDB.")
-
-
-      // BSON filter for all documents with a value of name
-      var result User_Data
-      f := bson.M{"username": userName}
-      fmt.Println("Finding documents with filter:", f)
-      // Call the DeleteMany() method to delete docs matching filter
-      err = collection.FindOne(context.TODO(), f).Decode(&result)
-      if err != nil {
-          fmt.Println("No user found.")
-          // sending back No to react on not being able to find a user
-          w.Write([]byte(`{"message": "No"}`))
-      }else{
-      fmt.Printf("Found a single document: %+v\n", result)
-
-      // To close the connection to MongoDB
-      err = client.Disconnect(context.TODO())
-      if err != nil {
-          log.Fatal(err)
-      }
-      fmt.Println("Connection to MongoDB closed.")
-  // sending back yes to react on finding a user
-  w.Write([]byte(`{"message": "Yes"}`))
-  }
-}
-
 
 func addusertodatabase(w http.ResponseWriter, r *http.Request) {
   w.Header().Set("Content-Type", "application/json")
@@ -421,19 +424,19 @@ func addusertodatabase(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     r := mux.NewRouter()
-    r.HandleFunc("/", get).Methods(http.MethodGet)
-    r.HandleFunc("/", post).Methods(http.MethodPost)
-    r.HandleFunc("/", put).Methods(http.MethodPut)
-    r.HandleFunc("/", delete).Methods(http.MethodDelete)
-    r.HandleFunc("/", notFound)
+    r.HandleFunc("/", get).Methods(http.MethodGet) //65
+    r.HandleFunc("/", post).Methods(http.MethodPost) //71
+    r.HandleFunc("/", put).Methods(http.MethodPut) //77
+    r.HandleFunc("/", delete).Methods(http.MethodDelete) // 83
+    r.HandleFunc("/", notFound) // 89
 
-    r.HandleFunc("/getimages", getimages).Methods(http.MethodPost)
-    r.HandleFunc("/insertimagedata",addimagetodatabase).Methods(http.MethodPost)
-    r.HandleFunc("/deleteuser",deleteuser).Methods(http.MethodPost)
-    r.HandleFunc("/saveastextfile",saveastextfile).Methods(http.MethodPost)
-    r.HandleFunc("/authorizeuser",authorizeuser).Methods(http.MethodPost)
-    r.HandleFunc("/validateinfo",validateinfo).Methods(http.MethodPost)
-    r.HandleFunc("/addusertodatabase",addusertodatabase).Methods(http.MethodPost)
+    r.HandleFunc("/getimages", getimages).Methods(http.MethodPost) //97
+    r.HandleFunc("/insertimagedata",addimagetodatabase).Methods(http.MethodPost) // 149
+    r.HandleFunc("/deleteuser",deleteuser).Methods(http.MethodPost) // 197
+    r.HandleFunc("/saveastextfile",saveastextfile).Methods(http.MethodPost) // 235
+    r.HandleFunc("/authorizeuser",authorizeuser).Methods(http.MethodPost) // 280
+    r.HandleFunc("/validateinfo",validateinfo).Methods(http.MethodPost) // 331
+    r.HandleFunc("/addusertodatabase",addusertodatabase).Methods(http.MethodPost) // 377
 
 // To Handle CORS (Cross Origin Resource Sharing)
     headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})

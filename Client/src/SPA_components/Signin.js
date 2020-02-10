@@ -18,7 +18,7 @@ componentDidMount(){
 handleSubmit = () =>{
   console.log(this.usercredentials.value);
 
-  var data = this.usercredentials.value+",password"
+  var data = this.usercredentials.value+","+this.Password.value
   console.log("inside the testApifunccheckuser function : ")
   axios.post("http://localhost:8080/authorizeuser",data)
     .then(res => { // then print response status
@@ -26,11 +26,14 @@ handleSubmit = () =>{
       console.log("API message : ")
       console.log(res)
       console.log(res.data["message"])
-    this.props.history.push({
-      pathname: '/customrouting',
-      state: {usercredentials: this.usercredentials.value,checkval : res.data["message"]}
-  })
-
+      if(res.data["message"] == "No"){
+        this.Error.innerHTML = "UserName or Password incorrect."
+      }else{
+        this.props.history.push({
+          pathname: '/customrouting',
+          state: {usercredentials: this.usercredentials.value,checkval : res.data["message"]}
+        })
+      }
     })
     .catch(err => { // then print response status
     //  toast.error('upload fail')
@@ -69,6 +72,8 @@ handleSubmit = () =>{
         </form>
       </div>
       <div className="SecondBoxSignIn">
+      <p className = "ErrorMessage" ref = {c => this.Error = c}></p>
+
 
         <p className = "LinkToAccount"> Don't have an account?&nbsp;
           <Link className="LinkToSignUp" to = './signup'>Sign up</Link>

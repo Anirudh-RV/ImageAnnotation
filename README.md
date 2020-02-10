@@ -226,11 +226,12 @@ to accomplish requirement : 9
     b. If available then allow to continue
     c. Login
 
-// TODO:
-2. Authenticate SignIn
+4. Authenticate SignIn
   a. Check for the username / the email
   b. Authenticate the password
   c. Login
+
+// TODO:
 3. Maintain SignIn throughout the Session / till SignOut
 
 NOTE : Use MongoDB for checking and Go API for connection, check JWT for authentication
@@ -238,6 +239,9 @@ Make sure the data transfer is secure and is done, how it is supposed to be done
 
 NOTE : Can try encryption, but during later phases of the project
 NOTE : Can try login through Facebook, Google
+
+1. Both requirement 9,10 together, need to make sign in consistent and restrict direct access
+
 ########--------------------------------------------------------------------------------------------------
 to accomplish requirement : 10
 
@@ -248,8 +252,6 @@ to accomplish requirement : 10
 2. Dynamic restriction of routes done.(only allows users in the MongoDB collection - ImageNames)
   a. Check for users in Signin.js and return a key to the CustomRouting.
   b. let CustomRouting check the key and then redirect the user to the actual webpage.
-// TODO :
-1. Both requirement 9,10 together, need to make sign in consistent and restrict direct access
 
 
 NOTE : PROBLEM WITH CONSISTENT LOGIN NEEDS TO BE FIXED, USE SESSIONS AND COOKIES.LOGOUT OPTION NEEDS TO BE DONE.
