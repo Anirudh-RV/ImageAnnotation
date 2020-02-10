@@ -34,7 +34,6 @@ OPTIONS : The OPTIONS method is used to describe the communication options for t
 TRACE : The TRACE method performs a message loop-back test along the path to the target resource.
 PATCH : The PATCH method is used to apply partial modifications to a resource.
 
-
 // DONE :
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through
@@ -44,6 +43,11 @@ the directory of images for that particular user.
 5. conflicting names of the images are taken care of, while saving.
 7. Drawing rectangles in the image
 8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
+11. Validating boxes drawn in the website.
+  a. y-offset of 125px founds
+  b. corrected by subtracting 125 from final Y-value to save.
+  c. Validate_Draw created
+  d. A python file created to draw boxes and check if the rectangles fit.
 
 // Optional :
 6. Preprocess of images to size 512,512 / user given resolution.
@@ -52,7 +56,10 @@ the directory of images for that particular user.
 9. SignUp and SignIn functionality
 10. Restrict direct access to routes
 
-React redirection map :
+React redirection map : Routes set by CustomRouting file for restricted access, the routing may vary on user status.
+user status :
+1. Logged in
+2. Not logged in
 
           Index.js -> Routes.js //(Has different routes)
                         |

@@ -251,6 +251,9 @@ func saveastextfile(w http.ResponseWriter, r *http.Request) {
   imageName := splitData[0]
   imageData := splitData[1]
 
+  imageData = strings.ReplaceAll(imageData, "|", ",")
+
+
   fmt.Println(imageName)
   fmt.Println(imageData)
 

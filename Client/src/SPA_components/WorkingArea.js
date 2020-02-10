@@ -68,8 +68,8 @@ initDraw= (drawElement,flag,outputdiv) => {
             console.log("mouse: ENDX : "+mouse.x)
             console.log("mouse: ENDY : "+mouse.y)
             this.EndX = mouse.x;
-            this.EndY = mouse.y;
-            var dataDrawn = this.StartX+"&emsp;"+this.StartY+"&emsp;"+this.EndX+"&emsp;"+this.EndY+"</br>"
+            this.EndY = mouse.y - 125;
+            var dataDrawn = "("+this.StartX+"|"+this.StartY+") ("+this.EndX+"|"+this.EndY+")</br>"
             this.imageTextData = dataDrawn
             outputdiv.innerHTML = outputdiv.innerHTML +"\n"+dataDrawn
             console.log("displaying here : "+this.imageTextData)
@@ -89,7 +89,7 @@ initDraw= (drawElement,flag,outputdiv) => {
             console.log("mouse: STARTX : "+mouse.x)
             console.log("mouse: startY : "+mouse.y)
             this.StartX = mouse.x;
-            this.StartY = mouse.y;
+            this.StartY = mouse.y - 125;
         }
     }
   }
