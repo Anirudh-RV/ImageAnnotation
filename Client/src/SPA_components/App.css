@@ -82,6 +82,7 @@
 
   text-decoration : none;
 }
+
 .AppName{
   position : relative;
   float:left;
@@ -271,6 +272,18 @@ html {
 .rectangle {
     border: 1px solid #FF0000;
     position: absolute;
+}
+
+.LinkToImageAnnotation:hover{
+
+  text-decoration : none;
+}
+
+
+.LinkToImageAnnotation{
+  text-align : center;
+  margin : 0;
+  font-weight : bold;
 }
 
 .LinkToAccount{

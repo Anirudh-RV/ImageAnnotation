@@ -34,6 +34,9 @@ OPTIONS : The OPTIONS method is used to describe the communication options for t
 TRACE : The TRACE method performs a message loop-back test along the path to the target resource.
 PATCH : The PATCH method is used to apply partial modifications to a resource.
 
+Practices for user accounts :
+https://cloud.google.com/blog/products/gcp/12-best-practices-for-user-account
+
 // DONE :
 1. Figure out how to save the images that are uploaded on a custom directory, rather than just in public.
 2. Have a Image holder in the WorkingArea of the webpage for viewing all the photos, add arrow marks to go through

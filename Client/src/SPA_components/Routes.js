@@ -10,7 +10,7 @@ import TestDraw from './test_draw';
 import SignUp from './SignUp';
 import TestSignUp from './TestSignUp';
 import CustomRouting from './CustomRouting';
-
+import Error from './Error';
 // Routes for the webpages in the project
 class Routes extends Component {
   render() {
@@ -19,11 +19,11 @@ class Routes extends Component {
         <div>
           <Switch />
             <Switch>
+             <Route exact path="/" component={Home}/>
              <Route path="/customrouting" component = {CustomRouting} />
              <Route path="/signup" component = {SignUp} />
              <Route path="/signin" component= {Signin} />
              <Route path="/testapi" component={TestAPI}/>
-             <Route path="/" component={Home}/>
              <Route component={Error}/>
            </Switch>
         </div>
