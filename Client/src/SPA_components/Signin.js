@@ -6,6 +6,7 @@ import Bootstrap from "react-bootstrap";
 import {FormGroup, FormControl} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 class Signin extends Component {
 //TODO : ADD Footer information
@@ -20,7 +21,7 @@ handleSubmit = () =>{
 
   var data = this.usercredentials.value+","+this.Password.value
   console.log("inside the testApifunccheckuser function : ")
-  axios.post("http://localhost:8080/authorizeuser",data)
+  axios.post("http://192.168.1.8:8080/authorizeuser",data)
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log("API message : ")
@@ -29,9 +30,12 @@ handleSubmit = () =>{
       if(res.data["message"] == "No"){
         this.Error.innerHTML = "UserName or Password incorrect."
       }else{
+        const cookies = new Cookies()
+        cookies.set('username',this.usercredentials.value, { path: '/' })
+        console.log(cookies.get('username'))
         this.props.history.push({
           pathname: '/customrouting',
-          state: {usercredentials: this.usercredentials.value,checkval : res.data["message"]}
+          state: {usercredentials: this.usercredentials.value, checkval : res.data["message"]}
         })
       }
     })

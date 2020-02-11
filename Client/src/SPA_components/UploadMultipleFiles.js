@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Progress} from 'reactstrap';
-
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import Home from './Home';
 
 class UploadMultipleFiles extends Component {
   constructor(props) {
@@ -12,6 +14,13 @@ class UploadMultipleFiles extends Component {
       }
 
   }
+
+Logout = () =>{
+    console.log("inside LOGOUT")
+    const cookies = new Cookies()
+    cookies.remove('username');
+    window.location.reload(false);
+}
   checkMimeType=(event)=>{
     //getting file object
     let files = event.target.files
@@ -72,7 +81,7 @@ return true;
       // api call
       console.log("Calling GO API at 8080 : ")
       console.log(fileNames)
-      axios.post("http://localhost:8080/insertimagedata",fileNames)
+      axios.post("http://http://192.168.1.8:8080/insertimagedata",fileNames)
         .then(res => { // then print response status
           //toast.success('upload success')
           console.log("API message : ")
@@ -117,7 +126,7 @@ RedirecToEditPage = () =>{
     }
 
 // header carries information of username to backend with data
-    axios.post("http://localhost:4000/upload",data,
+    axios.post("http://192.168.1.8:4000/upload",data,
     {
     headers: {
       userName: userName
@@ -164,6 +173,7 @@ RedirecToEditPage = () =>{
 
               <button type="button" class="buttonclass" onClick={this.onClickHandler}>Upload</button>
               <button type="button" class="buttonclass" onClick={this.RedirecToEditPage}>View Images</button>
+              <button type="button" class="buttonclass" onClick={this.Logout}>Log out</button>
 
 	      </div>
       </div>

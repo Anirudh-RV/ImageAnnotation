@@ -1,6 +1,9 @@
 # ImageAnnotation
 ~ 1400 lines .js/.go+ 550 lines .css
 
+To run build in production :
+serve -s build -l 3000
+
 // git :
 to check number of lines :
 
@@ -46,6 +49,8 @@ the directory of images for that particular user.
 5. conflicting names of the images are taken care of, while saving.
 7. Drawing rectangles in the image
 8. To save the coordinates of the rectangles drawn on the image, in a .txt file with a pre-determined naming scheme
+9. SignUp and SignIn functionality
+10. Restrict direct access to routes
 11. Validating boxes drawn in the website.
   a. y-offset of 125px founds
   b. corrected by subtracting 125 from final Y-value to save.
@@ -56,9 +61,14 @@ the directory of images for that particular user.
 6. Preprocess of images to size 512,512 / user given resolution.
 
 // TODO :
-9. SignUp and SignIn functionality
-10. Restrict direct access to routes
 
+
+NOTE : To make the website secure -
+          a. Hash the passwords
+          b. Hash the cookie names
+          c. Hash the keywords for entry
+          d. Check with the server before allowing entry
+          e. Protect routes and username and information
 React redirection map : Routes set by CustomRouting file for restricted access, the routing may vary on user status.
 user status :
 1. Logged in
@@ -224,7 +234,7 @@ to accomplish requirement : 8 (COMPLETE)
 
 END OF 8th REQUIREMENT
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement : 9
+to accomplish requirement : 9 (COMPLETE)
 
 9. SignUp and SignIn functionality
 
@@ -244,16 +254,18 @@ to accomplish requirement : 9
 // TODO:
 3. Maintain SignIn throughout the Session / till SignOut
 
-NOTE : Use MongoDB for checking and Go API for connection, check JWT for authentication
-Make sure the data transfer is secure and is done, how it is supposed to be done.
+  a. Maintaining signin through cookies
 
+NOTE : Use JWT token and hash passwords when deploying actual website
+NOTE : Use MongoDB for checking and Go API for connection, check JWT for authentication
+NOTE : Make sure the data transfer is secure and is done, how it is supposed to be done.
 NOTE : Can try encryption, but during later phases of the project
 NOTE : Can try login through Facebook, Google
 
 1. Both requirement 9,10 together, need to make sign in consistent and restrict direct access
 
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement : 10
+to accomplish requirement : 10 (COMPLETE)
 
 10. Restrict direct access to routes
 
@@ -265,3 +277,7 @@ to accomplish requirement : 10
 
 
 NOTE : PROBLEM WITH CONSISTENT LOGIN NEEDS TO BE FIXED, USE SESSIONS AND COOKIES.LOGOUT OPTION NEEDS TO BE DONE.
+(DONE USING COOKIES)
+
+NOTE : PROJECT SIGNUP AND LOGIN AND CONSISTENT LOGIN OF USER ONLY DONE UNDER PHASE-1, FURTHER IMPROVEMENTS NEEDED IN PHASE-2.
+########--------------------------------------------------------------------------------------------------

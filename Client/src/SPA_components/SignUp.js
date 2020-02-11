@@ -28,7 +28,7 @@ signupUser = () =>{
     console.log("\n"+email+"\n"+username+"\n"+fullname+"\n"+password+"\n")
     console.log("Calling GO API at 8080 : ")
     var data = email+","+username+","+fullname+","+password
-    axios.post("http://localhost:8080/addusertodatabase",data)
+    axios.post("http://192.168.1.8:8080/addusertodatabase",data)
       .then(res => { // then print response status
         //toast.success('upload success')
         console.log("API message : ")
@@ -60,7 +60,7 @@ validateEmail = (email) => {
 checkforexistingUsername = (field,value) =>{
   var data = field+","+value;
   console.log("Calling GO API at 8080 : ")
-  axios.post("http://localhost:8080/validateinfo",data)
+  axios.post("http://192.168.1.8:8080/validateinfo",data)
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log("API message : ")
@@ -88,7 +88,7 @@ checkforexistingUsername = (field,value) =>{
 checkforexistingEmail = (field,value,username) =>{
   var data = field+","+value;
   console.log("Calling GO API at 8080 : ")
-  axios.post("http://localhost:8080/validateinfo",data)
+  axios.post("http://192.168.1.8:8080/validateinfo",data)
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log("API message : ")

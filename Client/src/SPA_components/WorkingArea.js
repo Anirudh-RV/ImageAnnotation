@@ -107,7 +107,7 @@ NextImage= () => {
   // save the rectangles created and output text file (.txt) for the image
   var data = "output_"+this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
   console.log(data)
-  axios.post("http://localhost:8080/saveastextfile",data)
+  axios.post("http://192.168.1.8:8080/saveastextfile",data)
     .then(res => { // then print response status
       console.log("API : ")
       console.log(res)
@@ -152,7 +152,7 @@ PrevImage= () => {
 testSaveText = () =>{
   var data = this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
   console.log(data)
-  axios.post("http://localhost:8080/saveastextfile",data)
+  axios.post("http://192.168.1.8:8080/saveastextfile",data)
     .then(res => { // then print response status
       console.log("API : ")
       console.log(res)
@@ -168,7 +168,7 @@ testSaveText = () =>{
 Apifuncgetimages = (userName) => {
   // data is going to be the username
   console.log("Calling GO API at 8080 : ")
-  axios.post("http://localhost:8080/getimages",userName)
+  axios.post("http://192.168.1.8:8080/getimages",userName)
     .then(res => { // then print response status
       console.log("API : ")
       console.log(res)

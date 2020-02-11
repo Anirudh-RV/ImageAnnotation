@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import UploadFile from './UploadFile';
 import Home from './Home';
@@ -11,24 +14,49 @@ import SignUp from './SignUp';
 import TestSignUp from './TestSignUp';
 import CustomRouting from './CustomRouting';
 import Error from './Error';
+import TestCookie from './Test_Cookies';
 // Routes for the webpages in the project
+
+
 class Routes extends Component {
   render() {
-    return (
-       <BrowserRouter>
-        <div>
-          <Switch />
-            <Switch>
-             <Route exact path="/" component={Home}/>
+    const cookies = new Cookies()
+    if(cookies.get('username')){
+      console.log(cookies.get('username'))
+      return (
+        <BrowserRouter>
+         <div>
+           <Switch />
+             <Switch>
              <Route path="/customrouting" component = {CustomRouting} />
-             <Route path="/signup" component = {SignUp} />
-             <Route path="/signin" component= {Signin} />
-             <Route path="/testapi" component={TestAPI}/>
-             <Route component={Error}/>
-           </Switch>
-        </div>
-      </BrowserRouter>
-    );
+             <Redirect to={{
+                       pathname: '/customrouting',
+                       state: {usercredentials: cookies.get('username'),checkval : "Yes"}
+                       }}
+             />
+            </Switch>
+         </div>
+       </BrowserRouter>
+      );
+    }else{
+      return (
+           <BrowserRouter>
+            <div>
+              <Switch />
+                <Switch>
+                 <Route exact path="/" component={Home} />
+                 <Route path="/customrouting" component = {CustomRouting} />
+                 <Route path="/signup" component = {SignUp} />
+                 <Route path="/signin" component= {Signin} />
+                 <Route path="/testapi" component={TestAPI} />
+                 <Route path ="/testcookie" component = {TestCookie} />
+                 <Route path ="/upload" component = {CustomRouting} />
+                 <Route component={Error} />
+               </Switch>
+            </div>
+          </BrowserRouter>
+        );
+      }
   }
 }
 

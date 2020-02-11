@@ -12,6 +12,7 @@ class CustomRouting extends Component {
 //TODO : ADD Footer information
 
   render() {
+    console.log("in CustomRouting")
     try{
     if(this.props.location.state.checkval=== "Yes"){
       return (
@@ -32,17 +33,19 @@ class CustomRouting extends Component {
       );
     }
     else{
+      console.log("failure")
       return (
          <div>
-              <Redirect to="/signin" />
+              <Redirect to="/" />
          </div>
       );
     }
   }
   catch(e){
+    console.log("catch")
       return (
          <div>
-              <Redirect to="/signin" />
+              <Redirect to="/" />
          </div>
       );
     }
