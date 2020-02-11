@@ -81,7 +81,7 @@ return true;
       // api call
       console.log("Calling GO API at 8080 : ")
       console.log(fileNames)
-      axios.post("http://http://192.168.1.8:8080/insertimagedata",fileNames)
+      axios.post("http://192.168.1.8:8080/insertimagedata",fileNames)
         .then(res => { // then print response status
           //toast.success('upload success')
           console.log("API message : ")

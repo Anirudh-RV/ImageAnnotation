@@ -92,7 +92,6 @@ func notFound(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte(`{"message": "not found"}`))
 }
 
-
 // uses POST request
 func getimages(w http.ResponseWriter, r *http.Request) {
 
@@ -160,6 +159,7 @@ func addimagetodatabase(w http.ResponseWriter, r *http.Request) {
 // splitting data into user_name and an array of image names
   data := BytesToString(reqBody)
   splitData := strings.Split(data, ",")
+  fmt.Println("splitData : ",splitData)
   userName := splitData[0]
 
 // Opening connection to database

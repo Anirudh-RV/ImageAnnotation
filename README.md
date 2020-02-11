@@ -61,8 +61,11 @@ the directory of images for that particular user.
 6. Preprocess of images to size 512,512 / user given resolution.
 
 // TODO :
-
-
+12. Make changes in the UI
+  a. Change dropdown
+  b. Change position of react elements
+  c. complete UI overhaul
+  
 NOTE : To make the website secure -
           a. Hash the passwords
           b. Hash the cookie names

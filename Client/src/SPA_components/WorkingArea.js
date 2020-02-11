@@ -102,6 +102,18 @@ NextImage= () => {
 
   if(this.state.index>this.state.ImageNames.length-2) {
     console.log("end")
+    var data = "output_"+this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
+    console.log(data)
+    axios.post("http://192.168.1.8:8080/saveastextfile",data)
+      .then(res => { // then print response status
+        console.log("API : ")
+        console.log(res)
+        console.log(res.data["message"])
+      })
+      .catch(err => { // then print response status
+      console.log("FAIL")
+      console.log(err)
+      })
   }
   else {
   // save the rectangles created and output text file (.txt) for the image
@@ -120,7 +132,7 @@ NextImage= () => {
 
   this.state.index = this.state.index + 1
   if(this.ImageTag) {
-   this.ImageTag.src = "http://localhost:4000/img/"+this.state.ImageNames[this.state.index];
+   this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
    console.log(this.ImageTag.width)
    console.log(this.ImageTag.height)
    console.log(this.ImageTag.left)
@@ -142,7 +154,7 @@ PrevImage= () => {
   else {
   this.state.index = this.state.index - 1
   if(this.ImageTag) {
-   this.ImageTag.src = "http://localhost:4000/img/"+this.state.ImageNames[this.state.index];
+   this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
     }
   }
   this.outputdiv.innerHTML = "";
@@ -174,10 +186,13 @@ Apifuncgetimages = (userName) => {
       console.log(res)
       console.log(res.data["data"])
        var ImageNames = res.data["data"].split("</br>");
+       console.log("Image Name")
+       console.log(ImageNames)
        ImageNames.pop();
+       console.log(ImageNames)
        this.state.ImageNames = ImageNames
          if(this.ImageTag) {
-          this.ImageTag.src = "http://localhost:4000/img/"+this.state.ImageNames[this.state.index];
+          this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
        }
     })
     .catch(err => { // then print response status
