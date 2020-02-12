@@ -56,16 +56,19 @@ the directory of images for that particular user.
   b. corrected by subtracting 125 from final Y-value to save.
   c. Validate_Draw created
   d. A python file created to draw boxes and check if the rectangles fit.
+***END OF PHASE-1***
 
 // Optional :
 6. Preprocess of images to size 512,512 / user given resolution.
 
-// TODO :
+// TODO : (PHASE - 2)
 12. Make changes in the UI
   a. Change dropdown
   b. Change position of react elements
   c. complete UI overhaul
-  
+
+13. Adding ML model using Django backend (Static),Process images sent by the frontend and send output back (Dynamic)
+
 NOTE : To make the website secure -
           a. Hash the passwords
           b. Hash the cookie names
@@ -284,3 +287,20 @@ NOTE : PROBLEM WITH CONSISTENT LOGIN NEEDS TO BE FIXED, USE SESSIONS AND COOKIES
 
 NOTE : PROJECT SIGNUP AND LOGIN AND CONSISTENT LOGIN OF USER ONLY DONE UNDER PHASE-1, FURTHER IMPROVEMENTS NEEDED IN PHASE-2.
 ########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 13 (COMPLETE)
+
+13. Adding ML model using Django backend (Static),Process images sent by the frontend and send output back (Dynamic)
+
+NOTE :
+1. Use tensorflow 1.12.0
+2. Use Keras 2.2.4
+3. Use python3 manage.py runserver (Python3 uses 3.6.5, 3.7/3.8 are not compatible with the tensorflow versions needed)
+
+//DONE :
+1. Basic working of the ML model on call of a function
+
+//TODO:
+1. Let frontend call the Django backend with information about image
+2. Backend runs the image and saves as output in node server / Backend runs image and saves the coordinates
+3. Frontend can see the image processed by the ML model
+4. Continous learning (Phase 3)
