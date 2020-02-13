@@ -298,7 +298,10 @@ NOTE :
 
 //DONE :
 1. Basic working of the ML model on call of a function
+2. Test frontend testdjango api working
 
+***IMPORTANT***
+NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP
 //TODO:
 1. Let frontend call the Django backend with information about image
 2. Backend runs the image and saves as output in node server / Backend runs image and saves the coordinates

@@ -15,6 +15,7 @@ import TestSignUp from './TestSignUp';
 import CustomRouting from './CustomRouting';
 import Error from './Error';
 import TestCookie from './Test_Cookies';
+import TestDjangoApi from './TestDjangoApi';
 // Routes for the webpages in the project
 
 
@@ -51,6 +52,7 @@ class Routes extends Component {
                  <Route path="/testapi" component={TestAPI} />
                  <Route path ="/testcookie" component = {TestCookie} />
                  <Route path ="/upload" component = {CustomRouting} />
+                 <Route path = "/testdjangoapi" component = {TestDjangoApi} />
                  <Route component={Error} />
                </Switch>
             </div>

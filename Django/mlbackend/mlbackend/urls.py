@@ -21,4 +21,5 @@ from django.conf.urls import include,url
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'index/',v.index),
+    url(r'ajaxfunc/',v.ajaxfunc),
 ]

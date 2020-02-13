@@ -33,46 +33,33 @@ import requests
 from ssd_data import preprocess
 import numpy as np
 # Starting the model here.
+Model = TBPP512_dense
+input_shape = (512,512,3)
+weights_path = 'weights.022.h5'
+confidence_threshold = 0.35
+confidence_threshold = 0.25
 
-if __name__ == '__main__':
-    Model = TBPP512_dense
-    input_shape = (512,512,3)
-    weights_path = 'weights.022.h5'
-    confidence_threshold = 0.35
-    confidence_threshold = 0.25
-
-    sl_graph = tf.Graph()
-    with sl_graph.as_default():
-        sl_session = tf.Session()
-        with sl_session.as_default():
-            sl_model = Model(input_shape)
-            prior_util = PriorUtil(sl_model)
-            sl_model.load_weights(weights_path, by_name=True)
+sl_graph = tf.Graph()
+with sl_graph.as_default():
+    sl_session = tf.Session()
+    with sl_session.as_default():
+        sl_model = Model(input_shape)
+        prior_util = PriorUtil(sl_model)
+        sl_model.load_weights(weights_path, by_name=True)
 
 
-    input_width = 256
-    input_height = 32
-    weights_path = 'weights.022.h5'
-    
-
+input_width = 256
+input_height = 32
+weights_path = 'weights.022.h5'
 start_time = time.time()
 
 # Final TextBox++ Code : (Works on just image)
 input_size = input_shape[:2]
-print(input_size)
-
-#urlImage = 'http://answers.opencv.org/upfiles/logo_2.png'
-#img = Image.open(urllib.request.urlopen(urlImage))
-
-url = "http://localhost:4000/img/user1_1.png"
+url = "http://localhost:4000/img/anirudhrv_scrib.jpeg"
 response = requests.get(url)
 img = Image.open(BytesIO(response.content))
-print(img.size)
 img_h = img.size[0]
 img_w = img.size[1]
-print(img_h)
-print(img_w)
-
 
 img1 = np.copy(img)
 img2 = np.zeros_like(img)
@@ -84,7 +71,6 @@ print(x.shape)
 
 elapsed_time = time.time() - start_time
 print("Performace measure : "+str(elapsed_time))
-
 #Model start
 start_time = time.time()
 with sl_graph.as_default():
@@ -136,9 +122,16 @@ if len(result) > 0:
 # draw
 
 cv2.rectangle(img1, (0,0), (50, 17), (255,255,255), -1)
-cv2.imwrite('assets/Testout_img.jpg', img1)
-print("DONE!")
-plt.imshow(img1)
-plt.show()
+cv2.imwrite('assets/Testout_img5.jpg', img1)
+print("Textbox++ Process Complete!")
 elapsed_time = time.time() - start_time
 print("Performace measure : "+str(elapsed_time))
+
+print("Sending to back end...")
+files = {'file': open('assets/Testout_img.jpg', 'rb')}
+headers = {
+    'userName': "testing123"
+}
+response = requests.request("POST", 'http://192.168.1.8:4000/upload', files=files, headers=headers)
+print(response)
+print("Backend Process Complete")

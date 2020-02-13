@@ -12,11 +12,14 @@ from django.template import Context, loader
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_exempt
+import json
+
+# to read images from urls
 
 import os
 import time
 import matplotlib.pyplot as plt
-
+import ast
 # to read images from urls
 import urllib
 import urllib.request
@@ -49,7 +52,6 @@ from ssd_data import preprocess
 import numpy as np
 # Starting the model here.
 Model = TBPP512_dense
-
 input_shape = (512,512,3)
 weights_path = 'weights.022.h5'
 confidence_threshold = 0.35
@@ -63,18 +65,41 @@ with sl_graph.as_default():
         prior_util = PriorUtil(sl_model)
         sl_model.load_weights(weights_path, by_name=True)
 
-input_width = 256
-input_height = 32
-weights_path = 'weights.022.h5'
-# Create your views here.
+@csrf_exempt
+def ajaxfunc(request):
+    decodeddata = request.body.decode('utf-8')
+    dictdata = ast.literal_eval(decodeddata)
+    username = dictdata["username"]
+    imagename = dictdata["imagename"]
+    imageurl = dictdata["imageurl"]
 
+    print("username : "+dictdata["username"])
+    print("imagename :"+dictdata["imagename"])
+    print("imageurl : "+dictdata["imageurl"])
+
+
+    context = {'data': "data"}
+    return render(request, 'index.html', context)
+
+
+@csrf_exempt
 def index(request):
-    start_time = time.time()
+    decodeddata = request.body.decode('utf-8')
+    dictdata = ast.literal_eval(decodeddata)
+    username = dictdata["username"]
+    imagename = dictdata["imagename"]
+    imageurl = dictdata["imageurl"]
 
+    print("username : "+dictdata["username"])
+    print("imagename :"+dictdata["imagename"])
+    print("imageurl : "+dictdata["imageurl"])
+
+    start_time = time.time()
     # Final TextBox++ Code : (Works on just image)
     input_size = input_shape[:2]
     print(input_size)
-    url = "http://localhost:4000/img/user1_1.png"
+    # getting the image
+    url = imageurl
     response = requests.get(url)
     img = Image.open(BytesIO(response.content))
     print(img.size)
@@ -145,14 +170,25 @@ def index(request):
 
     # draw
 
+    saveimageindjango = 'assets/'+username+'_'+imagename
     cv2.rectangle(img1, (0,0), (50, 17), (255,255,255), -1)
-    cv2.imwrite('Testout_img2.jpg', img1)
+    cv2.imwrite(saveimageindjango, img1)
     print("DONE!")
     elapsed_time = time.time() - start_time
     print("Performace measure : "+str(elapsed_time))
 
+    print("Sending to back end...")
+    files = {'file': open(saveimageindjango, 'rb')}
+    headers = {
+        'userName': 'mloutput'
+    }
+    response = requests.request("POST", 'http://192.168.1.8:4000/upload', files=files, headers=headers)
+    print(response)
+    print("Backend Process Complete")
+
     context = {"data":"data"}
     return render(request, 'index.html', context)
+
 
 @csrf_exempt
 def runmodel(request):
