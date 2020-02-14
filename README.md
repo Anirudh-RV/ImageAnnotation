@@ -301,7 +301,9 @@ NOTE :
 2. Test frontend testdjango api working
 
 ***IMPORTANT***
-NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP
+NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
+  a. PIL image type had to be converted into numpy array for ML model to work
+  
 //TODO:
 1. Let frontend call the Django backend with information about image
 2. Backend runs the image and saves as output in node server / Backend runs image and saves the coordinates

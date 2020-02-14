@@ -21,8 +21,7 @@ import time
 import matplotlib.pyplot as plt
 import ast
 # to read images from urls
-import urllib
-import urllib.request
+
 import PIL
 from PIL import Image
 
@@ -31,27 +30,22 @@ print(tf.__version__)
 import numpy as np
 import cv2
 from timeit import default_timer as timer
-
 # textbox++ models
 from tbpp_model import TBPP512, TBPP512_dense
 from tbpp_utils import PriorUtil
-
 # ssd for help
 from ssd_data import preprocess
 from sl_utils import rbox3_to_polygon, polygon_to_rbox, rbox_to_polygon
 
-
-import urllib
-import urllib.request
-import PIL
-from PIL import Image
 from io import BytesIO
 import matplotlib.pyplot as plt
 import requests
 from ssd_data import preprocess
 import numpy as np
 # Starting the model here.
+
 Model = TBPP512_dense
+
 input_shape = (512,512,3)
 weights_path = 'weights.022.h5'
 confidence_threshold = 0.35
@@ -64,6 +58,11 @@ with sl_graph.as_default():
         sl_model = Model(input_shape)
         prior_util = PriorUtil(sl_model)
         sl_model.load_weights(weights_path, by_name=True)
+
+input_width = 256
+input_height = 32
+weights_path = 'weights.022.h5'
+
 
 @csrf_exempt
 def ajaxfunc(request):
@@ -102,9 +101,11 @@ def index(request):
     url = imageurl
     response = requests.get(url)
     img = Image.open(BytesIO(response.content))
-    print(img.size)
-    img_h = img.size[0]
-    img_w = img.size[1]
+
+    img = np.array(img)
+    print(img.shape)
+    img_h = img.shape[0]
+    img_w = img.shape[1]
     print(img_h)
     print(img_w)
 
