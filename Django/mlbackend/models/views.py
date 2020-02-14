@@ -171,8 +171,7 @@ def index(request):
 
     # draw
 
-    saveimageindjango = 'assets/'+username+'_'+imagename
-    cv2.rectangle(img1, (0,0), (50, 17), (255,255,255), -1)
+    saveimageindjango = 'assets/'+imagename
     cv2.imwrite(saveimageindjango, img1)
     print("DONE!")
     elapsed_time = time.time() - start_time

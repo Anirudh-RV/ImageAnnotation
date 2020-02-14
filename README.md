@@ -57,6 +57,7 @@ the directory of images for that particular user.
   c. Validate_Draw created
   d. A python file created to draw boxes and check if the rectangles fit.
 ***END OF PHASE-1***
+13. Adding ML model using Django backend (Static),Process images sent by the frontend and send output back (Dynamic)
 
 // Optional :
 6. Preprocess of images to size 512,512 / user given resolution.
@@ -67,7 +68,7 @@ the directory of images for that particular user.
   b. Change position of react elements
   c. complete UI overhaul
 
-13. Adding ML model using Django backend (Static),Process images sent by the frontend and send output back (Dynamic)
+14. Add download functionality for the text files saved
 
 NOTE : To make the website secure -
           a. Hash the passwords
@@ -299,13 +300,13 @@ NOTE :
 //DONE :
 1. Basic working of the ML model on call of a function
 2. Test frontend testdjango api working
+3. Let frontend call the Django backend with information about image
+4. Backend runs the image and saves as output in node server / Backend runs image and saves the coordinates
+5. Frontend can see the image processed by the ML model
 
 ***IMPORTANT***
 NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
   a. PIL image type had to be converted into numpy array for ML model to work
-  
-//TODO:
-1. Let frontend call the Django backend with information about image
-2. Backend runs the image and saves as output in node server / Backend runs image and saves the coordinates
-3. Frontend can see the image processed by the ML model
+
+//TODO (PHASE-3):
 4. Continous learning (Phase 3)

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import $ from 'jquery';
-
 
 class WorkingArea extends Component {
 //TODO : ADD INTRODUCTION TO PROJECT
@@ -177,6 +175,34 @@ testSaveText = () =>{
 
 }
 
+getmloutput = () =>{
+  var username = this.props.name
+  var imagename = this.state.ImageNames[this.state.index]
+  var url = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index]
+  var mloutputurl = "http://192.168.1.8:4000/img/mloutput_"+imagename
+  console.log("name of user : "+username)
+  console.log("name of image : "+imagename)
+  console.log("link for url : "+url)
+
+  var data = {'username':username,'imagename':imagename,'imageurl':url}
+  console.log(data)
+  console.log("link for mloutput : "+mloutputurl)
+  console.log("inside the getmloutput function : ")
+  axios.post("http://127.0.0.1:8000/index/",data)
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log("API message : ")
+      console.log(res)
+      console.log(res.data["message"])
+
+      window.open(mloutputurl, '_blank');
+    })
+    .catch(err => { // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
+}
 Apifuncgetimages = (userName) => {
   // data is going to be the username
   console.log("Calling GO API at 8080 : ")
@@ -229,7 +255,7 @@ render() {
           <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
           <button className="buttonclass" onClick={this.onButton}>ON</button>
           <button className="buttonclass" onClick={this.offButton}>OFF</button>
-          <button className="buttonclass" onClick={this.testSaveText}>SEND SOMETHING (TEST)</button>
+          <button className="buttonclass" onClick={this.getmloutput}>CHECK ML OUTPUT</button>
         </div>
         <div ref = {c =>this.outputdiv = c}>
         </div>

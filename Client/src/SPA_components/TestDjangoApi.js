@@ -10,7 +10,7 @@ class TestAPI extends Component {
 
 testdjangoapi = () =>{
   var data = {'username':'anirudhrv','imagename':'scrib.jpeg','imageurl':"http://localhost:4000/img/anirudhrv_scrib.jpeg"}
-  console.log("inside the testApifuncvalidateuser function : ")
+  console.log("inside the testdjangoapi function : ")
   axios.post("http://127.0.0.1:8000/index/",data)
     .then(res => { // then print response status
       //toast.success('upload success')
