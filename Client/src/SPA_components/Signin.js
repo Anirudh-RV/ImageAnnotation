@@ -73,12 +73,11 @@ handleSubmit = () =>{
           <Button block bsSize="large" onClick={this.handleSubmit} type="button">
             Log In
           </Button>
+          <br/>
+          <p className = "ErrorMessage" ref = {c => this.Error = c}></p>
         </form>
       </div>
       <div className="SecondBoxSignIn">
-      <p className = "ErrorMessage" ref = {c => this.Error = c}></p>
-
-
         <p className = "LinkToAccount"> Don't have an account?&nbsp;
           <Link className="LinkToSignUp" to = './signup'>Sign up</Link>
         </p>

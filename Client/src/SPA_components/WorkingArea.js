@@ -99,45 +99,49 @@ NextImage= () => {
   this.divCanvas.appendChild(this.ImageTag);
 
   if(this.state.index>this.state.ImageNames.length-2) {
-    console.log("end")
-    var data = "output_"+this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
-    console.log(data)
-    axios.post("http://192.168.1.8:8080/saveastextfile",data)
+    // send to nodejs to save
+    console.log("send data to node backend : ")
+    axios.post("http://192.168.1.8:4000/saveastextfile/",{
+      username : this.props.name,
+      imagename : this.state.ImageNames[this.state.index],
+      imagedata : this.outputdiv.innerHTML
+    })
       .then(res => { // then print response status
-        console.log("API : ")
+        //toast.success('upload success')
+        console.log("API message : ")
         console.log(res)
-        console.log(res.data["message"])
       })
       .catch(err => { // then print response status
-      console.log("FAIL")
+      //  toast.error('upload fail')
+      console.log("fail")
       console.log(err)
       })
   }
   else {
-  // save the rectangles created and output text file (.txt) for the image
-  var data = "output_"+this.state.ImageNames[this.state.index]+","+ this.outputdiv.innerHTML
-  console.log(data)
-  axios.post("http://192.168.1.8:8080/saveastextfile",data)
-    .then(res => { // then print response status
-      console.log("API : ")
-      console.log(res)
-      console.log(res.data["message"])
-    })
-    .catch(err => { // then print response status
-    console.log("FAIL")
-    console.log(err)
-    })
+    // send to nodejs to save
+    var data = {'username':this.props.name,'imagename':this.state.ImageNames[this.state.index],'imagedata':this.outputdiv.innerHTML}
+    console.log("send data to node backend : ")
+    axios.post("http://192.168.1.8:4000/saveastextfile/",{
+      username : this.props.name,
+      imagename : this.state.ImageNames[this.state.index],
+      imagedata : this.outputdiv.innerHTML
+      })
+      .then(res => { // then print response status
+        //toast.success('upload success')
+        console.log("API message : ")
+        console.log(res)
+      })
+      .catch(err => { // then print response status
+      //  toast.error('upload fail')
+      console.log("fail")
+      console.log(err)
+      })
 
   this.state.index = this.state.index + 1
   if(this.ImageTag) {
    this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
-   console.log(this.ImageTag.width)
-   console.log(this.ImageTag.height)
-   console.log(this.ImageTag.left)
-   console.log(this.ImageTag.top)
     }
   }
-
   this.outputdiv.innerHTML = "";
 }
 
@@ -194,7 +198,6 @@ getmloutput = () =>{
       console.log("API message : ")
       console.log(res)
       console.log(res.data["message"])
-
       window.open(mloutputurl, '_blank');
     })
     .catch(err => { // then print response status

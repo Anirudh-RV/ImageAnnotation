@@ -310,3 +310,14 @@ NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
 
 //TODO (PHASE-3):
 4. Continous learning (Phase 3)
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 14
+
+14. Add download functionality for the text files saved
+
+DONE:
+1. Download of a zip file containing the txt files
+
+// TODO :
+1. Integrate with production
+2. Make the functionality dynamic 

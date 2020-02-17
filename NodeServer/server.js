@@ -3,6 +3,10 @@ var app = express();
 var multer = require('multer')
 var cors = require('cors');
 var path=require('path');
+const bodyParser = require('body-parser')
+var zip = require('express-zip');
+const child_process = require('child_process');
+const folderpath = './public/file';
 
 app.use(cors())
 
@@ -10,6 +14,13 @@ app.use(cors())
 app.use(express.static(__dirname + '/public'));
 app.use('/static', express.static(__dirname + '/public'));
 app.use('/img',express.static(path.join(__dirname, 'public/uploaded')));
+app.use('/file',express.static(path.join(__dirname,'public/file')));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+)
+app.use(bodyParser.json())
 
 // 'public/Uploaded is destination'
 // for scaling it to multiple users, send user_id to the backend and save under a new folder with the user_id name.
@@ -21,8 +32,34 @@ var storage = multer.diskStorage({
       cb(null,req.headers['username']+"_"+file.originalname)
     }
   })
-
 var upload = multer({ storage: storage }).array('file')
+
+app.post('/saveastextfile',function(req,res){
+
+    var fs = require('fs');
+    var dir = 'public/file/'+req.body.username;
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+    fs.writeFile(dir+"/output_"+req.body.imagename+".txt",req.body.imagedata, function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    });
+
+    return res.send(req.body.username)
+})
+
+app.post('/downloadfiles', function(req, res) {
+  console.log(req.body.username)
+  var file = req.params.file;
+  child_process.execSync(`zip -r `+req.body.username+` *`, {
+     cwd: folderpath
+  });
+  res.download(folderpath + '/archive.zip');
+});
+
 
 app.get('/',function(req,res){
     return res.send('Hello Server')
