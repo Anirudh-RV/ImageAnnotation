@@ -37,7 +37,7 @@ OPTIONS : The OPTIONS method is used to describe the communication options for t
 TRACE : The TRACE method performs a message loop-back test along the path to the target resource.
 PATCH : The PATCH method is used to apply partial modifications to a resource.
 
-Practices for user accounts :
+Good practices for user accounts :
 https://cloud.google.com/blog/products/gcp/12-best-practices-for-user-account
 
 // DONE :
@@ -68,7 +68,9 @@ the directory of images for that particular user.
   b. Change position of react elements
   c. complete UI overhaul
 
-14. Add download functionality for the text files saved
+14. Add download functionality for the text files/pictures saved
+
+NOTE : Look at error in ***IMPORTANT*** in 308, FIX ISSUE
 
 NOTE : To make the website secure -
           a. Hash the passwords
@@ -308,16 +310,25 @@ NOTE :
 NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
   a. PIL image type had to be converted into numpy array for ML model to work
 
+NOTE : PNG FILES NOT WORKING WITH ML OUTPUT, DIMENSIONS ARE NOT RIGHT
+  a. Use jpeg files or
+  b. fix the size/dimensions issue
+***IMPORTANT***
+
+
 //TODO (PHASE-3):
-4. Continous learning (Phase 3)
+4. Continuous learning (Phase 3)
 ########--------------------------------------------------------------------------------------------------
 to accomplish requirement : 14
 
-14. Add download functionality for the text files saved
+14. Add download functionality for the text files/pictures saved
 
 DONE:
 1. Download of a zip file containing the txt files
+2. Integrate with production
+3. Make the functionality dynamic
 
 // TODO :
-1. Integrate with production
-2. Make the functionality dynamic 
+4. Download images
+  a. Store the users images in separate folders inside the upload folder
+  b. Have an option to download even the base images in case of remote users

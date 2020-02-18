@@ -412,6 +412,9 @@ html {
   max-width: 300px;
 }
 
+.outputdiv {
+  opacity: 0;
+}
 .footer {
   position: relative;
   left: 0;

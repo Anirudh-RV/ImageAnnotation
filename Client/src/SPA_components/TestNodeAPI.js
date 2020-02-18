@@ -40,6 +40,7 @@ testdownloadapi = () =>{
   })
     .then(res => { // then print response status
       //toast.success('upload success')
+      console.log(res)
     })
     .catch(err => {
     // then print response status
@@ -62,7 +63,38 @@ testdownloadzip = () =>{
     document.body.appendChild(link);
     link.click();
   });
+}
 
+testfiledownload = () =>{
+
+  console.log("inside the testnodeapi function : ")
+  axios.post("http://192.168.1.8:4000/downloadfiles/",{
+    username : 'anirudhrv'
+  })
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log(res)
+      // after creating the file, now download
+      axios({
+        url: 'http://localhost:4000/file/anirudhrv.zip',
+        method: 'GET',
+        responseType: 'blob', // important
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'anirudhrv.zip');
+        document.body.appendChild(link);
+        link.click();
+      });
+
+    })
+    .catch(err => {
+    // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
 }
   render() {
     return (
@@ -76,6 +108,8 @@ testdownloadzip = () =>{
       <button type="button" class="btn btn-success btn-block" onClick={this.tesnodeapi}> TEST API TO NODE 1</button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testdownloadapi}> TEST DOWNLOAD OF FILE </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testdownloadzip}> TEST DOWNLOAD OF ZIP </button>
+
+      <button type="button" class="btn btn-success btn-block" onClick={this.testfiledownload}> TEST DOWNLOAD OF TEXT FILES (COMPLETE) </button>
 
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>
       </div>

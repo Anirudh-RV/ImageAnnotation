@@ -6,7 +6,9 @@ var path=require('path');
 const bodyParser = require('body-parser')
 var zip = require('express-zip');
 const child_process = require('child_process');
-const folderpath = './public/file';
+var folderpath = './public/file';
+
+var zipFolder = require('zip-folder');
 
 app.use(cors())
 
@@ -36,6 +38,8 @@ var upload = multer({ storage: storage }).array('file')
 
 app.post('/saveastextfile',function(req,res){
 
+    req.body.imagedata = req.body.imagedata.replace("/|/gi",",");
+
     var fs = require('fs');
     var dir = 'public/file/'+req.body.username;
     if (!fs.existsSync(dir)){
@@ -52,12 +56,17 @@ app.post('/saveastextfile',function(req,res){
 })
 
 app.post('/downloadfiles', function(req, res) {
+  var userfolderpath = folderpath+"/"+req.body.username
   console.log(req.body.username)
-  var file = req.params.file;
-  child_process.execSync(`zip -r `+req.body.username+` *`, {
-     cwd: folderpath
+
+  zipFolder(userfolderpath, folderpath+'/'+req.body.username+'.zip', function(err) {
+    if(err) {
+        console.log('error: ', err);
+    } else {
+        console.log('Done');
+    }
   });
-  res.download(folderpath + '/archive.zip');
+  res.download(folderpath + '/'+req.body.username+'.zip');
 });
 
 

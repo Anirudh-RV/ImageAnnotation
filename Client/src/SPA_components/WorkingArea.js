@@ -67,7 +67,7 @@ initDraw= (drawElement,flag,outputdiv) => {
             console.log("mouse: ENDY : "+mouse.y)
             this.EndX = mouse.x;
             this.EndY = mouse.y - 125;
-            var dataDrawn = "("+this.StartX+"|"+this.StartY+") ("+this.EndX+"|"+this.EndY+")</br>"
+            var dataDrawn = "("+this.StartX+","+this.StartY+") ("+this.EndX+","+this.EndY+")"
             this.imageTextData = dataDrawn
             outputdiv.innerHTML = outputdiv.innerHTML +"\n"+dataDrawn
             console.log("displaying here : "+this.imageTextData)
@@ -93,55 +93,39 @@ initDraw= (drawElement,flag,outputdiv) => {
   }
 }
 
+saveastextfile = () =>{
+  // send to nodejs to save
+  console.log("send data to node backend : ")
+  axios.post("http://192.168.1.8:4000/saveastextfile/",{
+    username : this.props.name,
+    imagename : this.state.ImageNames[this.state.index],
+    imagedata : this.outputdiv.innerHTML
+    })
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log("API message : ")
+      console.log(res)
+    })
+    .catch(err => { // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
+}
 NextImage= () => {
   // clearing out previously draw boxes and adding back the image tag
   this.divCanvas.innerHTML = "";
   this.divCanvas.appendChild(this.ImageTag);
 
   if(this.state.index>this.state.ImageNames.length-2) {
-    // send to nodejs to save
-    console.log("send data to node backend : ")
-    axios.post("http://192.168.1.8:4000/saveastextfile/",{
-      username : this.props.name,
-      imagename : this.state.ImageNames[this.state.index],
-      imagedata : this.outputdiv.innerHTML
-    })
-      .then(res => { // then print response status
-        //toast.success('upload success')
-        console.log("API message : ")
-        console.log(res)
-      })
-      .catch(err => { // then print response status
-      //  toast.error('upload fail')
-      console.log("fail")
-      console.log(err)
-      })
+    // Do nothing
   }
   else {
-    // send to nodejs to save
-    var data = {'username':this.props.name,'imagename':this.state.ImageNames[this.state.index],'imagedata':this.outputdiv.innerHTML}
-    console.log("send data to node backend : ")
-    axios.post("http://192.168.1.8:4000/saveastextfile/",{
-      username : this.props.name,
-      imagename : this.state.ImageNames[this.state.index],
-      imagedata : this.outputdiv.innerHTML
-      })
-      .then(res => { // then print response status
-        //toast.success('upload success')
-        console.log("API message : ")
-        console.log(res)
-      })
-      .catch(err => { // then print response status
-      //  toast.error('upload fail')
-      console.log("fail")
-      console.log(err)
-      })
-
-  this.state.index = this.state.index + 1
-  if(this.ImageTag) {
-   this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
+    this.state.index = this.state.index + 1
+    if(this.ImageTag) {
+     this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
+      }
     }
-  }
   this.outputdiv.innerHTML = "";
 }
 
@@ -160,7 +144,6 @@ PrevImage= () => {
     }
   }
   this.outputdiv.innerHTML = "";
-
 }
 
 testSaveText = () =>{
@@ -184,20 +167,12 @@ getmloutput = () =>{
   var imagename = this.state.ImageNames[this.state.index]
   var url = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index]
   var mloutputurl = "http://192.168.1.8:4000/img/mloutput_"+imagename
-  console.log("name of user : "+username)
-  console.log("name of image : "+imagename)
-  console.log("link for url : "+url)
-
   var data = {'username':username,'imagename':imagename,'imageurl':url}
-  console.log(data)
-  console.log("link for mloutput : "+mloutputurl)
-  console.log("inside the getmloutput function : ")
-  axios.post("http://127.0.0.1:8000/index/",data)
+  axios.post("http://192.168.1.8:8000/index/",data)
     .then(res => { // then print response status
       //toast.success('upload success')
       console.log("API message : ")
       console.log(res)
-      console.log(res.data["message"])
       window.open(mloutputurl, '_blank');
     })
     .catch(err => { // then print response status
@@ -213,7 +188,6 @@ Apifuncgetimages = (userName) => {
     .then(res => { // then print response status
       console.log("API : ")
       console.log(res)
-      console.log(res.data["data"])
        var ImageNames = res.data["data"].split("</br>");
        console.log("Image Name")
        console.log(ImageNames)
@@ -229,6 +203,25 @@ Apifuncgetimages = (userName) => {
     console.log(err)
     })
   }
+
+downloadfiles = () =>{
+    console.log("inside the downloadfiles function : ")
+    axios.post("http://192.168.1.8:4000/downloadfiles/",{
+      username : this.props.name
+    })
+      .then(res => { // then print response status
+        //toast.success('upload success')
+        console.log(res)
+        // after creating the zip file, now download
+        window.open('http://192.168.1.8:4000/file/'+this.props.name+'.zip');
+      })
+      .catch(err => {
+      // then print response status
+      //  toast.error('upload fail')
+      console.log("fail")
+      console.log(err)
+      })
+}
 
 componentDidMount(){
     // Call GO API to get all the image names of username
@@ -258,10 +251,13 @@ render() {
           <button type="button" class="buttonclass" onClick={this.PrevImage}>PREVIOUS</button>
           <button className="buttonclass" onClick={this.onButton}>ON</button>
           <button className="buttonclass" onClick={this.offButton}>OFF</button>
+          <button className="buttonclass" onClick={this.saveastextfile}>SAVE</button>
           <button className="buttonclass" onClick={this.getmloutput}>CHECK ML OUTPUT</button>
+          <button className="buttonclass" onClick={this.downloadfiles}>DOWNLOAD</button>
+
         </div>
-        <div ref = {c =>this.outputdiv = c}>
-        </div>
+        <p hidden ref = {c =>this.outputdiv = c}>
+        </p>
       </div>
     );
   }
