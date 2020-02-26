@@ -324,6 +324,10 @@ NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
 NOTE : PNG FILES NOT WORKING WITH ML OUTPUT, DIMENSIONS ARE NOT RIGHT
   a. Use jpeg files or
   b. fix the size/dimensions issue
+
+NOTE : FILE BEING UPLOADED IS COLOR CORRECTED (B SPECTRUM)
+  a. Check problem with opening the image as a file
+  b. Find alternative methods of sending the image to the NODE backend.
 ***IMPORTANT***
 
 ########--------------------------------------------------------------------------------------------------
