@@ -173,7 +173,7 @@ func addimagetodatabase(w http.ResponseWriter, r *http.Request) {
   // loop over each entry and insert into database
   for i := 1;i<len(splitData);i++{
 
-    structData := Image_Names{userName,userName+"_"+splitData[i]}
+    structData := Image_Names{userName,splitData[i]}
     fmt.Println(structData)
 
     // To insert a single record

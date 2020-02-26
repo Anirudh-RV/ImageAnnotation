@@ -7,6 +7,7 @@ import {FormGroup, FormControl} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import IntroBar from './IntroBar';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 class SignUp extends Component {
 //TODO : ADD Footer information
@@ -31,6 +32,10 @@ signupUser = () =>{
     axios.post("http://192.168.1.8:8080/addusertodatabase",data)
       .then(res => { // then print response status
         //toast.success('upload success')
+        const cookies = new Cookies()
+        cookies.set('username',this.userName.value, { path: '/' })
+        console.log(cookies.get('username'))
+
         console.log("API message : ")
         console.log(res)
         console.log("result : "+res.data["message"])

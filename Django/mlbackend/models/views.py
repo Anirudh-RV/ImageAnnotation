@@ -171,7 +171,7 @@ def index(request):
 
     # draw
 
-    saveimageindjango = 'assets/'+imagename
+    saveimageindjango = 'assets/mloutput_'+username+"_"+imagename
     cv2.imwrite(saveimageindjango, img1)
     print("DONE!")
     elapsed_time = time.time() - start_time
@@ -180,7 +180,7 @@ def index(request):
     print("Sending to back end...")
     files = {'file': open(saveimageindjango, 'rb')}
     headers = {
-        'userName': 'mloutput'
+        'username': username,
     }
     response = requests.request("POST", 'http://192.168.1.8:4000/upload', files=files, headers=headers)
     print(response)

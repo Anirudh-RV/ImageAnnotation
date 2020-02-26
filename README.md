@@ -56,28 +56,38 @@ the directory of images for that particular user.
   b. corrected by subtracting 125 from final Y-value to save.
   c. Validate_Draw created
   d. A python file created to draw boxes and check if the rectangles fit.
+
 ***END OF PHASE-1***
 13. Adding ML model using Django backend (Static),Process images sent by the frontend and send output back (Dynamic)
 
 // Optional :
 6. Preprocess of images to size 512,512 / user given resolution.
 
-// TODO : (PHASE - 2)
+**// TODO : (PHASE - 2)**
 12. Make changes in the UI
   a. Change dropdown
   b. Change position of react elements
   c. complete UI overhaul
 
 14. Add download functionality for the text files/pictures saved
+15. Clean code and make code fit for production
 
-NOTE : Look at error in ***IMPORTANT*** in 308, FIX ISSUE
+***END OF PHASE-2***
 
+**// TODO : (PHASE - 3)**
+
+NOTE : Look at error in ***IMPORTANT*** NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
 NOTE : To make the website secure -
           a. Hash the passwords
           b. Hash the cookie names
           c. Hash the keywords for entry
           d. Check with the server before allowing entry
           e. Protect routes and username and information
+
+16. Deploy website
+
+***END OF PHASE-3***
+
 React redirection map : Routes set by CustomRouting file for restricted access, the routing may vary on user status.
 user status :
 1. Logged in
@@ -307,6 +317,7 @@ NOTE :
 5. Frontend can see the image processed by the ML model
 
 ***IMPORTANT***
+
 NOTE : PROBLEMS WITH ML MODEL IN PREDICTING OUTPUT FIX ASAP (FIXED)
   a. PIL image type had to be converted into numpy array for ML model to work
 
@@ -315,11 +326,8 @@ NOTE : PNG FILES NOT WORKING WITH ML OUTPUT, DIMENSIONS ARE NOT RIGHT
   b. fix the size/dimensions issue
 ***IMPORTANT***
 
-
-//TODO (PHASE-3):
-4. Continuous learning (Phase 3)
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement : 14
+to accomplish requirement : 14 (COMPLETE)
 
 14. Add download functionality for the text files/pictures saved
 
@@ -327,8 +335,22 @@ DONE:
 1. Download of a zip file containing the txt files
 2. Integrate with production
 3. Make the functionality dynamic
-
-// TODO :
 4. Download images
   a. Store the users images in separate folders inside the upload folder
   b. Have an option to download even the base images in case of remote users
+
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 15
+
+15. Clean code and make code fit for production
+
+//TODO :
+
+
+########--------------------------------------------------------------------------------------------------
+to accomplish requirement : 16
+
+16. Deploy website
+
+//TODO:
+1. Figure out how to deploy website, Maybe use docker and AWS. Try out what kubernetes has to offer.

@@ -6,7 +6,6 @@ var path=require('path');
 const bodyParser = require('body-parser')
 var zip = require('express-zip');
 const child_process = require('child_process');
-var folderpath = './public/file';
 
 var zipFolder = require('zip-folder');
 
@@ -28,20 +27,30 @@ app.use(bodyParser.json())
 // for scaling it to multiple users, send user_id to the backend and save under a new folder with the user_id name.
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public/Uploaded')
+      var fs = require('fs');
+      var dir = 'public/uploaded/'+req.headers['username'];
+      if (!fs.existsSync(dir)){
+          fs.mkdirSync(dir);
+      }
+      
+      var dir = 'public/uploaded/'+req.headers['username']+'/images';
+      if (!fs.existsSync(dir)){
+          fs.mkdirSync(dir);
+      }
+
+      cb(null,dir)
     },
     filename: function (req, file, cb) {
-      cb(null,req.headers['username']+"_"+file.originalname)
+      cb(null,file.originalname)
     }
   })
+
 var upload = multer({ storage: storage }).array('file')
 
 app.post('/saveastextfile',function(req,res){
 
-    req.body.imagedata = req.body.imagedata.replace("/|/gi",",");
-
+    var dir = 'public/uploaded/'+req.body.username+"/output";
     var fs = require('fs');
-    var dir = 'public/file/'+req.body.username;
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
@@ -55,8 +64,26 @@ app.post('/saveastextfile',function(req,res){
     return res.send(req.body.username)
 })
 
-app.post('/downloadfiles', function(req, res) {
+var folderpath = './public/uploaded';
+
+app.post('/downloadallfiles', function(req, res) {
   var userfolderpath = folderpath+"/"+req.body.username
+  console.log(req.body.username)
+  console.log(folderpath+"/"+req.body.username)
+
+   zipFolder(userfolderpath, folderpath+'/all_'+req.body.username+'.zip', function(err) {
+     if(err) {
+         console.log('error: ', err);
+     } else {
+         console.log('Done');
+     }
+   });
+   res.download(folderpath + '/all_'+req.body.username+'.zip');
+});
+
+
+app.post('/downloadfiles', function(req, res) {
+  var userfolderpath = folderpath+"/"+req.body.username+"/output"
   console.log(req.body.username)
 
   zipFolder(userfolderpath, folderpath+'/'+req.body.username+'.zip', function(err) {

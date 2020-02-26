@@ -113,7 +113,9 @@
   border:0;
   cursor:pointer;
   margin:5px;
+  outline : none;
 }
+.buttonclass:focus {outline:0 !important;}
 
 .buttonclass:hover {
     background: #16161d;

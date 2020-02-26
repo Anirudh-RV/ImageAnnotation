@@ -123,7 +123,7 @@ NextImage= () => {
   else {
     this.state.index = this.state.index + 1
     if(this.ImageTag) {
-     this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
+     this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.props.name+"/images/"+this.state.ImageNames[this.state.index];
       }
     }
   this.outputdiv.innerHTML = "";
@@ -140,7 +140,7 @@ PrevImage= () => {
   else {
   this.state.index = this.state.index - 1
   if(this.ImageTag) {
-   this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
+   this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.props.name+"/images/"+this.state.ImageNames[this.state.index];
     }
   }
   this.outputdiv.innerHTML = "";
@@ -165,8 +165,8 @@ testSaveText = () =>{
 getmloutput = () =>{
   var username = this.props.name
   var imagename = this.state.ImageNames[this.state.index]
-  var url = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index]
-  var mloutputurl = "http://192.168.1.8:4000/img/mloutput_"+imagename
+  var url = "http://192.168.1.8:4000/img/"+this.props.name+"/images/"+this.state.ImageNames[this.state.index]
+  var mloutputurl = "http://192.168.1.8:4000/img/"+this.props.name+"/images/mloutput_"+this.props.name+"_"+imagename
   var data = {'username':username,'imagename':imagename,'imageurl':url}
   axios.post("http://192.168.1.8:8000/index/",data)
     .then(res => { // then print response status
@@ -195,7 +195,8 @@ Apifuncgetimages = (userName) => {
        console.log(ImageNames)
        this.state.ImageNames = ImageNames
          if(this.ImageTag) {
-          this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.state.ImageNames[this.state.index];
+           console.log("http://192.168.1.8:4000/img/"+this.props.name+'/images/'+this.state.ImageNames[this.state.index]);
+          this.ImageTag.src = "http://192.168.1.8:4000/img/"+this.props.name+"/images/"+this.state.ImageNames[this.state.index];
        }
     })
     .catch(err => { // then print response status
@@ -213,7 +214,7 @@ downloadfiles = () =>{
         //toast.success('upload success')
         console.log(res)
         // after creating the zip file, now download
-        window.open('http://192.168.1.8:4000/file/'+this.props.name+'.zip');
+        window.open('http://192.168.1.8:4000/img/'+this.props.name+'.zip');
       })
       .catch(err => {
       // then print response status
@@ -221,6 +222,38 @@ downloadfiles = () =>{
       console.log("fail")
       console.log(err)
       })
+}
+
+wait = (ms) =>{
+var d = new Date();
+var d2 = null;
+do { d2 = new Date(); }
+while(d2-d < ms);
+}
+
+
+downloadallfiles = () =>{
+  console.log("inside the downloadallfiles function : ")
+  axios.post("http://192.168.1.8:4000/downloadallfiles/",{
+    username : this.props.name
+  })
+    .then(res => { // then print response status
+      //toast.success('upload success')
+      console.log(res)
+      // after creating the zip file, now download
+      this.wait(5000);
+      this.testall();
+    })
+    .catch(err => {
+    // then print response status
+    //  toast.error('upload fail')
+    console.log("fail")
+    console.log(err)
+    })
+}
+
+testall = () =>{
+  window.open('http://192.168.1.8:4000/img/all_'+this.props.name+'.zip');
 }
 
 componentDidMount(){
@@ -253,7 +286,8 @@ render() {
           <button className="buttonclass" onClick={this.offButton}>OFF</button>
           <button className="buttonclass" onClick={this.saveastextfile}>SAVE</button>
           <button className="buttonclass" onClick={this.getmloutput}>CHECK ML OUTPUT</button>
-          <button className="buttonclass" onClick={this.downloadfiles}>DOWNLOAD</button>
+          <button className="buttonclass" onClick={this.downloadfiles}>DOWNLOAD DATA</button>
+          <button className="buttonclass" onClick={this.downloadallfiles}>DOWNLOAD ALL</button>
 
         </div>
         <p hidden ref = {c =>this.outputdiv = c}>
