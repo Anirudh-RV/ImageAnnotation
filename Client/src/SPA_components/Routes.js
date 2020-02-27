@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
 import UploadFile from './UploadFile';
 import Home from './Home';
 import UploadMultipleFiles from './UploadMultipleFiles';
@@ -19,7 +18,6 @@ import TestDjangoApi from './TestDjangoApi';
 import TestNodeAPI from './TestNodeAPI';
 
 // Routes for the webpages in the project
-
 
 class Routes extends Component {
   render() {

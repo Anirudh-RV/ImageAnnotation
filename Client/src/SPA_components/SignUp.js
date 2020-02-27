@@ -26,20 +26,11 @@ signupUser = () =>{
     var username = this.userName.value;
     var fullname = this.fullName.value;
     var password = this.Password.value;
-    console.log("\n"+email+"\n"+username+"\n"+fullname+"\n"+password+"\n")
-    console.log("Calling GO API at 8080 : ")
     var data = email+","+username+","+fullname+","+password
     axios.post("http://192.168.1.8:8080/addusertodatabase",data)
       .then(res => { // then print response status
-        //toast.success('upload success')
         const cookies = new Cookies()
         cookies.set('username',this.userName.value, { path: '/' })
-        console.log(cookies.get('username'))
-
-        console.log("API message : ")
-        console.log(res)
-        console.log("result : "+res.data["message"])
-
         // redirect to CustomRouting with data
         this.props.history.push({
           pathname: '/customrouting',
@@ -47,8 +38,6 @@ signupUser = () =>{
       })
       })
       .catch(err => { // then print response status
-      //  toast.error('upload fail')
-      console.log("fail")
       console.log(err)
       })
 
@@ -64,13 +53,8 @@ validateEmail = (email) => {
 
 checkforexistingUsername = (field,value) =>{
   var data = field+","+value;
-  console.log("Calling GO API at 8080 : ")
   axios.post("http://192.168.1.8:8080/validateinfo",data)
     .then(res => { // then print response status
-      //toast.success('upload success')
-      console.log("API message : ")
-      console.log(res)
-      console.log("result : "+res.data["message"])
       if(res.data["message"] == "Yes"){
         // existing emailID
         this.userNameError.innerHTML = "UserName already taken, please try another.";
@@ -79,26 +63,17 @@ checkforexistingUsername = (field,value) =>{
         // EmailID,UserName,FullName,Password : good
         // call signupUser
         this.signupUser();
-
       }
-
     })
     .catch(err => { // then print response status
-    //  toast.error('upload fail')
-    console.log("fail")
     console.log(err)
     })
 }
 
 checkforexistingEmail = (field,value,username) =>{
   var data = field+","+value;
-  console.log("Calling GO API at 8080 : ")
   axios.post("http://192.168.1.8:8080/validateinfo",data)
     .then(res => { // then print response status
-      //toast.success('upload success')
-      console.log("API message : ")
-      console.log(res)
-      console.log("result : "+res.data["message"])
       if(res.data["message"] == "Yes"){
         // existing emailID
         this.emailError.innerHTML = "Already existing email, do you want to login?";
@@ -110,8 +85,6 @@ checkforexistingEmail = (field,value,username) =>{
 
     })
     .catch(err => { // then print response status
-    //  toast.error('upload fail')
-    console.log("fail")
     console.log(err)
     })
 }
@@ -124,7 +97,6 @@ handleEmail = (email,flag) => {
   }
   else{
     flag = false;
-    console.log("Email Error");
     this.emailError.innerHTML = "Invalid emailId";
   }
   return flag;
@@ -136,7 +108,6 @@ handleuserName = (username,flag) => {
   }
   else{
     flag = false;
-    console.log("userName Error");
     this.userNameError.innerHTML = "Invalid Username";
   }
   return flag;
@@ -145,11 +116,9 @@ handleuserName = (username,flag) => {
 handlefullName = (fullname,flag) => {
   if(this.len(fullname)!=0){
   this.fullNameError.innerHTML = "";
-  console.log(this.len(fullname));
   }
   else{
     flag = false;
-    console.log("fullName Error");
     this.fullNameError.innerHTML = "Please fill your name";
   }
   return flag;
@@ -158,7 +127,6 @@ handlefullName = (fullname,flag) => {
 handlePassword = (password,flag) => {
   if(this.len(password)>=6){
   this.PasswordError.innerHTML = "";
-  console.log(this.len(password));
   }
   else{
     flag = false;
@@ -177,17 +145,16 @@ handleSubmit = () =>{
   var password = this.Password.value;
   var flag = true;
 
-
-// validating email
+  // validating email
   flag = this.handleEmail(email,flag);
 
-// validating username
+  // validating username
   flag = this.handleuserName(username,flag);
 
-// validating fullName
+  // validating fullName
   flag = this.handlefullName(fullname,flag);
 
-// validating passWord
+  // validating passWord
   flag = this.handlePassword(password,flag);
 
   if(flag){
@@ -200,12 +167,10 @@ handleSubmit = () =>{
   }
 
 }
-
-  render() {
+render() {
     return (
       <div className = "BackgroundSign">
       <h1 className = "AppName" >End-to-end data curation and annotation platform</h1>
-
       <div className="Login">
         <form>
         <p class = "SignInHead">X-P1</p>
@@ -218,7 +183,6 @@ handleSubmit = () =>{
             ref = {c => this.emailId = c}
           />
         </FormGroup>
-
         <p className = "ErrorMessage" ref = {c => this.emailError = c}></p>
 
         <FormGroup controlId="Username" bsSize="large">
@@ -228,7 +192,6 @@ handleSubmit = () =>{
             ref = {c => this.userName = c}
           />
         </FormGroup>
-
         <p className = "ErrorMessage" ref = {c => this.userNameError = c}></p>
 
         <FormGroup controlId="Name" bsSize="large">
@@ -238,7 +201,6 @@ handleSubmit = () =>{
             ref = {c => this.fullName = c}
           />
         </FormGroup>
-
         <p className = "ErrorMessage" ref = {c => this.fullNameError = c}></p>
 
 
@@ -248,27 +210,24 @@ handleSubmit = () =>{
               ref = {c => this.Password = c}
               type="password"
           />
-
           <p className = "ErrorMessage" ref = {c => this.PasswordError = c}></p>
-
 
         </FormGroup>
           <Button block bsSize="large" onClick={this.handleSubmit} type="button">
             Sign up
           </Button>
-
           <p class = "Terms">By signing up, you agree to our Terms , Data Policy and Cookies Policy .</p>
         </form>
       </div>
 
       <div className="SecondBox">
-
         <p className = "LinkToAccount">  Have an account?&nbsp;
           <Link className="LinkToSignIn" to = './signin'>Log in</Link>
         </p>
       </div>
-      </div>
+    </div>
     );
   }
 }
+
 export default SignUp;

@@ -1,5 +1,5 @@
-# ImageAnnotation
-~ 1400 lines .js/.go+ 550 lines .css
+# ImageAnnotation : Application Phase-2 COMPLETE (Temporarily halted till phase-3 technology is learnt)
+LOC : 2330  
 
 To run build in production :
 serve -s build -l 3000
@@ -72,7 +72,7 @@ the directory of images for that particular user.
 14. Add download functionality for the text files/pictures saved
 15. Clean code and make code fit for production
 
-***END OF PHASE-2***
+***END OF PHASE-2*** (COMPLETED)
 
 **// TODO : (PHASE - 3)**
 
@@ -166,7 +166,6 @@ Completed :
   a. Inserting Image names into the Database
   b. Retrieving Image names from the database (One name / all the names)
   c. Retrieval must be done according to the user and only the images a particular user has uploaded.
-
 
 Work for Database:
 
@@ -325,7 +324,7 @@ NOTE : PNG FILES NOT WORKING WITH ML OUTPUT, DIMENSIONS ARE NOT RIGHT
   a. Use jpeg files or
   b. fix the size/dimensions issue
 
-NOTE : FILE BEING UPLOADED IS COLOR CORRECTED (B SPECTRUM)
+NOTE : FILE BEING UPLOADED IS COLOUR CORRECTED (BLUE SPECTRUM)
   a. Check problem with opening the image as a file
   b. Find alternative methods of sending the image to the NODE backend.
 ***IMPORTANT***
@@ -344,12 +343,9 @@ DONE:
   b. Have an option to download even the base images in case of remote users
 
 ########--------------------------------------------------------------------------------------------------
-to accomplish requirement : 15
+to accomplish requirement : 15 (COMPLETE)
 
 15. Clean code and make code fit for production
-
-//TODO :
-
 
 ########--------------------------------------------------------------------------------------------------
 to accomplish requirement : 16

@@ -100,21 +100,17 @@ testfiledownload = () =>{
     return (
       <div className="App">
       <h1>TESTING API TO NODE, check developer tools for console.</h1>
-
       <pre>
 
       </pre>
-
       <button type="button" class="btn btn-success btn-block" onClick={this.tesnodeapi}> TEST API TO NODE 1</button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testdownloadapi}> TEST DOWNLOAD OF FILE </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testdownloadzip}> TEST DOWNLOAD OF ZIP </button>
-
       <button type="button" class="btn btn-success btn-block" onClick={this.testfiledownload}> TEST DOWNLOAD OF TEXT FILES (COMPLETE) </button>
-
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>
       </div>
-
     );
   }
 }
+
 export default TestAPI;

@@ -16,7 +16,6 @@ class UploadMultipleFiles extends Component {
   }
 
 Logout = () =>{
-    console.log("inside LOGOUT")
     const cookies = new Cookies()
     cookies.remove('username');
     window.location.reload(false);
@@ -27,7 +26,7 @@ Logout = () =>{
     //define message container
     let err = []
     // list allow mime type
-   const types = ['image/png', 'image/jpeg', 'image/gif']
+    const types = ['image/png', 'image/jpeg', 'image/gif']
     // loop access array
     for(var x = 0; x<files.length; x++) {
      // compare file type find doesn't matach
@@ -79,16 +78,11 @@ return true;
       }
       fileNames = fileNames + files[files.length-1].name;
       // api call
-      console.log("Calling GO API at 8080 : ")
-      console.log(fileNames)
       axios.post("http://192.168.1.8:8080/insertimagedata",fileNames)
         .then(res => { // then print response status
-          //toast.success('upload success')
-          console.log("API message : ")
           console.log(res)
         })
         .catch(err => { // then print response status
-        //  toast.error('upload fail')
         console.log(err)
         })
 }
@@ -105,9 +99,7 @@ onChangeHandler=event=>{
 }
 
 RedirecToEditPage = () =>{
-
   var userName = this.props.location.state.userName;
-
   this.props.history.push({
     pathname: '/EditPage',
     state: {userName: this.props.location.state.userName}
@@ -117,15 +109,15 @@ RedirecToEditPage = () =>{
   onClickHandler = () => {
     const data = new FormData()
 
-// getting username from input
+    // getting username from input
     var userName = this.props.location.state.userName;
 
-// filling FormData with selectedFiles(Array of objects)
+    // filling FormData with selectedFiles(Array of objects)
     for(var x = 0; x<this.state.selectedFile.length; x++) {
       data.append('file', this.state.selectedFile[x])
     }
 
-// header carries information of username to backend with data
+    // header carries information of username to backend with data
     axios.post("http://192.168.1.8:4000/upload",data,
     {
     headers: {
@@ -138,46 +130,33 @@ RedirecToEditPage = () =>{
       },
     })
       .then(res => { // then print response status
-        //toast.success('upload success')
         this.addToBackendUsingApi(this.state.selectedFile)
-        console.log("Upload success:\n"+res)
         // redirect to WorkingArea.js for viewing images
       })
       .catch(err => { // then print response status
-      //  toast.error('upload fail')
-      console.log("Upload fail"+err)
+      console.log(err)
       })
 
     }
 
-
-    componentDidMount(){
-    // set UserName
-      console.log(this.props.location.state.userName);
-    }
-
-  render() {
+render() {
     return (
-      <div class="container">
-	      <div class="row">
-      	  <div class="offset-md-3 col-md-6">
-               <div class="form-group files">
+    <div class="container">
+	     <div class="row">
+          <div class="offset-md-3 col-md-6">
+              <div class="form-group files">
                 <label>Upload Your File </label>
                 <input id="input_upload" type="file" class="form-control" multiple onChange={this.onChangeHandler}/>
               </div>
               <div class="form-group">
-
-              <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
-
+                <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
               </div>
-
               <button type="button" class="buttonclass" onClick={this.onClickHandler}>Upload</button>
               <button type="button" class="buttonclass" onClick={this.RedirecToEditPage}>View Images</button>
               <button type="button" class="buttonclass" onClick={this.Logout}>Log out</button>
-
 	      </div>
       </div>
-      </div>
+    </div>
     );
   }
 }

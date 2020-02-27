@@ -10,7 +10,6 @@ import { DropdownMenu ,MenuItem} from 'react-bootstrap-dropdown-menu';
 import { Collapse, CardBody, Card } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 /*
 onMouseDown onMouseEnter onMouseLeave
 onMouseMove onMouseOut onMouseOver onMouseUp
@@ -27,7 +26,7 @@ const Navigationclass = () => (
  );
 
  const NavigationBarComp = () => {
-// 1st element.
+   // 1st element.
    const [isOpen1, setIsOpen1] = useState(false);
    const toggle1open = () => {
      if(isOpen1 == true)
@@ -55,7 +54,7 @@ const Navigationclass = () => (
    }
    const [collapse1, setCollapse1] = useState(false);
 
-// 2nd element.
+   // 2nd element.
    const [isOpen2, setIsOpen2] = useState(false);
    const toggle2open = () => {
      if(isOpen2 == true)
@@ -83,37 +82,35 @@ const Navigationclass = () => (
    }
    const [collapse2, setCollapse2] = useState(false);
 
-// 3rd element.
+   // 3rd element.
    const [isOpen3, setIsOpen3] = useState(false);
    const toggle3open = () => {
-  if(isOpen3 == true)
+    if(isOpen3 == true)
+      {
+        // opened already, no need to open again.
+        // to close, because it is already open.
+        setIsOpen3(false);
+      }
+      else {
+        // isOpen3 is false.
+        // need to open now.
+        setIsOpen3(true);
+      }
+    }
+    const toggle3close = () => {
+    if(isOpen3 == true)
     {
       // opened already, no need to open again.
-      // to close, because it is already open.
-
+      // need to close.
       setIsOpen3(false);
-
     }
-    else {
-      // isOpen3 is false.
-      // need to open now.
-      setIsOpen3(true);
+    else { // isOpen3 is false.
+      // closed already.
     }
-  }
-  const toggle3close = () => {
-  if(isOpen3 == true)
-  {
-    // opened already, no need to open again.
-    // need to close.
-    setIsOpen3(false);
-  }
-  else { // isOpen3 is false.
-    // closed already.
-  }
 }
-   const [collapse3, setCollapse3] = useState(false);
+    const [collapse3, setCollapse3] = useState(false);
 
-// 4th element.
+    // 4th element.
     const [isOpen4, setIsOpen4] = useState(false);
     const toggle4open = () => {
       if(isOpen4 == true)
@@ -177,29 +174,25 @@ const Navigationclass = () => (
        </Collapse>
        </li>
 
-         <li className={styles.Navielements} onClick={toggle4open} onMouseLeave = {toggle4close}>
-         <button className={styles.btnclass}>HELP</button>
-         <Collapse className={styles.collapse} isOpen={isOpen4}>
-         <ul className={styles.DropdownNavi}>
-           <li><NavLink exact activeClassName="current" to='/'>Home4</NavLink></li>
-           <li><NavLink exact activeClassName="current" to='/about'>About4</NavLink></li>
-           <li><NavLink exact activeClassName="current" to='/contact'>Contact4</NavLink></li>
-        </ul>
-         </Collapse>
-         </li>
+       <li className={styles.Navielements} onClick={toggle4open} onMouseLeave = {toggle4close}>
+       <button className={styles.btnclass}>HELP</button>
+       <Collapse className={styles.collapse} isOpen={isOpen4}>
+       <ul className={styles.DropdownNavi}>
+          <li><NavLink exact activeClassName="current" to='/'>Home4</NavLink></li>
+          <li><NavLink exact activeClassName="current" to='/about'>About4</NavLink></li>
+          <li><NavLink exact activeClassName="current" to='/contact'>Contact4</NavLink></li>
        </ul>
-
-     </nav>
-
-
+       </Collapse>
+       </li>
+      </ul>
+    </nav>
    );
  }
-   const NavigationBar = () => (
 
+const NavigationBar = () => (
+  <div>
+    <NavigationBarComp />
+  </div>
+);
 
-    <div>
-        <NavigationBarComp />
-    </div>
-   );
-
-   export default NavigationBar;
+export default NavigationBar;

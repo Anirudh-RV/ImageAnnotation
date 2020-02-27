@@ -11,28 +11,15 @@ import Cookies from 'universal-cookie';
 class Signin extends Component {
 //TODO : ADD Footer information
 
-componentDidMount(){
-// OnLoad function
-
-}
-
 handleSubmit = () =>{
-  console.log(this.usercredentials.value);
-
   var data = this.usercredentials.value+","+this.Password.value
-  console.log("inside the testApifunccheckuser function : ")
   axios.post("http://192.168.1.8:8080/authorizeuser",data)
     .then(res => { // then print response status
-      //toast.success('upload success')
-      console.log("API message : ")
-      console.log(res)
-      console.log(res.data["message"])
       if(res.data["message"] == "No"){
         this.Error.innerHTML = "UserName or Password incorrect."
       }else{
         const cookies = new Cookies()
         cookies.set('username',this.usercredentials.value, { path: '/' })
-        console.log(cookies.get('username'))
         this.props.history.push({
           pathname: '/customrouting',
           state: {usercredentials: this.usercredentials.value, checkval : res.data["message"]}
@@ -41,7 +28,6 @@ handleSubmit = () =>{
     })
     .catch(err => { // then print response status
     //  toast.error('upload fail')
-    console.log("fail")
     console.log(err)
     })
 }
@@ -50,12 +36,10 @@ handleSubmit = () =>{
     return (
       <div className = "BackgroundSign">
       <h1 className = "AppName" >End-to-end data curation and annotation platform</h1>
-
       <div className="SignIn">
         <form onSubmit={this.handleSubmit}>
         <p class = "SignInHead">X-P1</p>
         <p class = "SignUpHead">Sign In to make data collection and image annotation easier.</p>
-
           <FormGroup controlId="email" bsSize="large">
             <FormControl
               autoFocus

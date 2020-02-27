@@ -29,24 +29,18 @@ testdjangoapi = () =>{
     })
 }
 
-
-
-
-  render() {
+render() {
     return (
       <div className="App">
       <h1>TESTING API TO DJANGO, check developer tools for console.</h1>
-
       <pre>
 
       </pre>
-
       <button type="button" class="btn btn-success btn-block" onClick={this.testdjangoapi}> TEST API TO DJANGO </button>
-
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>
       </div>
-
     );
   }
 }
+
 export default TestAPI;

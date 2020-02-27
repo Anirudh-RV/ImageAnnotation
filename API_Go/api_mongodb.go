@@ -57,7 +57,6 @@ func insertsinglerecord(){
 
 func search(){
 
-
 // bson.M{} is the fiter that is being used
   filterCursor, err := collection.Find(context.TODO(), bson.M{"name": "ash"})
   if err != nil {

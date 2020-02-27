@@ -2,12 +2,12 @@ var express = require('express');
 var app = express();
 var multer = require('multer')
 var cors = require('cors');
-var path=require('path');
+var path = require('path');
 const bodyParser = require('body-parser')
 var zip = require('express-zip');
 const child_process = require('child_process');
-
 var zipFolder = require('zip-folder');
+var port = 4000;
 
 app.use(cors())
 
@@ -32,12 +32,10 @@ var storage = multer.diskStorage({
       if (!fs.existsSync(dir)){
           fs.mkdirSync(dir);
       }
-      
       var dir = 'public/uploaded/'+req.headers['username']+'/images';
       if (!fs.existsSync(dir)){
           fs.mkdirSync(dir);
       }
-
       cb(null,dir)
     },
     filename: function (req, file, cb) {
@@ -48,7 +46,6 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).array('file')
 
 app.post('/saveastextfile',function(req,res){
-
     var dir = 'public/uploaded/'+req.body.username+"/output";
     var fs = require('fs');
     if (!fs.existsSync(dir)){
@@ -58,7 +55,7 @@ app.post('/saveastextfile',function(req,res){
         if(err) {
             return console.log(err);
         }
-        console.log("The file was saved!");
+        console.log("File Saved");
     });
 
     return res.send(req.body.username)
@@ -68,9 +65,6 @@ var folderpath = './public/uploaded';
 
 app.post('/downloadallfiles', function(req, res) {
   var userfolderpath = folderpath+"/"+req.body.username
-  console.log(req.body.username)
-  console.log(folderpath+"/"+req.body.username)
-
    zipFolder(userfolderpath, folderpath+'/all_'+req.body.username+'.zip', function(err) {
      if(err) {
          console.log('error: ', err);
@@ -81,11 +75,8 @@ app.post('/downloadallfiles', function(req, res) {
    res.download(folderpath + '/all_'+req.body.username+'.zip');
 });
 
-
 app.post('/downloadfiles', function(req, res) {
   var userfolderpath = folderpath+"/"+req.body.username+"/output"
-  console.log(req.body.username)
-
   zipFolder(userfolderpath, folderpath+'/'+req.body.username+'.zip', function(err) {
     if(err) {
         console.log('error: ', err);
@@ -95,7 +86,6 @@ app.post('/downloadfiles', function(req, res) {
   });
   res.download(folderpath + '/'+req.body.username+'.zip');
 });
-
 
 app.get('/',function(req,res){
     return res.send('Hello Server')
@@ -115,6 +105,6 @@ app.post('/upload',function(req, res) {
       })
 });
 
-app.listen(4000, function() {
-    console.log('running on port: 4000');
+app.listen(port, function() {
+    console.log('running on port: '+port);
 });

@@ -9,7 +9,6 @@ class TestAPI extends Component {
 
 
 testpromises2 = () =>{
-
   var check = "";
   function one(callback) {
   return new Promise(function(resolve, reject) {
@@ -245,7 +244,6 @@ testApifuncPost = () => {
     return (
       <div className="App">
       <h1>TESTING API, check developer tools for console.</h1>
-
       <pre>
 
 
@@ -257,14 +255,12 @@ testApifuncPost = () => {
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncGet}> CALL GET </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncPut}> CALL PUT </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncDelete}>  CALL DELETE</button>
-
       <pre>
 
 
 
 
       </pre>
-
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncinsertimagedata}> CALL insertimagedata </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncgetimages}> CALL getimages </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncdeleteuser}>  DELETE USER (change name in API CALL-incode)</button>
@@ -272,7 +268,6 @@ testApifuncPost = () => {
       <button type="button" class="btn btn-success btn-block" onClick={this.testApifuncvalidateuser}>  Validate Info </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testpromises1}>  Test promises1 </button>
       <button type="button" class="btn btn-success btn-block" onClick={this.testpromises2}>  Test promises2 </button>
-
       <h1 className='name' ref = {c => this.DataRetrieved = c}></h1>
       </div>
 

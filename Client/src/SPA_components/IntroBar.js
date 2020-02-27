@@ -10,15 +10,13 @@ import { DropdownMenu ,MenuItem} from 'react-bootstrap-dropdown-menu';
 import { Collapse, CardBody, Card } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 /*
 onMouseDown onMouseEnter onMouseLeave
 onMouseMove onMouseOut onMouseOver onMouseUp
 */
 
-
  const NavigationBarComp = () => {
-// 1st element.
+   // 1st element.
    const [isOpen1, setIsOpen1] = useState(false);
    const toggle1open = () => {
      if(isOpen1 == true)
@@ -46,7 +44,7 @@ onMouseMove onMouseOut onMouseOver onMouseUp
    }
    const [collapse1, setCollapse1] = useState(false);
 
-// 2nd element.
+   // 2nd element.
    const [isOpen2, setIsOpen2] = useState(false);
    const toggle2open = () => {
      if(isOpen2 == true)
@@ -74,16 +72,14 @@ onMouseMove onMouseOut onMouseOver onMouseUp
    }
    const [collapse2, setCollapse2] = useState(false);
 
-// 3rd element.
+   // 3rd element.
    const [isOpen3, setIsOpen3] = useState(false);
    const toggle3open = () => {
   if(isOpen3 == true)
     {
       // opened already, no need to open again.
       // to close, because it is already open.
-
       setIsOpen3(false);
-
     }
     else {
       // isOpen3 is false.
@@ -104,7 +100,7 @@ onMouseMove onMouseOut onMouseOver onMouseUp
 }
    const [collapse3, setCollapse3] = useState(false);
 
-// 4th element.
+   // 4th element.
     const [isOpen4, setIsOpen4] = useState(false);
     const toggle4open = () => {
       if(isOpen4 == true)
@@ -135,10 +131,8 @@ onMouseMove onMouseOut onMouseOver onMouseUp
    return (
      <nav>
        <ul className={styles.NaviText}>
-
         <li className={styles.LogoElement}>
         <button id="btnFile" className={styles.btnclass}>X-P1</button>
-
         </li>
 
        <li className={styles.Navielements} onClick={toggle1open} onMouseLeave = {toggle1close}>
@@ -191,14 +185,13 @@ onMouseMove onMouseOut onMouseOver onMouseUp
        </ul>
 
      </nav>
-
-
    );
  }
-   const IntroBar = () => (
-    <div>
-        <NavigationBarComp />
-    </div>
-   );
+ 
+const IntroBar = () => (
+  <div>
+      <NavigationBarComp />
+  </div>
+);
 
-   export default IntroBar;
+export default IntroBar;
