@@ -1,6 +1,27 @@
 # ImageAnnotation : Application Phase-2 COMPLETE (Temporarily halted till phase-3 technology is learnt)
 LOC : 2330  
 
+LOC for ImageAnnotation : 
+main.go : 437
+CustomRouting.js : 53
+EditPage.js : 23
+Error.js : 27
+Footer.js : 14
+Home.js : 17
+IntroBar.js : 197
+Routes.js : 63
+Signin.js : 73
+SignUp.js : 233
+Test_Cookies.js : 53
+TestApi.js : 282
+TestDjango.js : 46
+TestNodeApi.js : 116
+UploadMultipleFiles.js : 164
+WorkingArea.js : 257
+Views.js : 145
+Server.js : 110
+Total : 2330
+
 To run build in production :
 serve -s build -l 3000
 
