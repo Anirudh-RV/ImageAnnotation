@@ -1,95 +1,30 @@
 # ImageAnnotation : Application Phase-2 COMPLETE (Temporarily halted till phase-3 technology is learnt)
-
 How to start the application :
 
 Reactjs : 3000
 
-cd Client
-npm start
-Go API: 8080
+cd Client npm start Go API: 8080
 
-cd API_Go
-go run main.go
-Django: 8000
+cd API_Go go run main.go Django: 8000
 
-cd pythonbackend
-cd djangobackend
-python3 manage.py runserver
-NodeServer: 4000
+cd pythonbackend cd djangobackend python3 manage.py runserver NodeServer: 4000
 
-cd NodeServer
-node server.js
-General guide : To Kill Ports : lsof -P | grep ':4000' | awk '{print $2}' | xargs kill -9
+cd NodeServer node server.js General guide : To Kill Ports : lsof -P | grep ':4000' | awk '{print $2}' | xargs kill -9
 
 Reactjs :
 
-Figure this out or copy paste previous projects
-NodeServe :
+Figure this out or copy paste previous projects NodeServe :
 
-Copy the Server.js
-Copy the pacakage-lock.json
-npm install
-Django :
+Copy the Server.js Copy the pacakage-lock.json npm install Django :
 
-django-admin startproject mysite
-cd mysite
-python3 manage.py startapp polls
-python3 manage.py runserver
-templates :
+django-admin startproject mysite cd mysite python3 manage.py startapp polls python3 manage.py runserver templates :
 
-cd polls
-mkdir templates
-touch index.html extras:
-Add static paths in settings.py
-Add the installed apps in settings.py
-Add the cross origin request
-corsheaders in installed apps http://www.srikanthtechnologies.com/blog/python/enable_cors_for_django.aspx
+cd polls mkdir templates touch index.html extras: Add static paths in settings.py Add the installed apps in settings.py Add the cross origin request corsheaders in installed apps http://www.srikanthtechnologies.com/blog/python/enable_cors_for_django.aspx
 
 LOC : 2330  
 
-LOC for ImageAnnotation :
-main.go : 437
-CustomRouting.js : 53
-EditPage.js : 23
-Error.js : 27
-Footer.js : 14
-Home.js : 17
-IntroBar.js : 197
-Routes.js : 63
-Signin.js : 73
-SignUp.js : 233
-Test_Cookies.js : 53
-TestApi.js : 282
-TestDjango.js : 46
-TestNodeApi.js : 116
-UploadMultipleFiles.js : 164
-WorkingArea.js : 257
-Views.js : 145
-Server.js : 110
-Total : 2330
-
 To run build in production :
 serve -s build -l 3000
-
-How to start the application :
-
-Reactjs : 3000
-1. cd Client
-2. npm start
-
-Go API: 8080
-1. cd API_Go
-2. go run main.go
-
-Django: 8000
-1. cd pythonbackend
-2. cd djangobackend
-3. python3 manage.py runserver
-
-NodeServer: 4000
-1. cd NodeServer
-2. node server.js
-
 
 // git :
 to check number of lines :
